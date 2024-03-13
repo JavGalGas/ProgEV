@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigNumbers", "BigNumbers\BigNumbers.csproj", "{1C17F0A4-B671-45D6-91A2-0ECAA84BDD8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C17F0A4-B671-45D6-91A2-0ECAA84BDD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C17F0A4-B671-45D6-91A2-0ECAA84BDD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C17F0A4-B671-45D6-91A2-0ECAA84BDD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C17F0A4-B671-45D6-91A2-0ECAA84BDD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50B725C3-D809-4797-9B86-6CC51E3B649B}
+	EndGlobalSection
+EndGlobal
