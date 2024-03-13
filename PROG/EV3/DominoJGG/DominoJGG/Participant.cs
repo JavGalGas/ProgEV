@@ -8,7 +8,7 @@ namespace DominoJGG
 {
     public abstract class Participant
     {
-        private List<Domino> _dominoes = new();
+        protected List<Domino> _dominoes = new();
         private string _name;
 
         public Participant(string name)
@@ -16,14 +16,13 @@ namespace DominoJGG
             _name = name;
         }
 
-        public abstract Domino ChooseDominoe();
+        public abstract Domino ChooseDomino();
 
-        public void AddDominoe(Domino domino)
+        public void AddDomino(Domino domino)
         {
             if (domino == null)
                 throw new ArgumentNullException();
             _dominoes.Add(domino);
-
         }
     }
 }

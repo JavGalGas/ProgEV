@@ -12,7 +12,7 @@ namespace DominoJGG
         {
         }
 
-        public override Domino ChooseDominoe()
+        public override Domino ChooseDomino()
         {
             throw new NotImplementedException();
         }

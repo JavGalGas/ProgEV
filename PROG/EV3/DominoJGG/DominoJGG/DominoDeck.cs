@@ -9,17 +9,18 @@ namespace DominoJGG
     public class DominoDeck
     { //Necesita métodos para comprobar qué fichas hay en el monto
         private List<Domino> _dominoes = new();
+
         public int DominoesCount { get => _dominoes.Count; }
 
         public Domino? ExtractPieceAt(int index)
         {
             if (index < 0 || index >= _dominoes.Count)
             {
-                var p = _dominoes[index];
-                _dominoes.RemoveAt(index);
-                return p;
+                return null;
             }
-            return null;
+            var p = _dominoes[index];
+            _dominoes.RemoveAt(index);
+            return p;
         }
 
         public Domino? ExtractPiece()
@@ -82,6 +83,18 @@ namespace DominoJGG
                     return i;
             }
             return -1;
+        }
+
+        public void AddDeck()
+        {
+            for (int i = 0; i <= 6; i++)
+            {
+                for (int j = i; j <= 6; j++)
+                {
+                    Domino piece = new Domino(i, j);
+                    _dominoes.Add(piece);
+                }
+            }
         }
     }
 }

@@ -12,9 +12,16 @@ namespace DominoJGG
         {
         }
 
-        public override Domino ChooseDominoe()
+        public override Domino ChooseDomino()//comprobar los valores del Array de Juego
         {
-            throw new NotImplementedException();
+            Domino piece = _dominoes[0];
+            foreach( var i in _dominoes )
+                if(i.IsDouble)
+                    return i;
+            foreach( var i in _dominoes)
+                if(piece.TotalValue < i.TotalValue)
+                    piece = i;
+            return piece;
         }
     }
 }

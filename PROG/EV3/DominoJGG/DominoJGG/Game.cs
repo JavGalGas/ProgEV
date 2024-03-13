@@ -8,23 +8,34 @@ namespace DominoJGG
 {
     public class Game
     {
-        private List<Participant> _participants;
-        private DominoDeck _gameField;
+        private List<Participant> _participants = new();
+        private Domino[] _gameField = new Domino[0];
+        private DominoDeck _gameDeck = new();
         private Participant? _winner;
 
-        public Game(List<Participant> participants, DominoDeck amountOfDominoes) 
+        public Game() 
+        { 
+            //constructor vacío si quiero ir añadiendo participantes poco a poco
+        }
+
+        public Game(List<Participant> participants) 
         { 
             _participants = participants;
-            _gameField = amountOfDominoes;
+            _gameDeck.AddDeck();
         }
+
         public void StartGame()//método para iniciar una nueva partida
         {
-            _gameField.Shuffle();
-            foreach (Participant participant in _participants)
+            _gameDeck.Shuffle();
+            while(_gameDeck.DominoesCount%_participants.Count == 0) 
             {
-                _gameField.ExtractPiece();
+                foreach(var player in _participants)
+                {
+                    player.AddDomino(_gameDeck.ExtractPiece()!);
+                }
             }
         }
+
         public void SimulateGame()
         {
             while (_participants.Count > 1)
@@ -32,6 +43,20 @@ namespace DominoJGG
                StartGame();
                 _participants.RemoveAt(0);
             } 
+        }
+
+        public void PlayRound()
+        {
+            foreach (var participant in _participants)
+            {
+                Domino playedDomino = participant.ChooseDomino();
+
+            }
+        }
+
+        public void AddParticipant(Participant player)
+        {
+            _participants.Add(player);
         }
     }
 }

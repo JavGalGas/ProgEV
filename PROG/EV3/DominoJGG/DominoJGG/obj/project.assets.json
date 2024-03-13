@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\javgalgas\\Desktop\\ExerciseMyGame\\PROG\\EV3\\DominoJGG\\DominoJGG\\DominoJGG.csproj",
+      "projectUniqueName": "C:\\Users\\javgalgas\\Desktop\\ProgEV\\PROG\\EV3\\DominoJGG\\DominoJGG\\DominoJGG.csproj",
       "projectName": "DominoJGG",
-      "projectPath": "C:\\Users\\javgalgas\\Desktop\\ExerciseMyGame\\PROG\\EV3\\DominoJGG\\DominoJGG\\DominoJGG.csproj",
+      "projectPath": "C:\\Users\\javgalgas\\Desktop\\ProgEV\\PROG\\EV3\\DominoJGG\\DominoJGG\\DominoJGG.csproj",
       "packagesPath": "C:\\Users\\javgalgas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\javgalgas\\Desktop\\ExerciseMyGame\\PROG\\EV3\\DominoJGG\\DominoJGG\\obj\\",
+      "outputPath": "C:\\Users\\javgalgas\\Desktop\\ProgEV\\PROG\\EV3\\DominoJGG\\DominoJGG\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\javgalgas\\AppData\\Roaming\\NuGet\\NuGet.Config",
