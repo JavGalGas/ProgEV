@@ -12,10 +12,11 @@ namespace DominoJGG
         private Domino[] _gameField = new Domino[0];
         private DominoDeck _gameDeck = new();
         private Participant? _winner;
+        public Participant? Winner { get => _winner; }
 
-        public Game() 
-        { 
-            //constructor vacío si quiero ir añadiendo participantes poco a poco
+        public Game() //constructor vacío si quiero ir añadiendo participantes poco a poco
+        {
+            _gameDeck.AddDeck();
         }
 
         public Game(List<Participant> participants) 

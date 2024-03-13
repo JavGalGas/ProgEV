@@ -10,19 +10,19 @@ namespace DominoJGG
     {
         protected List<Domino> _dominoes = new();
         private string _name;
-
+        public string Name { get => _name; }
         public Participant(string name)
         {
             _name = name;
         }
 
         public abstract Domino ChooseDomino();
-
         public void AddDomino(Domino domino)
         {
             if (domino == null)
                 throw new ArgumentNullException();
             _dominoes.Add(domino);
         }
+
     }
 }
