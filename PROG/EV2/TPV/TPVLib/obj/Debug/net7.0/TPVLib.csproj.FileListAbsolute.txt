@@ -1,0 +1,11 @@
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\bin\Debug\net7.0\TPVLib.deps.json
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\bin\Debug\net7.0\TPVLib.dll
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\bin\Debug\net7.0\TPVLib.pdb
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\TPVLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\TPVLib.AssemblyInfoInputs.cache
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\TPVLib.AssemblyInfo.cs
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\TPVLib.csproj.CoreCompileInputs.cache
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\TPVLib.dll
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\refint\TPVLib.dll
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\TPVLib.pdb
+C:\Users\javgalgas\Desktop\ExerciseMyGame\PROG\EV2\TPV\TPVLib\obj\Debug\net7.0\ref\TPVLib.dll
