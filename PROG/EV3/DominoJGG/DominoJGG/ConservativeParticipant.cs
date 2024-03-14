@@ -27,17 +27,12 @@ namespace DominoJGG
                         //Domino aux = _dominoes[i];
                         //_dominoes[i] = _dominoes[j];
                         //_dominoes[j] = aux;
-                        Swap(ref piece, ref piece2);
+                        Utils.Swap(ref piece, ref piece2);
                     }
                 }
             }
         }
 
-        public void Swap(ref Domino p1, ref Domino p2)
-        {
-            Domino aux = p1;
-            p1 = p2;
-            p2 = aux;
-        }
+       
     }
 }

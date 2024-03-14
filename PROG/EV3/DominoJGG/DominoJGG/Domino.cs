@@ -17,7 +17,7 @@ namespace DominoJGG
         public int TotalValue {  get => _value1 + _value2; }
         public bool IsDouble { get => _value1 == _value2; }
 
-        public Domino(int v1, int v2)
+        private Domino(int v1, int v2)
         {
             _value1 = v1;
             _value2 = v2;
@@ -36,7 +36,13 @@ namespace DominoJGG
         {
             if (other == null)
                 return false;
-            return (_value1 == other._value1 && _value2 == other._value2) || (_value1 == other._value2 && _value2 == other._value1);
+            return (_value1 == other._value1 && _value2 == other._value2) ||
+                (_value1 == other._value2 && _value2 == other._value1);
+        }
+
+        public Domino SwapValues()
+        {
+            return new Domino(Value2, Value1);
         }
     }
 }

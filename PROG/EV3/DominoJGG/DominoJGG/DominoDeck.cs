@@ -5,16 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DominoJGG
-{
+{//DominoDeck d = new DominoDeck().Fill().Shuffle();
+ //para hacer lo anterior las funciones deben devolver DominoDeck [return this]
     public class DominoDeck
     { //Necesita métodos para comprobar qué fichas hay en el monto
         private List<Domino> _dominoes = new();
 
-        public int DominoesCount { get => _dominoes.Count; }
+        public int DominoCount { get => _dominoes.Count; }
+
+        //clases basadas en listas de algo, sobreescribiendo esta property indexer ya
+        //funciona como una variable, parecida a un array
+        //public Domino? this[int index]
+        //{
+        //    get => _dominoes[index];
+        //    set => _dominoes[index] = value;
+        //}
 
         public Domino? ExtractPieceAt(int index)
         {
-            if (index < 0 || index >= _dominoes.Count)
+            if (index < 0 || index >= DominoCount)
             {
                 return null;
             }
@@ -25,7 +34,7 @@ namespace DominoJGG
 
         public Domino? ExtractPiece()
         {
-            int random = Utils.GetRandomBetween(0, _dominoes.Count - 1);
+            int random = Utils.GetRandomBetween(0, DominoCount - 1);
             return ExtractPieceAt(random);
         }
 
@@ -39,7 +48,7 @@ namespace DominoJGG
 
         public Domino? GetPieceAt(int index)
         {
-            if (index < 0 || index >= _dominoes.Count)
+            if (index < 0 || index >= DominoCount)
                 return null;
             return _dominoes[index];
         }
@@ -51,21 +60,22 @@ namespace DominoJGG
             p2 = aux;
         }
 
-        public void Shuffle()
+        public DominoDeck Shuffle()
         {
             for (int i = 0; i < _dominoes.Count; i++)
             {
-                Domino p1 = _dominoes[Utils.GetRandomBetween(0, DominoesCount - 1)];
-                Domino p2 = _dominoes[Utils.GetRandomBetween(0, DominoesCount - 1)];
+                Domino p1 = _dominoes[Utils.GetRandomBetween(0, DominoCount - 1)];
+                Domino p2 = _dominoes[Utils.GetRandomBetween(0, DominoCount - 1)];
                 Swap(ref p1, ref p2);
             }
+            return this;
         }
 
         public bool ContainsPiece(Domino piece)
         {
             if (piece == null)
                 return false;
-            for (int i = 0; i < DominoesCount; i++)
+            for (int i = 0; i < DominoCount; i++)
             {
                 if (_dominoes[i].IsEquals(piece))
                     return true;
@@ -77,7 +87,7 @@ namespace DominoJGG
         {
             if (piece == null)
                 return -1;
-            for (int i = 0; i < DominoesCount - 1; i++)
+            for (int i = 0; i < DominoCount; i++)
             {
                 if (piece.IsEquals(GetPieceAt(i)))
                     return i;
@@ -85,16 +95,17 @@ namespace DominoJGG
             return -1;
         }
 
-        public void AddDeck()
+        public DominoDeck AddDeck()
         {
             for (int i = 0; i <= 6; i++)
             {
                 for (int j = i; j <= 6; j++)
-                {
-                    Domino piece = new Domino(i, j);
+                { 
+                    Domino piece = Domino.CreatePiece(i, j)!;
                     _dominoes.Add(piece);
                 }
             }
+            return this;
         }
     }
 }

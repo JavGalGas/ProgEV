@@ -13,22 +13,27 @@ namespace DominoJGG
         private DominoDeck _gameDeck = new();
         private Participant? _winner;
         public Participant? Winner { get => _winner; }
+        public int StartField { get => _gameField[0].Value1; }
+        public int EndField { get => _gameField[_gameField.Length-1].Value1; }
 
         public Game() //constructor vacío si quiero ir añadiendo participantes poco a poco
         {
-            _gameDeck.AddDeck();
         }
 
         public Game(List<Participant> participants) 
         { 
             _participants = participants;
-            _gameDeck.AddDeck();
         }
 
         public void StartGame()//método para iniciar una nueva partida
         {
-            _gameDeck.Shuffle();
-            while(_gameDeck.DominoesCount%_participants.Count == 0) 
+            _gameField = new Domino[0];
+            foreach (var participant in _participants)
+            {
+                participant.Clear();
+            }
+            _gameDeck.AddDeck().Shuffle();
+            while(_gameDeck.DominoCount%_participants.Count == 0) 
             {
                 foreach(var player in _participants)
                 {
@@ -43,11 +48,20 @@ namespace DominoJGG
 
         public void SimulateGame()
         {
+            int round = 1;
             while (_participants.Count > 1)
             {
+                for(int i = 0; i < _participants.Count; i++)
+                {
+                    if(_participants[i].GetDominoes().Count == 0) 
+                    {
+                        
+                    }
+                }
                 StartGame();
                 PlayRound();
                 _participants.RemoveAt(0);
+                round++;
             }
             _winner = _participants[0];
         }
