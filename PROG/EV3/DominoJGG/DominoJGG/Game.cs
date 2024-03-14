@@ -35,23 +35,42 @@ namespace DominoJGG
                     player.AddDomino(_gameDeck.ExtractPiece()!);
                 }
             }
+            foreach (var player in _participants)
+            {
+                player.Sort();
+            }
         }
 
         public void SimulateGame()
         {
             while (_participants.Count > 1)
             {
-               StartGame();
+                StartGame();
+                PlayRound();
                 _participants.RemoveAt(0);
-            } 
+            }
+            _winner = _participants[0];
         }
 
         public void PlayRound()
         {
+            int position = -1;
+            int length = _gameField.Length;
+            int newLength = length +1;
             foreach (var participant in _participants)
             {
-                Domino playedDomino = participant.ChooseDomino();
-
+                Domino? playedDomino = participant.ChooseDomino(_gameField, out position);
+                if (playedDomino == null || position == -1)
+                    continue;
+                Domino[] newField = new Domino[newLength];
+                newField[position] = playedDomino;
+                for (int i = 0; i < newLength; i++)
+                {
+                    if (newField[0] == playedDomino)
+                        continue;
+                    newField[i] = _gameField[i];
+                }
+                _gameField = newField;  
             }
         }
 

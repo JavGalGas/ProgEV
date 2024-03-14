@@ -15,7 +15,7 @@
             game.AddParticipant(player4);
             game.StartGame();
             game.SimulateGame();
-            Console.WriteLine($"¡Felicidades! El ganador es el jugador {game.GetWinner()!.Name}.");
+            Console.WriteLine($"¡Felicidades! El ganador es el jugador {game.Winner!.Name}.");
             Console.ReadLine();
         }
     }
