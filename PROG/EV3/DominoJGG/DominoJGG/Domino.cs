@@ -14,7 +14,13 @@ namespace DominoJGG
         public int Value1 { get => _value1; }
         public int Value2 { get => _value2; }
 
-        public int TotalValue {  get => _value1 + _value2; }
+        public int TotalValue 
+        { 
+            get 
+            { 
+                return (IsDouble) ? (_value1 + _value2)*2 : _value1 + _value2; 
+            }  
+        }
         public bool IsDouble { get => _value1 == _value2; }
 
         private Domino(int v1, int v2)

@@ -25,7 +25,7 @@ namespace DominoJGG
             _participants = participants;
         }
 
-        public void StartGame()//método para iniciar una nueva partida
+        private void StartGame()//método para iniciar una nueva partida
         {
             _gameField = new Domino[0];
             foreach (var participant in _participants)
@@ -51,22 +51,57 @@ namespace DominoJGG
             int round = 1;
             while (_participants.Count > 1)
             {
-                for(int i = 0; i < _participants.Count; i++)
-                {
-                    if(_participants[i].GetDominoes().Count == 0) 
-                    {
-                        
-                    }
-                }
                 StartGame();
                 PlayRound();
-                _participants.RemoveAt(0);
+                CheckRound();
                 round++;
             }
             _winner = _participants[0];
         }
 
-        public void PlayRound()
+        private void CheckRound()
+        {
+            for (int i = 0; i < _participants.Count; i++)
+            {
+                if (_participants[i].GetDominoes().Count == 0)
+                {
+                    RemoveLoser();
+                    break;
+                }
+            }
+        }
+
+        private int GetLoser()
+        {
+            int loserHandValue = _participants[0].GetHandValue();
+            int loserindex =0;
+            for (int i = 0; i < _participants.Count; i++)
+            {
+                if (loserHandValue < _participants[i].GetHandValue())
+                {
+                    loserHandValue = _participants[i].GetHandValue();
+                    loserindex = i;
+                }
+            }
+            return loserindex;
+            
+        }
+
+        private void RemoveLoser()
+        {
+            int loserindex = GetLoser();
+            int loserHandValue = _participants[loserindex].GetHandValue();
+            for (int i = 0; i < _participants.Count; i++)
+            {
+                if (loserHandValue == _participants[i].GetHandValue())
+                {
+                    return;
+                }
+            }
+            _participants.RemoveAt(loserindex);
+        }
+
+        private void PlayRound()
         {
             int position = -1;
             int length = _gameField.Length;
@@ -90,6 +125,8 @@ namespace DominoJGG
 
         public void AddParticipant(Participant player)
         {
+            if (player == null)
+                return;
             _participants.Add(player);
         }
     }
