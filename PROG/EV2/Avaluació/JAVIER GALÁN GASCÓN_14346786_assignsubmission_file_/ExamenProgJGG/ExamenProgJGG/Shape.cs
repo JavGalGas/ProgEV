@@ -1,49 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Examen2
+﻿namespace Examen3
 {
     public abstract class Shape : IShape
     {
-        protected string name;
-        private Color color;
+        protected string _name;
+        private Color _color;
+        public string Name { get => _name; set => SetName(value); }
+        public Color Color { get => _color; set => SetColor(value); }
+
+        // Javi: No es lo que pedía, ..., pero lo acepto
+        public abstract bool HasArea { get; }
+
+        public abstract double Area { get; }
+
+        public abstract double Perimeter { get; }
+
+        public abstract Point2D Center { get; }
+
+        public abstract Rect2D Rect { get; }
 
         public Shape(string name, Color color)
         {
-            this.name = name;
-            this.color = color;
+            _name = name;
+            _color = color;
         }
 
-        public string Name 
+        public void SetName(string name) 
         {
-            get => name;
-            set => name = value;
+            _name = name;
         }
-        public Color Color 
+        public void SetColor(Color color)
         {
-            get => color;
-            set => color = value;
+            _color = color;
         }
-
-        public bool HasArea => ShapeHasArea();
-
-        public double Area => GetArea();
-
-        public double Perimeter => GetPerimeter();
-
-        public Point2D Center => GetCenter();
-
-        public Rect2D Rect => GetRect();
-
-        public abstract void Draw(ICanvas canvas);
-
-        public abstract bool ShapeHasArea();
-        public abstract double GetArea();
-        public abstract double GetPerimeter();
-        public abstract Point2D GetCenter();
-        public abstract Rect2D GetRect();
+        public virtual void Draw(ICanvas canvas)
+        {
+            if (canvas != null && _color != null)
+                canvas.SetColor(_color);
+        }
     }
 }

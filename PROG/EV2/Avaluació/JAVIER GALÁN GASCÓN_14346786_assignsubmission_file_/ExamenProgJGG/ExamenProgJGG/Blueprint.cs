@@ -1,47 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Examen2
+﻿namespace Examen3
 {
     public class Blueprint : IBlueprint
     {
-        public List<IShape> shapes = new List<IShape>();
+        private List<IShape> _shape = new List<IShape>();
+        public IShape GetShapeWithName(string name)
+        {
+            if (name == null)
+                throw new Exception("El nombre que se introdujo es nulo");
+            for (int i = 0; i < _shape.Count - 1; i++)
+            {
+                IShape shape = _shape[i];
+                if (shape.Name.Equals(name))
+                    return shape;
+            }
+            // Javi: Bueno, yo devolvería un null
+            throw new Exception("El nombre que se introdujo no fue encontrado");
+        }
 
+        public void RemoveShapeWhithName(string name)
+        {
+            if (name == null)
+                throw new Exception("El nombre que se introdujo es nulo");
+            for (int i = 0; i < _shape.Count - 1; i++)
+            {
+                IShape shape = _shape[i];
+                if (shape.Name.Equals(name))
+                    _shape.RemoveAt(i);
+                // Javi: i--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            }
+        }
         public void AddShape(IShape shape)
         {
-            shapes.Add(shape);
+            if (shape == null)
+                return;
+            _shape.Add(shape);
         }
 
         public void Draw(ICanvas canvas)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<IShape> GetShapes(IBlueprint.FilterDelegate del)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IShape? GetShapeWithName(string name)
-        {
-            for (int i = 0; i < shapes.Count; i++)
+            if (canvas == null)
+                return;
+            for(int i = 0 ; i < _shape.Count -1; i++)
             {
-                if (shapes[i].Name == name)
-                    return shapes[i];
+                IShape shape = _shape[i];
+                shape.Draw(canvas);
             }
-            return null;
         }
 
-        public void RemoveShapeWithName(string name)
+        public List<IShape> GetShapes(FilterDelegate del)
         {
-            foreach (IShape shape in shapes)
+            List<IShape> shapes = new List<IShape>();
+            if (del == null)
+                return shapes;
+            for (int i = 0; i < _shape.Count - 1; i++)
             {
-                if(shape.Name == name)
-                    shapes.Remove(shape);
+                IShape shape = _shape[i];
+                bool comprobation = del(shape);
+                if (comprobation)
+                    shapes.Add(shape);
             }
+            return shapes;
         }
     }
 }

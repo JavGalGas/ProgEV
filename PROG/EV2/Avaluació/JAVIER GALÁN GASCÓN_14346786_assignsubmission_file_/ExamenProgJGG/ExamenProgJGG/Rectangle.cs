@@ -1,77 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Examen2
+﻿namespace Examen3
 {
     public class Rectangle : Shape
     {
-        private Rect2D rect;
-        public Rectangle(Rect2D rect, string name, Color color) : base(name, color)
+        public double MinX;
+        public double MinY;
+        public double MaxX;
+        public double MaxY;
+
+        public override bool HasArea => Area > 0;
+
+        public override double Area => GetArea();
+
+        public override double Perimeter => MinY + MaxY + MaxX + MinX;
+
+        public override Point2D Center => GetCenter();
+
+        public override Rect2D Rect => GetRect();
+
+
+        public Rectangle(string name, Color color, double MinX, double MinY, double MaxX, double MaxY) : base(name, color)
         {
-            this.rect = rect;
+            this.MinY = MinY;
+            this.MaxY = MaxY;
+            this.MaxX = MaxX;
+            this.MinX = MinX;
         }
 
-        public override void Draw(ICanvas canvas)
+        // Javi: La esquina es un punto
+        public double GetEsquina(double index)
         {
-            canvas.SetColor(Color);
+            if (index == MinY)
+                return MinY;
+            if (index == MinX)
+                return MinX;
+            if (index == MaxY)
+                return MaxY;
+            if (index == MaxX)
+                return MaxX;
+            return -1.0;
         }
-
-        public override double GetArea()
+        public double GetArea()
         {
-            return rect.Area;
+            return (MaxX * MaxY);
         }
-
-        public override Point2D GetCenter()
+        public Point2D GetCenter()
         {
-            return rect.Center;
-        }
-
-        public override double GetPerimeter()
-        {
-            double segment1 = rect.MaxX - rect.MinX;
-            double segment2 = rect.MaxY - rect.MinY;
-            return 2*segment1 + 2*segment2;
-        }
-
-        public override Rect2D GetRect()
-        {
-            return rect;
-        }
-
-        public override bool ShapeHasArea()
-        {
-            return true;
-        }
-
-        public Point2D? GetBorder(int index) 
-        {
-            if (index < 0 || index >= 3)
-                return null;
-            Point2D result = new Point2D();
-            if (index == 0)
+            return new Point2D()
             {
-                result.X = rect.MinX;
-                result.Y = rect.MaxY;
-            }
-            else if (index == 1)
+                X = (MaxX - MinX),
+                Y = (MaxY - MinY)
+            };
+        }
+        public Rect2D GetRect()
+        {
+            return new Rect2D()
             {
-                result.X = rect.MaxX;
-                result.Y = rect.MaxY;
-            }
-            else if (index == 2)
-            {
-                result.X = rect.MinX;
-                result.Y = rect.MinY;
-            }
-            else if (index == 3)
-            {
-                result.X = rect.MaxX;
-                result.Y = rect.MinY;
-            }
-            return result;
+               MinY = MinY + 1,
+               MaxY = MaxY + 1,
+               MinX = MinX + 1,
+               MaxX = MaxX + 1,
+            };
         }
     }
 }

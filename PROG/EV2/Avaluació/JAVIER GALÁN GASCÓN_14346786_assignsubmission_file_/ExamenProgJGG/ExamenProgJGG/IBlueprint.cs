@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Examen2
+﻿namespace Examen3
 {
+    public delegate bool FilterDelegate(IShape shape);
     public interface IBlueprint
     {
-        public delegate bool FilterDelegate(IShape shape);
-        public void AddShape(IShape shape);
-        public void RemoveShapeWithName(string name);
-        public IShape? GetShapeWithName(string name);
-        public List<IShape>? GetShapes(FilterDelegate del);
-        public void Draw(ICanvas canvas);
+        void AddShape(IShape shape);
+        void RemoveShapeWhithName(string name);
+        IShape GetShapeWithName(string name);
+        List<IShape> GetShapes(FilterDelegate del);
+        void Draw(ICanvas canvas);
     }
 }

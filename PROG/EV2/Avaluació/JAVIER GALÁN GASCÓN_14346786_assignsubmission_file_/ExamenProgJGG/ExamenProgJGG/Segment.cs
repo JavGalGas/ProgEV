@@ -1,76 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Examen2
+﻿namespace Examen3
 {
     public class Segment : Shape
     {
-        private Point2D point1;
-        private Point2D point2;
-        public Segment(Point2D point1, Point2D point2, string name, Color color) : base(name, color)
+        public Point2D MinP = new Point2D();
+        public Point2D MaxP = new Point2D();
+        public override bool HasArea => false;
+
+        public override double Area => 0;
+
+        public override double Perimeter => GetPerimeter();
+
+        public override Point2D Center => GetCenter();
+
+        public override Rect2D Rect => GetRect();
+
+        public Segment(string name, Color color) : base(name, color)
         {
-            this.point1 = point1;
-            this.point2 = point2;
         }
 
-        public override void Draw(ICanvas canvas)
+        public double GetPerimeter()
         {
-            canvas.SetColor(Color);
+            return Utils.GetDistance(MinP, MaxP);
         }
-
-        public override double GetArea()
+        public Point2D GetCenter()
         {
-            return 0;
-        }
-
-        public override Point2D GetCenter()
-        {
-            Point2D center = new Point2D();
-            center.X = point2.X-point1.X;
-            center.Y = point2.Y-point1.Y;
-            return point1;
-        }
-
-        public override double GetPerimeter()
-        {
-            Point2D[] points = new Point2D[2];
-            points[0] = point1;
-            points[1] = point2;
-            return Utils.GetPerimeter(points);
-        }
-
-        public override Rect2D GetRect()
-        {
-            Rect2D rect = new Rect2D();
-            if(point1.X < point2.X)
+            return new Point2D()
             {
-                rect.MinX = point1.X;
-                rect.MaxX = point2.X;
-            }
-            else
-            {
-                rect.MinX = point2.X;
-                rect.MaxX = point1.X;
-            }
-            if (point1.Y < point2.Y)
-            {
-                rect.MinY = point1.Y;
-                rect.MaxY = point2.Y;
-            }
-            else
-            {
-                rect.MaxY = point1.Y;
-                rect.MinY = point2.Y;
-            }
-            return rect;
+                X = MaxP.X - MinP.X,
+                Y = MaxP.Y - MinP.Y,
+            };
         }
-
-        public override bool ShapeHasArea()
+        public Rect2D GetRect()
         {
-            return false;
+            return new Rect2D()
+            {
+                MinX = MinP.X,
+                MaxX = MaxP.X,
+                MinY = MinP.Y,
+                MaxY = MaxP.Y
+            };
         }
     }
 }

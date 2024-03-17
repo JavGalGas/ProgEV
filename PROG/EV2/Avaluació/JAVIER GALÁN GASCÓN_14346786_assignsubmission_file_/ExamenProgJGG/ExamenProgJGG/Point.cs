@@ -4,49 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Examen2
+namespace Examen3
 {
     public class Point : Shape
     {
-        Point2D point;
-        public Point(Point2D point,string name, Color color) : base(name, color)
+        public double X, Y;
+        public override bool HasArea => Area > 0;
+
+        public override double Area =>0;
+
+        public override double Perimeter => 0;
+
+        public override Point2D Center => new Point2D()
         {
-            this.point = point;
+            X = this.X,
+            Y = this.Y,
+        };
+
+        public override Rect2D Rect => new Rect2D()
+        {
+            MinY = Y - 1,
+            MaxY = Y + 1,
+            MinX = X - 1,
+            MaxX = X + 1,
+        };
+        public Point(string name, Color color) : base(name, color)
+        {
         }
 
-        public override void Draw(ICanvas canvas)
-        {
-            canvas.SetColor(Color);
-        }
 
-        public override double GetArea()
-        {
-            return 0;
-        }
-
-        public override Point2D GetCenter()
-        {
-            return point;
-        }
-
-        public override double GetPerimeter()
-        {
-            return 0;
-        }
-
-        public override Rect2D GetRect()
-        {
-            Rect2D rect = new Rect2D();
-            rect.MinX = point.X;
-            rect.MinY = point.Y;
-            rect.MaxX = point.X;
-            rect.MaxY = point.Y;
-            return rect;
-        }
-
-        public override bool ShapeHasArea()
-        {
-            return false;
-        }
     }
 }

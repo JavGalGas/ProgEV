@@ -1,70 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Examen2
+﻿namespace Examen3
 {
     public class Utils
     {
-
         public static double GetDistance(Point2D a, Point2D b)
         {
-            return (a == null || b == null) ? 0 : Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            if (a == null && b == null) 
+                return 0;
+            double ax = a.X - b.X;
+            double ay = a.Y - b.Y;
+            double raiz = Math.Sqrt(ax * ax + ay * ay);
+          
+            return raiz;
         }
 
         public static Rect2D GetBoundingBox(Point2D[] points)
         {
-            if(points == null)
-                return new Rect2D();
-            Rect2D BoundingBox = new Rect2D();
-            double minX = points[0].X;
-            double minY = points[0].Y;
-            double maxX = points[0].X;
-            double maxY = points[0].Y;
-            for (int i = 1; i < points.Length; i++)
+            Rect2D rect = new Rect2D();
+            if (points == null)
+                return rect;
+            if (points.Length == 0)
+                return rect;
+            for (int i = 0; i < points.Length - 1; i++) 
             {
-                if (points[i].X < minX) minX = points[i].X;
-                if (points[i].Y < minY) minY = points[i].Y;
-                if (points[i].X > maxX) maxX = points[i].X;
-                if (points[i].Y > maxY) maxY = points[i].Y;
+                Point2D pt = points[i];
+                Point2D pt2 = points[i + 1];
+                if (pt == null || pt2 == null) 
+                    continue;
+                // Javi: Esto está mal
+                if (pt.X > pt2.X)
+                    rect.MinX = pt2.X;
+                if (pt.X < pt2.X)
+                     rect.MaxX = pt2.X;
+                if (pt.Y > pt2.Y )
+                     rect.MinY = pt2.Y;
+                 if (pt.Y < pt2.Y)
+                     rect.MaxY = pt2.Y;
             }
-            BoundingBox.MinX= minX;
-            BoundingBox.MinY= minY;
-            BoundingBox.MaxX= maxX;
-            BoundingBox.MaxY= maxY;
-            return BoundingBox;
+            return rect;
         }
-
         public static double GetArea(Point2D[] points)
         {
-            if (points == null)
-                return 0;
             double area = 0;
-            int lastPosition = points.Length -1;
-
-            for (int i = 0; i < lastPosition; i++)
+            for (int i = 0;i < points.Length - 1;i++) 
             {
-                int j = i + 1;
-                area += (points[i].Y+points[j].Y)* (points[i].X - points[j].X);
+                Point2D pt = points[i];
+                Point2D pt2 = points[i + 1];
+                if (pt == null || pt2 == null)
+                    continue;
+                area += (pt.Y + pt2.Y) * (pt.X - pt2.X);  
             }
-            area += (points[lastPosition].Y + points[0].Y) * (points[lastPosition].X - points[0].X);
-            return area/2;
+            area += (points[points.Length - 1].Y + points[0].Y) * (points[points.Length - 1].X - points[0].X);
+            return area = area * 0.5;
         }
-        public static double GetPerimeter(Point2D[] points)
+        public static double GetPerimeter(Point2D[] points) 
         {
-            if (points == null)
-                return 0;
-            double perimeter = 0;
-            int lastPosition = points.Length - 1;
-            for (int i = 0; i <lastPosition; i++)
+            double area = 0;
+            for (int i = 0; i < points.Length - 1; i++)
             {
-                int j = i + 1;
-                perimeter += GetDistance(points[i], points[j]);
+                Point2D pt = points[i];
+                Point2D pt2 = points[i + 1];
+                if (pt == null || pt2 == null)
+                    continue;
+                // Javi: Mal
+                area += (pt.X + pt2.X) + (pt.Y + pt2.Y);
             }
-            perimeter += GetDistance(points[lastPosition], points[0]);
-            return perimeter;
-        }
+            return area;
+        } 
+
+
     }
 }

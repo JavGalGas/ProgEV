@@ -1,54 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Examen2
+﻿namespace Examen3
 {
     public class Circle : Shape
     {
-        private Point2D _center;
-        private double Radio {get; set;}
-        public Circle(Point2D point, double radio, string name, Color color) : base(name, color)
+        public double Radio {  get; set; }
+        public override bool HasArea => Area > 0;
+
+        public override double Area => GetArea();
+
+        public override double Perimeter => GetPerimeter();
+
+        public override Point2D Center => GetCenter();
+
+        public override Rect2D Rect => throw new NotImplementedException();
+
+        public Circle(string name, Color color) : base(name, color)
         {
-            _center = point;
-            Radio = radio;
         }
 
-        public override void Draw(ICanvas canvas)
+        public double GetArea()
         {
-            canvas.SetColor(Color);
+            return Math.PI * (Radio * Radio);
         }
-
-        public override double GetArea()
+        public double GetPerimeter()
         {
-            return Math.PI * Math.Pow(Radio,2);
+            return 2* Math.PI * (Radio * Radio);
         }
-
-        public override Point2D GetCenter()
+        public Point2D GetCenter()
         {
-            return _center;
+            // Javi: Mal
+            return new Point2D()
+            {
+                X = 0,
+                Y = Radio
+            };
         }
-
-        public override double GetPerimeter()
+        public Rect2D GetRect() 
         {
-            return 2*Math.PI*Radio;
+            // Javi: Cálculos erróneos
+            return new Rect2D()
+            {
+                MinX = (Radio * Math.PI)/3,
+                MaxX = Radio,
+                MinY = 0,
+                MaxY = (Radio * Math.PI)/2
+            };
         }
-
-        public override Rect2D GetRect()
-        {
-            Rect2D rect = new Rect2D();
-            rect.MinX = _center.X-Radio;
-            rect.MinY = _center.Y-Radio;
-            rect.MaxX = _center.X+Radio;
-            rect.MaxY = _center.Y+Radio;
-            return rect;
-        }
-
-        public override bool ShapeHasArea()
-        {
-            return true;
-        }
+        
     }
 }
