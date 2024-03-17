@@ -8,19 +8,29 @@ namespace AutosLocosJGG
 {
     public class Bomb : Obstacle
     {
-        private bool HasExploded = false;
-        public Bomb(string name, double position) : base(name, position)
+        private bool HasNotExploded = true;
+        private int timer;
+        public Bomb(string name, int time) : base(name)
         {
-
+            timer = time;
         }
         public override void Simulate(IRace race)
         {
-            throw new NotImplementedException();
+            race.VisitCars(car =>
+            {
+                if (timer == 0)
+                    if (car.Position >= position - 70 || car.Position <= position + 70)
+                    {
+                        car.SetPosition(car.Position - Utils.GetRandomBetween(-50,50));
+                        HasNotExploded = false;
+                    }           
+            });
+            timer--;
         }
 
         public override bool GetIfIsAlive()
         {
-            return HasExploded;
+            return HasNotExploded;
         }
     }
 }

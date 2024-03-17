@@ -24,5 +24,6 @@ namespace AutosLocosJGG
         void VisitObjects(VisitObjectDelegate<RaceObject> visit);
         int GetObjectCount();
         RaceObject? GetObjectAt(int index);
+        int IndexOf(RaceObject obj);
     }
 }

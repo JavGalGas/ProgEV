@@ -8,15 +8,18 @@ namespace AutosLocosJGG
 {
     public class Puddle : Obstacle
     {
-        public Puddle(string name, double position) : base (name, position)
+        public Puddle(string name) : base(name)
         { 
         }
 
         public override void Simulate(IRace race)
         {
-            
-
-
+            race.VisitCars(car =>
+            {
+                if (car.Position >= position - 20 || car.Position <= position + 20)
+                    if (Utils.ActivateWithProbability(0.2))
+                        car.Disable((int)Utils.GetRandomBetween(0,3));
+            });
         }
     }
 }

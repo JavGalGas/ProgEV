@@ -15,12 +15,11 @@ namespace AutosLocosJGG
     {
         private string _name = "";
         protected double position;
-        private int _disabledTurns;
+        protected int disabledTurns;
 
-        protected RaceObject(string name, double position)
+        protected RaceObject(string name)
         {
             _name = name;
-            this.position = position;
         }
 
         public abstract bool IsAlive { get; }
@@ -30,25 +29,29 @@ namespace AutosLocosJGG
         public abstract ObjectType GetObjectType();
         public virtual void Disable(int turns)
         {
-            _disabledTurns += turns;
-            if (_disabledTurns > 0)
-            {
-                /*...*/
-                _disabledTurns--;
-            }
+            if(disabledTurns < 0)
+                return;
+            disabledTurns += turns;
         }
         public virtual void Simulate(IRace race)
         {
             //ver como hacer bien esta función
         }
 
-        public virtual bool ActivateWithProbability(Random random, double probability)
+        public override bool Equals(object? obj)
         {
-            // Genera un número aleatorio entre 0 y 1
-            double randomNumber = random.NextDouble();
+            if (this == obj)
+                return true;
+            if (obj is not RaceObject)
+                return false;
+            RaceObject s = (RaceObject)obj;
+            return s.Name == Name;
+        }
 
-            // Compara con la probabilidad deseada
-            return randomNumber < probability;
+        // Sobrescribe el método GetHashCode para cumplir con las recomendaciones de diseño
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

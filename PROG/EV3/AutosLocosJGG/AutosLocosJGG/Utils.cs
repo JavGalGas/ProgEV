@@ -15,5 +15,15 @@ namespace AutosLocosJGG
             double dif = max - min + 1;
             return min + (r.NextDouble() % dif);
         }
+
+        public static bool ActivateWithProbability(double probability)
+        {
+            Random random = new Random();
+            // Genera un número aleatorio entre 0 y 1
+            double randomNumber = random.NextDouble();
+
+            // Compara con la probabilidad deseada
+            return randomNumber < probability;
+        }
     }
 }

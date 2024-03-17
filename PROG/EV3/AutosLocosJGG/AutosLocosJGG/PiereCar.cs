@@ -8,8 +8,50 @@ namespace AutosLocosJGG
 {
     public class PiereCar : Car
     {
-        public PiereCar(string name, double position, double finetunningValue) : base(name, position, finetunningValue)
+        private int _traps;
+        public PiereCar(string name) : base(name)
         {
+            driver = new Human();
+            copilot = new Animal();
+            _traps = (int)Utils.GetRandomBetween(10, 20);
+        }
+
+        public override void Simulate(IRace race)
+        {
+            if (disabledTurns > 0)
+            {
+                disabledTurns--;
+                return;
+            }
+            SetPosition(Position + 18 + driver!.GetVelocityExtra() + boost);
+            if(copilot != null)
+            {
+                SetPosition(Position + copilot!.GetVelocityExtra());
+            }
+            if (Utils.ActivateWithProbability(0.5))
+                SetTrap(race);
+            boost += finetunning;
+        }
+
+        private void SetTrap(IRace race)
+        {
+            double thresshold = Position;
+            double savedPosition = 0.0;
+            int index = 0;
+            race.VisitCars(car =>
+            {
+                if (car.Position < thresshold && car.Position > savedPosition)
+                {
+                    index = race.IndexOf(car);
+                    savedPosition = car.Position;
+                }
+            });
+            if(Utils.ActivateWithProbability(0.3))
+                race.GetObjectAt(index)!.Disable(1);
+            else
+            {
+                copilot = null;
+            }
         }
     }
 }

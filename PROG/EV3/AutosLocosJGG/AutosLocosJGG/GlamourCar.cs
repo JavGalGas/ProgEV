@@ -8,10 +8,20 @@ namespace AutosLocosJGG
 {
     public class GlamourCar : Car
     {
-        Driver driver = new Human();
-
-        public GlamourCar(string name, double position, double finetunningValue) : base(name, position, finetunningValue)
+        public GlamourCar(string name) : base(name)
         {
+            driver = new Human();
+        }
+
+        public override void Simulate(IRace race)
+        {
+            if (disabledTurns > 0)
+            {
+                disabledTurns--;
+                return;
+            }
+            SetPosition(Position + 20 + driver!.GetVelocityExtra() + boost);
+            boost += finetunning;
         }
     }
 }

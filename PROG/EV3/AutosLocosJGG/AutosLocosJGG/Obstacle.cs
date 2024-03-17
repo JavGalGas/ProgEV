@@ -8,7 +8,7 @@ namespace AutosLocosJGG
 {
     public class Obstacle : RaceObject
     {
-        public Obstacle(string name, double position) : base(name,position) 
+        public Obstacle(string name) : base(name) 
         { 
         } 
         public override bool IsAlive => GetIfIsAlive();//buscar la forma de implementar bien la property
