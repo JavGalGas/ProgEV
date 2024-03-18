@@ -21,11 +21,11 @@ namespace AutosLocosJGG
                 disabledTurns--;
                 return;
             }
-            SetPosition(Position + 10 + driver!.GetVelocityExtra() +copilot!.GetVelocityExtra()+ boost);
+            SetCarPosition(Position + 10 + driver!.GetVelocityExtra() +copilot!.GetVelocityExtra()+ boost);
             if(Utils.ActivateWithProbability(0.3))
             {
                 if (Utils.ActivateWithProbability(0.4))
-                    SetPosition(Position + 20);
+                    SetCarPosition(Position + 20);
                 if (Utils.ActivateWithProbability(0.2))
                     Disable(1);
             }

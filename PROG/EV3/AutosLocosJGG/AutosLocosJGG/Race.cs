@@ -11,14 +11,43 @@ namespace AutosLocosJGG
     {
         private List<RaceObject> _raceObjects = new List<RaceObject>();
         private double _distance;
-        private RaceObject[]? _winner;
+        private RaceObject[] _winners = new RaceObject[0];
+        private int _turn = 0;
+
+        public void PrintWinners() 
+        {
+            if (_winners.Length < 1 )
+            {
+                return;
+            }
+            string message = "";
+            if (_winners.Length > 1 )
+            {
+                message = "Los participantes ";
+                for (int i = 0; i < _winners.Length; i++)
+                {
+                    message += _winners[i].Name;
+                    if (i < _winners.Length - 2)
+                        message += ", ";
+                    if (i == _winners.Length - 2)
+                        message += " y ";
+                }
+                message += " son los ganadores de esta carrera.";
+            }
+            else
+            {
+                message = $"El participante {_winners[0].Name} es el ganador de esta carrera";
+            }
+            
+            Console.WriteLine(message);
+        }
         public void AddObject(RaceObject? obj, double position)
         {
             if (obj == null || position < 0) 
             {
                 return;
             }
-            //obj. = position; < --Asignar la posición al RaceObject
+            obj.SetObjectPosition(position);
             _raceObjects.Add(obj);
         }
 
@@ -50,26 +79,28 @@ namespace AutosLocosJGG
         {
             if(distance <= 0)
                 return;
-            foreach(Obstacle obj in _raceObjects)
+
+            VisitObstacles(obstacle =>
             {
-                if(obj.Position > distance)
+                if (obstacle.Position > distance)
                 {
-                    return;
+                    _raceObjects.RemoveAt(IndexOf(obstacle));
                 }
-            }
+            });
 
             _distance = distance;
+            _turn = 0;
 
             VisitCars(car =>
             {
-                car.SetPosition(0.0);
+                car.SetCarPosition(0.0);
             });
             //foreach(Car car in _raceObjects)
             //{
             //    car.SetPosition(0.0);
             //}
 
-            while (_winner == null)
+            while (_winners.Length <= 0)
             {
                 SimulateStep();
             }
@@ -77,10 +108,22 @@ namespace AutosLocosJGG
 
         public void SimulateStep() //Simula el comportamiento de un turno
         {
+            _turn++;
             VisitObjects(obj =>
             {
                 obj.Simulate(this);
+                if (obj.Position > _distance && obj.GetObjectType() == ObjectType.CAR)
+                {
+                    int winnerLegth = _winners.Length;
+                    int newWinnerLength = winnerLegth +1;
+                    RaceObject[] newWinner = new RaceObject[newWinnerLength];
+                    for(int i = 0; i < winnerLegth; i++)
+                        newWinner[i] = _winners[i];
+                    newWinner[winnerLegth] = obj;
+                    _winners = newWinner;
+                }
             });
+
             //foreach(RaceObject obj in _raceObjects)
             //{
             //    if(obj.GetObjectType() == ObjectType.CAR && obj.Position > _distance)
@@ -92,22 +135,33 @@ namespace AutosLocosJGG
         {
             if (visit == null)
                 return;
-            foreach (Car car in _raceObjects)
+            VisitObjects(obstacle =>
             {
-                visit(car);
-            }
+                if (obstacle.GetObjectType() == ObjectType.CAR)
+                    visit((Car)obstacle);
+            });
+            //foreach (Car car in _raceObjects)
+            //{
+            //    visit(car);
+            //}
         }
 
         public void VisitDrivers(IRace.VisitDriverDlegate<Driver> visit)//modificar
         {
             if (visit == null)
                 return;
-            foreach (Car car in _raceObjects)
+            VisitCars(car =>
             {
                 visit(car.Driver);
                 if (car.Copilot != null)
                     visit(car.Copilot);
-            }
+            });
+            //foreach (Car car in _raceObjects)
+            //{
+            //    visit(car.Driver);
+            //    if (car.Copilot != null)
+            //        visit(car.Copilot);
+            //}
         }
 
         public void VisitObjects(IRace.VisitObjectDelegate<RaceObject> visit)
@@ -124,11 +178,18 @@ namespace AutosLocosJGG
         {
             if (visit == null)
                 return;
-            foreach (Obstacle obstacle in _raceObjects)
+            VisitObjects(obstacle =>
             {
-                visit(obstacle);
-            }
+                if (obstacle.GetObjectType() == ObjectType.OBSTACLE)
+                    visit((Obstacle)obstacle);
+            });
+            //foreach (Obstacle obstacle in _raceObjects)
+            //{
+            //    visit(obstacle);
+            //}
         }
+
+        
 
       
     }

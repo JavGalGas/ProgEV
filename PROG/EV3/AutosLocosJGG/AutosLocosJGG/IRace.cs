@@ -25,5 +25,6 @@ namespace AutosLocosJGG
         int GetObjectCount();
         RaceObject? GetObjectAt(int index);
         int IndexOf(RaceObject obj);
+        //RaceObject[] GetWinners();
     }
 }

@@ -21,7 +21,7 @@ namespace AutosLocosJGG
                 if (timer == 0)
                     if (car.Position >= position - 70 || car.Position <= position + 70)
                     {
-                        car.SetPosition(car.Position - Utils.GetRandomBetween(-50,50));
+                        car.SetCarPosition(car.Position - Utils.GetRandomBetween(-50,50));
                         HasNotExploded = false;
                     }           
             });

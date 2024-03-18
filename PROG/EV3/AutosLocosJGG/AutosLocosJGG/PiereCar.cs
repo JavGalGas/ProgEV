@@ -23,10 +23,10 @@ namespace AutosLocosJGG
                 disabledTurns--;
                 return;
             }
-            SetPosition(Position + 18 + driver!.GetVelocityExtra() + boost);
+            SetCarPosition(Position + 18 + driver!.GetVelocityExtra() + boost);
             if(copilot != null)
             {
-                SetPosition(Position + copilot!.GetVelocityExtra());
+                SetCarPosition(Position + copilot!.GetVelocityExtra());
             }
             if (Utils.ActivateWithProbability(0.5))
                 SetTrap(race);

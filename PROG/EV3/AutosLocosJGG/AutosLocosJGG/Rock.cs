@@ -20,7 +20,7 @@ namespace AutosLocosJGG
             {
                 if(car.Position >= position - 40 || car.Position <= position + 40)
                     if (Utils.ActivateWithProbability(0.1 + _weight))
-                        car.SetPosition(car.Position - 25);
+                        car.SetCarPosition(car.Position - 25);
             });
 
             //List<RaceObject> cars = new List<RaceObject>();

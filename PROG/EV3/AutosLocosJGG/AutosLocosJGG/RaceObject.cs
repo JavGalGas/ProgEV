@@ -17,7 +17,7 @@ namespace AutosLocosJGG
         protected double position;
         protected int disabledTurns;
 
-        protected RaceObject(string name)
+        protected RaceObject(string name/*, double position*/)
         {
             _name = name;
         }
@@ -36,6 +36,13 @@ namespace AutosLocosJGG
         public virtual void Simulate(IRace race)
         {
             //ver como hacer bien esta función
+        }
+
+        public void SetObjectPosition(double newPosition)
+        {
+            if (newPosition < 0 || position != 0) 
+                return;
+            position = newPosition;
         }
 
         public override bool Equals(object? obj)

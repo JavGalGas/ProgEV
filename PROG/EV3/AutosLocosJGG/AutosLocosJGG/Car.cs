@@ -28,7 +28,7 @@ namespace AutosLocosJGG
             return ObjectType.CAR;
         }
 
-        public void SetPosition(double newPosition)
+        public void SetCarPosition(double newPosition)
         {
             if(newPosition < 0)
                 return;

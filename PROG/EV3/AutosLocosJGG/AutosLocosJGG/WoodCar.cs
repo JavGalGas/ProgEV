@@ -23,7 +23,7 @@ namespace AutosLocosJGG
                 disabledTurns--;
                 return;
             }
-            SetPosition(Position + 15 + driver!.GetVelocityExtra() + copilot!.GetVelocityExtra() + boost);
+            SetCarPosition(Position + 15 + driver!.GetVelocityExtra() + copilot!.GetVelocityExtra() + boost);
             boost += finetunning;
         }
     }
