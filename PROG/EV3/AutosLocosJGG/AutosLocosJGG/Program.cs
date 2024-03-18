@@ -25,7 +25,7 @@
             while (i<100)
             {
                 Race race = new Race();
-                double finishLine = 5000.0;
+                double finishLine = 500.0;
                 race.AddObject(new GlamourCar("GlamourCar"), 20.0);
                 race.AddObject(new PiereCar("PiereCar"), 5.0);
                 race.AddObject(new WoodCar("WoodCar"), 100.0);
