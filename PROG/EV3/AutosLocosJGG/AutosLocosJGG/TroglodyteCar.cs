@@ -21,7 +21,7 @@ namespace AutosLocosJGG
                 disabledTurns--;
                 return;
             }
-            SetCarPosition(Position + 10 + driver!.GetVelocityExtra() +copilot!.GetVelocityExtra()+ boost);
+            SetCarPosition(Position + 10 + GetDriversVelocityExtra() + boost);
             if(Utils.ActivateWithProbability(0.3))
             {
                 if (Utils.ActivateWithProbability(0.4))

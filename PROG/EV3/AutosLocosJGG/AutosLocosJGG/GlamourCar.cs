@@ -20,7 +20,7 @@ namespace AutosLocosJGG
                 disabledTurns--;
                 return;
             }
-            SetCarPosition(Position + 20 + driver!.GetVelocityExtra() + boost);
+            SetCarPosition(Position + 20 + GetDriversVelocityExtra() + boost);
             boost += finetunning;
         }
     }

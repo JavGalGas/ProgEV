@@ -8,7 +8,6 @@ namespace AutosLocosJGG
 {
     public class Car : RaceObject
     {
-        public override bool IsAlive => throw new NotImplementedException();
         protected double finetunning;
         protected double boost;
 
@@ -17,6 +16,7 @@ namespace AutosLocosJGG
 
         public Driver Driver { get => driver!; }
         public Driver? Copilot { get => copilot; }
+        public override bool IsAlive => true;
 
         public Car(string name) : base (name)
         {
@@ -33,6 +33,11 @@ namespace AutosLocosJGG
             if(newPosition < 0)
                 return;
             position = newPosition;
+        }
+
+        protected virtual double GetDriversVelocityExtra()
+        {
+            return (Copilot != null) ? Driver.GetVelocityExtra() + Copilot.GetVelocityExtra() : Driver.GetVelocityExtra();
         }
     }
 }

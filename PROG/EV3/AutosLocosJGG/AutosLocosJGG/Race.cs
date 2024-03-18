@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -123,7 +124,7 @@ namespace AutosLocosJGG
                     _winners = newWinner;
                 }
             });
-
+            _raceObjects.RemoveAll(obj => !obj.IsAlive);
             //foreach(RaceObject obj in _raceObjects)
             //{
             //    if(obj.GetObjectType() == ObjectType.CAR && obj.Position > _distance)
@@ -157,6 +158,14 @@ namespace AutosLocosJGG
                     visit(car.Copilot);
             });
             //foreach (Car car in _raceObjects)
+            //{
+            //    visit(car.Driver);
+            //    if (car.Copilot != null)
+            //        visit(car.Copilot);
+            //}
+
+            // el if comprueba si obj es de tipo Car; si lo es, 
+            //if (obj is Car car)
             //{
             //    visit(car.Driver);
             //    if (car.Copilot != null)

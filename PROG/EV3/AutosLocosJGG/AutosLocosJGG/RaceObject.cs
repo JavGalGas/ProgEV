@@ -29,7 +29,7 @@ namespace AutosLocosJGG
         public abstract ObjectType GetObjectType();
         public virtual void Disable(int turns)
         {
-            if(disabledTurns < 0)
+            if(turns < 0)
                 return;
             disabledTurns += turns;
         }

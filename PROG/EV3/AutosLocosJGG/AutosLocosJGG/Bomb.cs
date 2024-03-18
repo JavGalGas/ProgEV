@@ -8,7 +8,7 @@ namespace AutosLocosJGG
 {
     public class Bomb : Obstacle
     {
-        private bool HasNotExploded = true;
+        private bool hasNotExploded = true;
         private int timer;
         public Bomb(string name, int time) : base(name)
         {
@@ -16,21 +16,25 @@ namespace AutosLocosJGG
         }
         public override void Simulate(IRace race)
         {
-            race.VisitCars(car =>
+            if (timer > 0)
             {
-                if (timer == 0)
-                    if (car.Position >= position - 70 || car.Position <= position + 70)
-                    {
-                        car.SetCarPosition(car.Position - Utils.GetRandomBetween(-50,50));
-                        HasNotExploded = false;
-                    }           
+                timer--;
+                return;
+            }
+
+            race.VisitCars(car =>
+            { 
+                if (car.Position >= position - 70 || car.Position <= position + 70)
+                {
+                    car.SetCarPosition(car.Position - Utils.GetRandomBetween(-50,50));
+                    hasNotExploded = false;
+                }           
             });
-            timer--;
         }
 
         public override bool GetIfIsAlive()
         {
-            return HasNotExploded;
+            return hasNotExploded;
         }
     }
 }

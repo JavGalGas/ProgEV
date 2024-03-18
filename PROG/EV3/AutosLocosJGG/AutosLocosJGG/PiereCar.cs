@@ -23,11 +23,7 @@ namespace AutosLocosJGG
                 disabledTurns--;
                 return;
             }
-            SetCarPosition(Position + 18 + driver!.GetVelocityExtra() + boost);
-            if(copilot != null)
-            {
-                SetCarPosition(Position + copilot!.GetVelocityExtra());
-            }
+            SetCarPosition(Position + 18 + GetDriversVelocityExtra() + boost);
             if (Utils.ActivateWithProbability(0.5))
                 SetTrap(race);
             boost += finetunning;
@@ -35,6 +31,10 @@ namespace AutosLocosJGG
 
         private void SetTrap(IRace race)
         {
+            if(_traps < 0)
+            {
+                return;
+            }
             double thresshold = Position;
             double savedPosition = 0.0;
             int index = 0;
@@ -52,6 +52,7 @@ namespace AutosLocosJGG
             {
                 copilot = null;
             }
+            _traps--;
         }
     }
 }
