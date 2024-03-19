@@ -4,7 +4,7 @@
     {
         public static double GetDistance(Point2D a, Point2D b)
         {
-            if (a == null && b == null) 
+            if (a == null || b == null) 
                 return 0;
             double ax = a.X - b.X;
             double ay = a.Y - b.Y;
@@ -20,21 +20,20 @@
                 return rect;
             if (points.Length == 0)
                 return rect;
-            for (int i = 0; i < points.Length - 1; i++) 
+            for (int i = 0; i < points.Length; i++) 
             {
                 Point2D pt = points[i];
-                Point2D pt2 = points[i + 1];
-                if (pt == null || pt2 == null) 
+                if (pt == null) 
                     continue;
                 // Javi: Esto está mal
-                if (pt.X > pt2.X)
-                    rect.MinX = pt2.X;
-                if (pt.X < pt2.X)
-                     rect.MaxX = pt2.X;
-                if (pt.Y > pt2.Y )
-                     rect.MinY = pt2.Y;
-                 if (pt.Y < pt2.Y)
-                     rect.MaxY = pt2.Y;
+                if (pt.X < rect.MinX)
+                    rect.MinX = pt.X;
+                if (pt.X > rect.MaxX)
+                     rect.MaxX = pt.X;
+                if (pt.Y < rect.MinY)
+                     rect.MinY = pt.Y;
+                if (pt.Y > rect.MaxY)
+                    rect.MaxY = pt.Y;
             }
             return rect;
         }
@@ -50,11 +49,11 @@
                 area += (pt.Y + pt2.Y) * (pt.X - pt2.X);  
             }
             area += (points[points.Length - 1].Y + points[0].Y) * (points[points.Length - 1].X - points[0].X);
-            return area = area * 0.5;
+            return area * 0.5;
         }
         public static double GetPerimeter(Point2D[] points) 
         {
-            double area = 0;
+            double perimeter = 0;
             for (int i = 0; i < points.Length - 1; i++)
             {
                 Point2D pt = points[i];
@@ -62,9 +61,9 @@
                 if (pt == null || pt2 == null)
                     continue;
                 // Javi: Mal
-                area += (pt.X + pt2.X) + (pt.Y + pt2.Y);
+                perimeter += GetDistance(pt,pt2);
             }
-            return area;
+            return perimeter;
         } 
 
 

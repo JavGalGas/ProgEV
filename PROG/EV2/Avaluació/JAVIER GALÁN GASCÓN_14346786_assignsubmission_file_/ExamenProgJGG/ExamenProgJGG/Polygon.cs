@@ -6,7 +6,7 @@
         private bool _isClose = false;
 
         // Javi: Por qué -1????
-        public int PointCount => _points.Length - 1;
+        public int PointCount => _points.Length;
         public override bool HasArea => Area < 0;
 
         public override double Area => GetArea();
@@ -43,15 +43,22 @@
             points[_points.Length] = point;
             _points = points;
         }
-        public Point2D GetCenter()
+        public Point2D? GetCenter()
         {
             if (_isClose)
             {
+                double ValuesX = 0.0;
+                double ValuesY = 0.0;
+                foreach(Point2D pt in _points)
+                {
+                    ValuesX += pt.X;
+                    ValuesY += pt.Y;
+                }
                 return new Point2D
                 {
                     // Javi: EIN?!?!?!?!?
-                    X = Perimeter / 2,
-                    Y = Perimeter / 2,
+                    X = ValuesX / PointCount,
+                    Y = ValuesY / PointCount,
                 };
             }
             return null;
@@ -92,13 +99,7 @@
             // Javi: MAL!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // Javi: MAL!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // Javi: MAL!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            for (int i = 0; i < _points.Length -1; i++)
-            {
-                Point2D pt = _points[i];
-                if (index == pt.X || index == pt.Y)
-                    return pt;
-            }
-            return null;
+            return _points[index];
             
         }
 

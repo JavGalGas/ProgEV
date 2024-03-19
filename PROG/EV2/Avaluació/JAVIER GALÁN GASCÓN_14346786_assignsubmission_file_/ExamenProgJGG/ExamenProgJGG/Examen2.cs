@@ -23,15 +23,15 @@
             public double GetArea()
             {
             // Javi: Mal
-            return (MaxX * MaxY); 
+                return (MaxX-MinX) * (MaxY-MinY); 
             }
             public Point2D GetCenter()
             {
             // Javi: un poco mal
                 return new Point2D()
                 {
-                    X = (MaxX - MinX),
-                    Y = (MaxY - MinY)
+                    X = MinX + (MaxX - MinX)/2,
+                    Y = MinY + (MaxY - MinY)/2
                 };
             }
               
