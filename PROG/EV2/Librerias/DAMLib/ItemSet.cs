@@ -21,50 +21,102 @@ namespace DAMLib
 
         private int _count = 0;
 
-        public override bool Equals(object? obj)
+        public int Count => _count;
+        public bool IsEmpty => _count == 0;
+
+       
+        public void Add(T element) //implementar hash
         {
-            if (this == obj)
-                return true;
-            if (obj is not ItemSet<T>)
-                return false;
-            ItemSet<T> s = (ItemSet<T>)obj;
-            return s._items == _items && s._count == _count;
+            if(Contains(element) || element == null)
+                return;
+
+            if (_count < _items.Length)
+            {
+                _items[_count]._element = element;
+#nullable disable
+                _items[_count]._hash = element.GetHashCode();
+#nullable enable
+                _count++;
+            }
+            else
+            {
+                Item[] NewArray = new Item[_count + 1];
+                for (int i = 0; i < _count; i++)
+                {
+                    NewArray[i]._element = _items[i]._element;
+                    NewArray[i]._hash = _items[i]._hash;
+                }
+                NewArray[_count]._element = element;
+#nullable disable
+                NewArray[_count]._hash = element.GetHashCode();
+#nullable enable
+                _items = NewArray;
+                _count++;
+            }
         }
 
-        public override int GetHashCode()
+        public void Remove(T element) //implementar hash
         {
-            return _items.GetHashCode() * _items.GetHashCode() - Count * (_count.GetHashCode() / 77) + Count;
+            int aux = IndexOf(element);
+            if (aux >= 0)
+            {
+                Item[] NewArray = new Item[_count -1];
+
+                for (int i = 0; i < aux; i++)
+                {
+                    NewArray[i]._element = _items[i]._element;
+                    NewArray[i]._hash = _items[i]._hash;
+                }
+                for (int i = aux; i <= NewArray.Length; i++)
+                {
+                    NewArray[i]._element = _items[i + 1]._element;
+                    NewArray[i]._hash = _items[i + 1]._hash;
+                }
+                _items = NewArray;
+                _count--;
+            }            
         }
 
+ //implementar hash
+    //la direccion en la memoria ram donde se encuentra el entero (resultEntero), y es donde se encuentra la variable.
+    //out, in y ref estan relacionados a direcciones de la memoria RAM
 
-        public int Count
+        public bool Contains(T element) //implementar hash
         {
-            get => _count;
+            return IndexOf(element) >= 0;
+//            for (int i = 0; i < Count - 1; i++)
+//            {
+//                for (int j = 1; j < Count; j++)
+//                {
+//                    if (_items[i]._hash == _items[j]._hash)
+//                        return true;
+//                }
+//            }
+//            for (int i = 0; i < Count; i++)
+//            {
+//#nullable disable
+//                if (_items[i].Equals(element))
+//#nullable enable
+//                    return true;
+//            }
+//            return false;
         }
 
         public int IndexOf(T element)// implementar hash
         {
+            if(element == null)
+                return -1;
 #nullable disable
             int hash = element.GetHashCode();
 #nullable enable
-            for (int i = 0; i < _items.Length; i++)
+            for (int i = 0; i < _count; i++)
             {
-
-                if (hash == _items[i]._hash)
-                {
-#nullable disable
-                    if (_items[i].Equals(element))
-#nullable enable
-                    {
-                        return i;
-                    }
-                }
-#nullable disable
-                else if (_items[i].Equals(element))
-#nullable enable
-                {
+                if (hash == _items[i]._hash && _items[i].Equals(element))
                     return i;
-                }
+#nullable disable
+                if (_items[i].Equals(element))
+#nullable enable
+                    return i;
             }
             return -1;
         }
@@ -73,85 +125,24 @@ namespace DAMLib
         {
             _count = 0;
         }
-        public void Add(T element) //implementar hash
+
+        public override bool Equals(object? obj)
         {
-            if(Contains(element))
-            {
-                return;
-            }
-            else if (Count < _items.Length)
-            {
-                _items[_count++]._element = element;
-#nullable disable
-                _items[Count]._hash = element.GetHashCode();
-#nullable enable
-            }
-            else
-            {
-                Item[] NewArray = new Item[Count + 1];
-                for (int i = 0; i < Count; i++)
-                {
-                    NewArray[i]._element = _items[i]._element;
-                    NewArray[i]._hash = _items[i]._hash;
-                }
-                NewArray[_count++]._element = element;
-#nullable disable
-                NewArray[Count - 1]._hash = element.GetHashCode();
-#nullable enable
-                _items = NewArray;
-            }
-        }
-
-        public void Remove(T element) //implementar hash
-        {
-            int aux = IndexOf(element);
-            if (aux == -1)
-                return;
-            Item[] NewArray = new Item[--_count];
-
-            for (int i = 0; i < aux; i++)
-            {
-                NewArray[i]._element = _items[i]._element;
-                NewArray[i]._hash = _items[i]._hash;
-            }
-            for (int i = aux + 1; i <= NewArray.Length; i++)
-            {
-                NewArray[i - 1]._element = _items[i]._element;
-                NewArray[i-1]._hash = _items[i]._hash;
-            }
-            _items = NewArray;
-        }
-
- //implementar hash
-    //la direccion en la memoria ram donde se encuentra el entero (resultEntero), y es donde se encuentra la variable.
-    //out, in y ref estan relacionados a direcciones de la memoria RAM
-
-
-        public bool Contains(T element) //implementar hash
-        {
-            //if (IndexOf(element) == -1)
-            //    return false;
-            //return true;
-            for (int i = 0; i < Count - 1; i++)
-            {
-                for (int j = 1; j < Count; j++)
-                {
-                    if (_items[i]._hash == _items[j]._hash)
-                        return true;
-                }
-            }
-            for (int i = 0; i < Count; i++)
-            {
-#nullable disable
-                if (_items[i].Equals(element))
-#nullable enable
-                    return true;
-            }
+            if (this == obj)
+                return true;
+            if (obj is not ItemSet<T>)
+                return false;
+            ItemSet<T> s = (ItemSet<T>)obj;
+            if (s._items == _items && s._count == _count)
+                for (int i=0; i < _count; i++)
+                    if (!Equals(s._items[i]._element, _items[i]._element))
+                        return false;
             return false;
         }
-        public bool IsEmpty
+
+        public override int GetHashCode()//comprobar si la función debía cambiar el hash de la clase o los hashes de los elementos
         {
-            get { return _count == 0; }
+            return _items.GetHashCode() * _items.GetHashCode() - Count * (_count.GetHashCode() / 77) + Count;
         }
     }
 }

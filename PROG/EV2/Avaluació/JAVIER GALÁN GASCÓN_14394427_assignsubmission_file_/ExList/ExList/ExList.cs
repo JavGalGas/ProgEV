@@ -13,71 +13,13 @@ namespace ExListJGG
     public class ExList<T>
     {
         private T[] list = new T[0];
-        public int Count 
-        { 
-            get 
-            {
-                try
-                {
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    // Javi: MAL !!!!!
-                    return list.Length;
-                }
-                catch 
-                { 
-                    throw new Exception(); 
-                } 
-            } 
-        }
-        private T First 
-        { 
-            get 
-            {
-                try
-                {
-                    // Javi: MAL
-                    return list[0];
-                }
-                catch
-                {
-                    throw new Exception();
-                }
-                 
-            } 
-        }
-        private T Last 
-        { 
-            get 
-            {
-                try
-                {
-                    // Javi: MAL y MAL
-                    return list[Count];
-                }
-                catch
-                {
-                    throw new Exception();
-                }  
-            } 
-        }
-
+        public int Count => list.Length;
+        public T First => list.Length > 0 ? list[0] : throw new Exception();
+        public T Last => list.Length > 0 ? list[Count-1] : throw new Exception();
         // Javi: Por qué private!?!?
-        private T[] Reversed 
-        { 
-            get 
-            { 
-                return Reverse(); 
-            } 
-        }
+        public T[] Reversed => Reverse();
+        int 
+
 
         public T? GetElementAt(int index)
         {
@@ -161,10 +103,8 @@ namespace ExListJGG
 
         public bool Contains(T element)
         {
+            return IndexOf(element) < 0;
             // Javi: En serio!?!??!?!?!!? 3 lineas????
-            if (IndexOf(element) < 0) 
-                return false;
-            return true;
         }
 
         public void Visit(Visitor<T> visit)

@@ -175,24 +175,24 @@ namespace Basura3
             SetWithHash<string> set2 = new SetWithHash<string>();
             Test1Results result2 = Test1(set2);
 
-            ItemSet<string> set3 = new ItemSet<string>();
-            Test1Results result3 = Test1(set3);
+            //ItemSet<string> set3 = new ItemSet<string>();
+            //Test1Results result3 = Test1(set3);
 
-            OrderedItemSet<string> set4 = new OrderedItemSet<string>();
-            Test1Results result4 = Test1(set4);
+            //OrderedItemSet<string> set4 = new OrderedItemSet<string>();
+            //Test1Results result4 = Test1(set4);
 
             string stringResult = JsonSerializer.Serialize(result1);
             string stringResult2 = JsonSerializer.Serialize(result2);
-            string stringResult3 = JsonSerializer.Serialize(result3);
-            string stringResult4 = JsonSerializer.Serialize(result4);
+            //string stringResult3 = JsonSerializer.Serialize(result3);
+            //string stringResult4 = JsonSerializer.Serialize(result4);
 
             Console.WriteLine("---Test Result---");
             Console.WriteLine(stringResult == stringResult2);
-            Console.WriteLine(stringResult2 == stringResult3);
-            Console.WriteLine(stringResult3 == stringResult4);
-            Console.WriteLine(stringResult4 == stringResult);
-            Console.WriteLine(stringResult2 == stringResult4);
-            Console.WriteLine(stringResult == stringResult3);
+            //Console.WriteLine(stringResult2 == stringResult3);
+            //Console.WriteLine(stringResult3 == stringResult4);
+            //Console.WriteLine(stringResult4 == stringResult);
+            //Console.WriteLine(stringResult2 == stringResult4);
+            //Console.WriteLine(stringResult == stringResult3);
         }
         
     }

@@ -12,6 +12,96 @@ namespace DAMLib
         private int[] _hash = new int[0];
         private int _count = 0;
 
+        public int Count => _count;
+        public bool IsEmpty => (_count == 0);
+        
+        public void Add(T element) //implementar hash
+        {
+            if (Contains(element) || element == null)
+                return;
+
+            if (_count < _set.Length)
+            {
+                _set[_count] = element;
+#nullable disable
+                _hash[_count] = element.GetHashCode();
+#nullable enable
+                _count++;
+            }
+            else
+            {
+                T[] NewSet = new T[_count + 1];
+                int[] NewHash = new int[_count + 1];
+                for (int i = 0; i < _count; i++)
+                {
+                    NewSet[i] = _set[i];
+                    NewHash[i] = _hash[i];
+                }
+                NewSet[_count] = element;
+#nullable disable
+                NewHash[_count] = element.GetHashCode();
+#nullable enable
+                _set = NewSet;
+                _hash = NewHash;
+                _count++;
+            }
+        }
+
+        public void Remove(T element) //implementar hash
+        {
+            int aux = IndexOf(element);
+            if (aux >= 0)
+            {
+                T[] NewSet = new T[_count - 1];
+                int[] NewHash = new int[_count - 1];
+
+                for (int i = 0; i < aux; i++)
+                {
+                    NewSet[i] = _set[i];
+                    NewHash[i] = _hash[i];
+                }
+                for (int j = aux; j < NewSet.Length; j++)
+                {
+                    NewSet[j] = _set[j + 1];
+                    NewHash[j] = _hash[j + 1];
+                }
+                _set = NewSet;
+                _hash = NewHash;
+                _count--;
+            }            
+        }
+
+        public int IndexOf(T element)// implementar hash
+        {
+            if (element == null)
+                return -1;
+#nullable disable
+            int h = element.GetHashCode();
+#nullable enable
+            for (int i = 0; i < _count; i++)
+            {
+#nullable disable
+                if (h == _hash[i] && _set[i].Equals(element))
+#nullable enable
+                    return i;
+
+#nullable disable
+                if (_set[i].Equals(element))
+#nullable enable
+                    return i;
+            }
+            return -1;
+        }
+
+        public void Clear()
+        {
+            _count = 0;
+        }
+        public bool Contains(T element) //implementar hash
+        {
+            return IndexOf(element) >= 0;
+        }
+
         public override bool Equals(object? obj)
         {
             if (this == obj)
@@ -22,124 +112,10 @@ namespace DAMLib
             return s._set == _set && s._count == _count;
         }
 
-        public override int GetHashCode()
+        public override int GetHashCode()//comprobar si la función debía cambiar el hash de la clase o los hashes del array
         {
             return _hash.GetHashCode() * _set.GetHashCode() - Count * (_count.GetHashCode() / 77) + Count;
         }
-        public int Count
-        {
-            get => _count;
-        }
 
-        public int IndexOf(T element)// implementar hash
-        {
-#nullable disable
-            int h = element.GetHashCode();
-#nullable enable
-            for (int i = 0; i < _set.Length; i++)
-            {
-                
-                if (h == _hash[i])
-                {
-#nullable disable
-                    if (_set[i].Equals(element))
-#nullable enable
-                    {
-                        return i;
-                    }
-                }
-#nullable disable
-                if (_set[i].Equals(element))
-#nullable enable
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        public void Clear()
-        {
-            _count = 0;
-        }
-        public void Add(T element) //implementar hash
-        {
-            if (Contains(element))
-            {
-                return;
-            }
-
-            else if (Count < _set.Length)
-            {
-                _set[_count++] = element;
-#nullable disable
-                _hash[Count] = element.GetHashCode();
-#nullable enable
-            }
-            else
-            {
-                T[] NewSet = new T[Count + 1];
-                int[] NewHash = new int[Count + 1];
-                for (int i = 0; i < Count; i++)
-                {
-                    NewSet[i] = _set[i];
-                    NewHash[i] = _hash[i];
-                }
-                NewSet[_count++] = element;
-#nullable disable
-                NewHash[Count-1] = element.GetHashCode();
-#nullable enable
-                _set = NewSet;
-                _hash = NewHash;
-            }
-        }
-
-        public void Remove(T element) //implementar hash
-        {
-            int aux = IndexOf(element);
-            if (aux == -1)
-                return;
-            T[] NewSet = new T[--_count];
-            int[] NewHash = new int[Count];
-
-            for (int i = 0; i < aux; i++)
-            {
-                NewSet[i] = _set[i];
-                NewHash[i] = _hash[i];
-            }    
-            for (int i = aux + 1; i <= NewSet.Length; i++)
-            {
-                NewSet[i - 1] = _set[i];
-                NewHash[i-1] = _hash[i];
-            }
-            _set = NewSet;
-            _hash = NewHash;
-        }
-        public bool Contains(T element) //implementar hash
-        {
-            //if (IndexOf(element) == -1)
-            //    return false;
-            //return true;
-            for (int i = 0; i < Count-1; i++)
-            {
-                for(int j = 1;  j < Count; j++)
-                {
-                    if (_hash[i] == _hash[j])
-                       return true;
-                }
-            }
-            for (int i = 0; i < Count; i++)
-            {
-#nullable disable
-                if (_set[i].Equals(element))
-#nullable enable
-                    return true;
-            }
-            return false;
-        }
-        public bool IsEmpty
-        {
-            get { return _count == 0; }
-        }
     }
 }
