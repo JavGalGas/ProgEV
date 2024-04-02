@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< Updated upstream
   "dgSpecHash": "cGKQSEiosM2ygR2p0EGhSaXu9SvGlXf4FHOIjIk+PZWP2X929ye1bbCz1Ha/khlzlaAGHZt0wOcnk9QYOYFz5g==",
   "success": true,
   "projectFilePath": "C:\\Users\\javgalgas\\Desktop\\ProgEV\\PROG\\EV2\\no_evaluable\\Basura6\\Basura6\\Basura6.csproj",
+=======
+  "dgSpecHash": "/q0nW5DXh+aGGkNn/KM1IiKQYHGzj/L4jlVruq8iMDeSJKSst2cLjc14/ohobCJn8Oh7MhDlU07PV9XDNxjBjQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\javie\\Desktop\\1 DAM\\PROGRAMACION\\ProgEV\\PROG\\EV2\\no_evaluable\\Basura6\\Basura6\\Basura6.csproj",
+>>>>>>> Stashed changes
   "expectedPackageFiles": [],
   "logs": []
 }
