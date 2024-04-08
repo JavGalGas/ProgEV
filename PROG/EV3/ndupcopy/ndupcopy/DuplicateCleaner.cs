@@ -52,6 +52,12 @@ namespace ndupcopy
                     using (FileStream fs1 = new FileStream(file1, FileMode.Open))
                     using (FileStream fs2 = new FileStream(file2, FileMode.Open))
                     {
+
+
+                        //  H   A   S   H   //
+
+
+
                         if (fs1.Length != fs2.Length)
                             return false; // Los archivos son diferentes en tamaño
                         int offset = 0;
