@@ -12,6 +12,12 @@ namespace ndupcopy
 
     internal class Program
     {
+        //byte[] --> string
+        //BitConverter(hash);
+        //byte[] content;
+
+        //base 64
+
         static void Main(string[] args)
         {
             //Formas de meter datos:
@@ -19,22 +25,22 @@ namespace ndupcopy
                 //Environment
                 //.txt
 
-            string rutaDelArchivoConLosPath = args[0];
-            try
-            {
-                string jsonContent = File.ReadAllText(rutaDelArchivoConLosPath);
-                var obj = JsonSerializer.Deserialize<AppParams>(jsonContent);
+            //string rutaDelArchivoConLosPath = args[0];
+            //try
+            //{
+            //    string jsonContent = File.ReadAllText(rutaDelArchivoConLosPath);
+            //    var obj = JsonSerializer.Deserialize<AppParams>(jsonContent);
 
-                //var lines = File.ReadAllLines(rutaDelArchivoConLosPath);
-                //foreach (var path in lines)
-                //{
-                //    Console.WriteLine(Path.GetFullPath(path));
-                //}
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Algo ha ido mal " + ex.Message);
-            }
+            //    //var lines = File.ReadAllLines(rutaDelArchivoConLosPath);
+            //    //foreach (var path in lines)
+            //    //{
+            //    //    Console.WriteLine(Path.GetFullPath(path));
+            //    //}
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine("Algo ha ido mal " + ex.Message);
+            //}
 
             //Utilizar rutas abssolutas y relativas
 
@@ -63,7 +69,7 @@ namespace ndupcopy
                 Console.WriteLine(route);
             }
 
-            //RemoveDuplicates(ref args);
+            //RemoveDuplicates(args);
 
 
             //Para poder cambiar el nombre de la imagen copiada

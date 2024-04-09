@@ -9,7 +9,7 @@ namespace ndupcopy
 {
     public static class DuplicateCleaner
     {
-        public static void RemoveDuplicates(ref string[] args)//modificar
+        public static void CheckDuplicates(string[] args)//modificar
         {
             for (int i = 1; i < args.Length - 1; i += 2)
             {
@@ -60,44 +60,9 @@ namespace ndupcopy
 
                         if (fs1.Length != fs2.Length)
                             return false; // Los archivos son diferentes en tamaño
-                        int offset = 0;
-                        int buffer1Length, buffer2Length;
 
-                        while ((buffer1Length = fs1.Read(buffer1, offset, bufferSize)) > 0 && (buffer2Length = fs2.Read(buffer1, 0, bufferSize)) > 0)
-                        {//manejar en una sola función
-                            if (buffer1Length <= buffer2Length)
-                            {
-                                int aux = 0;
-                                while (buffer2Length > aux)
-                                {
-                                    for (int i = 0; i < buffer1Length; i++)
-                                    {
-                                        if (buffer1[i + aux] != buffer2[i+aux])
-                                            return false; // Los archivos son diferentes
-                                    }
-                                    aux += buffer1Length;
-                                    buffer1Length = fs1.Read(buffer1, aux, buffer2Length - aux);
-                                }                     
-                            }
-                            if (buffer1Length > buffer2Length)
-                            {
-                                int aux = 0;
-                                while (buffer1Length > aux)
-                                {
-                                    for (int i = 0; i < buffer2Length; i++)
-                                    {
-                                        if (buffer1[i + aux] != buffer2[i + aux])
-                                            return false; // Los archivos son diferentes
-                                    }
-                                    aux += buffer2Length;
-                                    buffer2Length = fs2.Read(buffer2, aux, buffer1Length - aux);
-                                }
-                            }
-                            offset += bufferSize;
-                        }
+                        return BufferComparison(fs1, fs2, buffer1, buffer2, bufferSize);
                     }
-
-                    return true; // Los archivos son iguales
                 }
                 else
                 {
@@ -113,28 +78,45 @@ namespace ndupcopy
             
         }
 
-        //public static void BufferComparison(int b1, int b2)
-        //{
-        //    if (b1 < b2)
-        //    {
-        //        for (int i = 0; i < b1; i++)
-        //        {
-        //            if (buffer1[i] != buffer2[i])
-        //                return false; // Los archivos son diferentes
-        //        }
-        //        int aux = 0;
-        //        while (b1 < b2)
-        //        {
-        //            for (int i = 0; i < b1; i++)
-        //            {
-        //                if (buffer1[i + aux] != buffer2[i + aux])
-        //                    return false; // Los archivos son diferentes
-        //            }
-        //            aux += b1;
-        //            b1 = fs1.Read(buffer1, aux, b2 - aux);
-        //        }
-        //    }
-        //}
+        public static bool BufferComparison(FileStream fs1, FileStream fs2, byte[] buffer1, byte[] buffer2, int bufferSize)
+        {
+            int offset = 0;
+            int buffer1Length, buffer2Length;
+
+            while ((buffer1Length = fs1.Read(buffer1, offset, bufferSize)) > 0 && (buffer2Length = fs2.Read(buffer1, 0, bufferSize)) > 0)
+            {//manejar en una sola función
+                if (buffer1Length <= buffer2Length)
+                {
+                    int aux = 0;
+                    while (buffer2Length > aux)
+                    {
+                        for (int i = 0; i < buffer1Length; i++)
+                        {
+                            if (buffer1[i + aux] != buffer2[i + aux])
+                                return false; // Los archivos son diferentes
+                        }
+                        aux += buffer1Length;
+                        buffer1Length = fs1.Read(buffer1, aux, buffer2Length - aux);
+                    }
+                }
+                if (buffer1Length > buffer2Length)
+                {
+                    int aux = 0;
+                    while (buffer1Length > aux)
+                    {
+                        for (int i = 0; i < buffer2Length; i++)
+                        {
+                            if (buffer1[i + aux] != buffer2[i + aux])
+                                return false; // Los archivos son diferentes
+                        }
+                        aux += buffer2Length;
+                        buffer2Length = fs2.Read(buffer2, aux, buffer1Length - aux);
+                    }
+                }
+                offset += bufferSize;
+            }
+            return true;
+        }
 
     }
 }
