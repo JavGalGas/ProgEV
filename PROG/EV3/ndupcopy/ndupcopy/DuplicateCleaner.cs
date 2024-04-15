@@ -11,6 +11,9 @@ namespace ndupcopy
     {
         public static void CheckDuplicates(string[] args)//modificar
         {
+            List<FilePath> filePaths = new List<FilePath>();
+            string exitPath = args[args.Length - 1];
+
             for (int i = 1; i < args.Length - 1; i += 2)
             {
                 string directorio = args[i];
@@ -20,11 +23,10 @@ namespace ndupcopy
                     if (Directory.Exists(directorio))
                     {
                         string[] archivos = Directory.GetFiles(directorio);
-
-                        Console.WriteLine("Archivos en el directorio {0}:", directorio);
                         foreach (string archivo in archivos)
                         {
-                            Console.WriteLine(Path.GetFileName(archivo));
+                            FilePath f = new FilePath(archivo);
+                            filePaths.Add(f);
                         }
                     }
                     else
@@ -37,20 +39,37 @@ namespace ndupcopy
                     Console.WriteLine("El proceso falló: {0}", e.ToString());
                 }
             }
+            for (int i = 0; i < filePaths.Count-1; i++)
+            {
+                for (int j = i+1; j < filePaths.Count; j++)
+                {
+                    if (filePaths[i].IsDuplicate! && filePaths[j].IsDuplicate!)
+                    {
+                        FileComparison(filePaths[i], filePaths[j]);
+                    }
+                }
+            }
+            foreach (FilePath f in filePaths)
+            {
+                if(f.IsDuplicate!)
+                    Utils.CopyFileFromTo(f.Path, exitPath);
+            }
         }
 
-        public static bool FileComparison(string file1, string file2)
+        public static void FileComparison(FilePath file1, FilePath file2)
         {
             try
             {
-                if (File.Exists(file1) && File.Exists(file2))
+                string filePath1 = file1.Path;
+                string filePath2 = file2.Path;
+                if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
                     const int bufferSize = 2048; // Tamaño del bloque
                     byte[] buffer1 = new byte[bufferSize];
                     byte[] buffer2 = new byte[bufferSize];
 
-                    using (FileStream fs1 = new FileStream(file1, FileMode.Open))
-                    using (FileStream fs2 = new FileStream(file2, FileMode.Open))
+                    using (FileStream fs1 = new FileStream(filePath1, FileMode.Open))
+                    using (FileStream fs2 = new FileStream(filePath2, FileMode.Open))
                     {
 
 
@@ -59,21 +78,22 @@ namespace ndupcopy
 
 
                         if (fs1.Length != fs2.Length)
-                            return false; // Los archivos son diferentes en tamaño
+                            return; // Los archivos son diferentes en tamaño
 
-                        return BufferComparison(fs1, fs2, buffer1, buffer2, bufferSize);
+                        if (BufferComparison(fs1, fs2, buffer1, buffer2, bufferSize))
+                        {
+                            file2.IsDuplicate = true;
+                        }
                     }
                 }
                 else
                 {
                     Console.WriteLine("Las rutas no existen.");
-                    return false;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return false;
             }
             
         }
@@ -84,7 +104,7 @@ namespace ndupcopy
             int buffer1Length, buffer2Length;
 
             while ((buffer1Length = fs1.Read(buffer1, offset, bufferSize)) > 0 && (buffer2Length = fs2.Read(buffer1, 0, bufferSize)) > 0)
-            {//manejar en una sola función
+            {
                 if (buffer1Length <= buffer2Length)
                 {
                     int aux = 0;

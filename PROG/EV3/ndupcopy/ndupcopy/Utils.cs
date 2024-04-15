@@ -8,20 +8,7 @@ namespace ndupcopy
 {
     public class Utils
     {
-        public static void CopyFileFromTo(string origin, string destiny)
-        {
-            try
-            {
-                File.Copy(origin, destiny, true);
-                Console.WriteLine($"Se ha creado una copia del archivo en: {destiny}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public static void CopyImageFromTo(string origin, string destiny) // perfilar con la página web guardada en Marcadores
+        public static void CopyFileFromTo(string origin, string destiny) // perfilar con la página web guardada en Marcadores
         {
             try
             {
@@ -30,7 +17,7 @@ namespace ndupcopy
                     string extension = Path.GetExtension(origin).ToLower();
 
                     // Verifica si el archivo es una imagen o un video
-                    if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif" || extension == ".bmp")
+                    if (CheckExtension(extension))
                     {
                         string fileName = Path.GetFileNameWithoutExtension(origin);
                         DateTime creationTime = File.GetCreationTime(origin);
@@ -43,7 +30,8 @@ namespace ndupcopy
                     }
                     else
                     {
-                        Console.WriteLine($"El archivo '{origin}' no es una imagen.");
+                        File.Copy(origin, destiny);
+                        Console.WriteLine($"Se ha creado una copia de la imagen en: {destiny}");
                     }
                 }
                 else
@@ -56,5 +44,15 @@ namespace ndupcopy
                 Console.WriteLine($"Error: {e.Message}");
             }
         }
+        public static bool CheckExtension(string extension)
+        {
+            if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif" || extension == ".bmp")//img
+            { 
+                return true; 
+            }
+            return (extension == ".mp3" || extension == ".mp4" || extension == ".mov" || extension == ".wmv" || extension == ".wav" || extension == ".avi");//video
+        }
     }
+
+    
 }
