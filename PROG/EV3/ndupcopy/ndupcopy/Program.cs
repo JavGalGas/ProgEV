@@ -20,6 +20,8 @@ namespace ndupcopy
 
         static void Main(string[] args)
         {
+            //comprobar carpeta de salida 
+
             //Formas de meter datos:
                 //strings
                 //Environment

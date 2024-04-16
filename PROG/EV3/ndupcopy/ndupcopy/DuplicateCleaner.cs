@@ -138,5 +138,29 @@ namespace ndupcopy
             return true;
         }
 
+        //public static bool BufferComparison(FileStream fs1, FileStream fs2, byte[] buffer1, byte[] buffer2, int bufferSize)
+        //{
+        //    int bytesRead1, bytesRead2;
+
+        //    do
+        //    {
+        //        bytesRead1 = fs1.Read(buffer1, 0, bufferSize);
+        //        bytesRead2 = fs2.Read(buffer2, 0, bufferSize);
+
+        //        if (bytesRead1 != bytesRead2)
+        //            return false; // Los archivos son de longitudes diferentes
+
+        //        for (int i = 0; i < bytesRead1; i++)
+        //        {
+        //            if (buffer1[i] != buffer2[i])
+        //                return false; // Los archivos son diferentes
+        //        }
+        //    } while (bytesRead1 > 0 && bytesRead2 > 0);
+
+        //    // Si no se encontraron diferencias y ambos archivos se leyeron completamente, son iguales
+        //    return true;
+        //}
+
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ndupcopy
 {
-    public class FilePath
+    public class FilePath : IDisposable
     {
         private string _path;
         public bool IsDuplicate;
@@ -11,6 +11,11 @@
         {
             _path = path;
             IsDuplicate = false;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
