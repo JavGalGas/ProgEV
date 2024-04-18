@@ -8,5 +8,8 @@ namespace rugby_JGG
 {
     public class SpecialDefender : Defender
     {
+        public SpecialDefender(int x, int y) : base(x, y)
+        {
+        }
     }
 }

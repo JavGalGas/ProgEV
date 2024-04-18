@@ -8,5 +8,8 @@ namespace rugby_JGG
 {
     public class Striker : Player
     {
+        public Striker(int x, int y) : base(x, y)
+        {
+        }
     }
 }
