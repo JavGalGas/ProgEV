@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rugby_JGG
 {
-    public class DefensaEspecial : Defensa
+    public class Team
     {
     }
 }

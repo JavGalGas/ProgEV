@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rugby_JGG
 {
-    public class Personaje
+    public class Striker : Player
     {
     }
 }
