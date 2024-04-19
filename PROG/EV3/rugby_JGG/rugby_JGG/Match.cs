@@ -30,7 +30,7 @@ namespace rugby_JGG
             {
                 for (int x = 4; x < 8; x++)
                 {
-                    _characterList.Add(new SpecialDefender("a", _teamA, 3, 1));
+                    _characterList.Add(new SpecialDefender("sp_defender" + x, _teamA, 3, 1));
                 }
             }
             
