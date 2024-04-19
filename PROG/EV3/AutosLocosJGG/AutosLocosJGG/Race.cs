@@ -147,7 +147,7 @@ namespace AutosLocosJGG
             //}
         }
 
-        public void VisitDrivers(IRace.VisitDriverDlegate<Driver> visit)//modificar
+        public void VisitDrivers(IRace.VisitDriverDelegate<Driver> visit)//modificar
         {
             if (visit == null)
                 return;

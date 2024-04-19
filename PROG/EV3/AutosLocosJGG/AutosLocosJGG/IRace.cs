@@ -9,7 +9,7 @@ namespace AutosLocosJGG
 {
     public interface IRace
     {
-        delegate void VisitDriverDlegate<T>(Driver driver);
+        delegate void VisitDriverDelegate<T>(Driver driver);
         delegate void VisitCarDelegate<T>(Car car);
         delegate void VisitObstacleDelegate<T>(Obstacle car);
         delegate void VisitObjectDelegate<T>(RaceObject car);
@@ -18,7 +18,7 @@ namespace AutosLocosJGG
         void AddObject(RaceObject obj, double position);
         void Init(double distance);
         void SimulateStep();
-        void VisitDrivers(VisitDriverDlegate<Driver> visit);
+        void VisitDrivers(VisitDriverDelegate<Driver> visit);
         void VisitCars(VisitCarDelegate<Car> visit);
         void VisitObstacles(VisitObstacleDelegate<Obstacle> visit);
         void VisitObjects(VisitObjectDelegate<RaceObject> visit);

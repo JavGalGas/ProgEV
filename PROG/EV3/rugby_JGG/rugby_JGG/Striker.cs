@@ -8,8 +8,13 @@ namespace rugby_JGG
 {
     public class Striker : Player
     {
-        public Striker(int x, int y) : base(x, y)
+        public Striker(string name) : base(name)
         {
+        }
+
+        public override void ExecuteTurn(Match match)
+        {
+            
         }
     }
 }

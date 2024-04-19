@@ -8,8 +8,13 @@ namespace rugby_JGG
 {
     public class SpecialDefender : Defender
     {
-        public SpecialDefender(int x, int y) : base(x, y)
+        public SpecialDefender(string name) : base(name)
         {
+        }
+
+        public override void ExecuteTurn(Match match)
+        {
+            
         }
     }
 }

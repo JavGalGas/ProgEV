@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace rugby_JGG
@@ -24,6 +25,13 @@ namespace rugby_JGG
 
             // Compara con la probabilidad deseada
             return randomNumber < probability;
+        }
+
+        public static (int, int) SetRandomPosition()//modificar
+        {
+            int x = Utils.GetRandomBetween(0, 10);
+            int y = Utils.GetRandomBetween(0, 20);
+            return (x, y);
         }
     }
 }

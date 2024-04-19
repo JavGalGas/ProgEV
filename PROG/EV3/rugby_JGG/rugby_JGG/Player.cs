@@ -6,26 +6,32 @@ using System.Threading.Tasks;
 
 namespace rugby_JGG
 {
-    public class Player : Character
+    public abstract class Player : Character
     {
-        private int _initX;
-        private int _initY;
+        protected (int, int) _initPosition;
+        private string _name;
         private Team? _team;
-        public bool hasBall;//seguir
+        private bool _hasBall;
 
-        public Player(int x, int y) : base(x, y)
+        public string Name => _name;
+        public int Init_X => _initPosition.Item1;
+        public int Init_Y => _initPosition.Item2;
+        public bool HasBall => _hasBall;
+        public Team? Team => _team;
+
+        public Player(string name)
         {      
-            
-        }
-
-        public override void ExecuteTurn()
-        {
-            throw new NotImplementedException();
+            _name = name;
         }
 
         public void SetTeam(Team team)
         {
             _team = team;
+        }
+
+        public virtual void SetInitPosition()
+        {
+            _initPosition = (_x,_y);
         }
     }
 }

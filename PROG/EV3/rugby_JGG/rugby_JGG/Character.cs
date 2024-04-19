@@ -8,14 +8,18 @@ namespace rugby_JGG
 {
     public abstract class Character
     {
-        private int _x;
-        private int _y;
+        protected int _x;
+        protected int _y;
 
-        public Character(int x, int y)
+        public Character()
         {
-            _x = x;
-            _y = y;
         }
-        public abstract void ExecuteTurn();
+        public abstract void ExecuteTurn(Match match);
+
+        public virtual void SetPosition((int,int) position)
+        {
+            _x = position.Item1;
+            _y = position.Item2;
+        }
     }
 }

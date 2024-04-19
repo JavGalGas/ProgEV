@@ -8,13 +8,10 @@ namespace rugby_JGG
 {
     public class Dementor : Character
     {
-        public Dementor(int x, int y) : base(x, y)
-        {
-        }
 
-        public override void ExecuteTurn()
+        public override void ExecuteTurn(Match match)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
