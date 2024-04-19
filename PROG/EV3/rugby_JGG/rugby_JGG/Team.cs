@@ -35,6 +35,9 @@ namespace rugby_JGG
             if (player == null)
                 return;
 
+            if(player.Team != this) 
+                return;
+
             int numStrikers = 0;
             int numDefenders = 0;
             int numSpecialDefenders = 0;
@@ -58,7 +61,6 @@ namespace rugby_JGG
                 numSpecialDefenders++;
             if (numStrikers <= 4 && numDefenders <= 4 && numSpecialDefenders <=2) 
             {
-                player.SetTeam(this);
                 for (int i = 0; i < _team.Length; i++)
                 {
                     if (_team[i] == null)

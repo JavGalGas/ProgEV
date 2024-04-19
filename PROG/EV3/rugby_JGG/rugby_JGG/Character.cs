@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace rugby_JGG
 {
-    public abstract class Character
+    public abstract class Character : GameObject
     {
         protected int _x;
         protected int _y;
 
-        public Character()
+        public Character(Position position) : base(position)
         {
         }
-        public abstract void ExecuteTurn(Match match);
+        public abstract void ExecuteTurn(IField field);
 
         public virtual void SetPosition((int,int) position)
         {

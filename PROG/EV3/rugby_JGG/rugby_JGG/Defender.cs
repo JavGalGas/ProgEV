@@ -8,18 +8,15 @@ namespace rugby_JGG
 {
     public class Defender : Player
     {
-        public Defender(string name) : base(name)
+        public Defender(string name, Team team, Position position) : base(name, team, position)
         {
         }
 
-        public override void ExecuteTurn(Match match)
+        public override void ExecuteTurn(IField field)
         {
             if(HasBall)
             {
-                match.VisitCharacters(defender =>
-                {
-                    
-                });
+                
             }
         }
     }

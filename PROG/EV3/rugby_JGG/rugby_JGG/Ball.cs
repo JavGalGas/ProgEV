@@ -8,15 +8,26 @@ namespace rugby_JGG
 {
     public class Ball
     {//comprobar su posicion en el random para que no coincida con un dementor
-        private int _x, _y;
+        private Position? _position;
 
-        public int X => _x;
-        public int Y => _y;
-
-        public void SetPosition((int,int) position)
+        public Ball(Position position)
         {
-            _x = position.Item1;
-            _y = position.Item2;
+            _position = position;
+        }
+
+        public Position? position => _position;
+
+        public void SetPosition(Position position)
+        {
+            _position = position;/*cambiar*/
+            if (_position == null)
+            {
+                _position = new Position()
+                {
+                    X = 0,
+                    Y = 0
+                };
+            }     
         }
     }
 }
