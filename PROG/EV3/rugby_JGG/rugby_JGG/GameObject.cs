@@ -9,7 +9,7 @@ namespace rugby_JGG
     public class GameObject
     {
         private Position _position;
-        public Position position => _position;
+        public Position Position => _position;
 
 
         public GameObject(Position position)

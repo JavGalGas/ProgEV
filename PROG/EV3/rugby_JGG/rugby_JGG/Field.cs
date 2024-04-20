@@ -14,6 +14,8 @@ namespace rugby_JGG
         void AddCharacter(Character character);
         Character? GetCharacterAt(int x, int y);
         Ball GetBall();
+
+        void SetBall();
         List<Position> GetAvailableSpaces();
         bool IsAvailable(Position position)
         {
@@ -21,7 +23,7 @@ namespace rugby_JGG
         }
     }
 
-    public class FieldBasadoEnArray : IField
+    public class FieldBasedOnList : IField
     {
         private Ball _ball = new(new Position());
         private List<Character> _characters = new List<Character>();
@@ -29,7 +31,7 @@ namespace rugby_JGG
         {
             if (character==null) 
                 throw new Exception("Character is null.");
-            if (!((IField)this).IsAvailable(character.position!))
+            if (!((IField)this).IsAvailable(character.Position!))
                 throw new Exception("Character with invalid position");
             if (Contains(character))
                 throw new Exception("The character already exists");
@@ -53,13 +55,42 @@ namespace rugby_JGG
 
         public Ball GetBall()
         {
-            throw new NotImplementedException();
+            return _ball;
+        }
+
+        public void SetBall()
+        {
+            List <Position> list = GetAvailableSpaces2();
+            var index = Utils.GetRandomBetween(0, list.Count - 1);
+            var positions = list[index];
+            _ball.SetPosition(positions);
+        }
+
+        public List<Position> GetAvailableSpaces2()
+        {
+            List<Position> result = new();
+            for (int x = 0; x < IField.WIDTH; x++)
+            {
+                for (int y = 0; y < IField.HEIGHT; y++)
+                {
+                    if (IsAvailable(x, y))
+                        result.Add(new Position(x, y));
+                    Character? character = GetCharacterAt(x, y);
+                    if(character != null)
+                    {
+                        if (character.GetCharacterType() == CharacterType.DEMENTOR)
+                            continue;
+                        result.Add(new Position(x, y));
+                    }
+                }
+            }
+            return result;
         }
 
         public Character? GetCharacterAt(int x, int y)
         {
             foreach (var p in _characters)
-                if (p.position.X == x && p.position.Y == y)
+                if (p.Position.X == x && p.Position.Y == y)
                     return p;
             return null;
         }
@@ -80,15 +111,17 @@ namespace rugby_JGG
 
         public bool IsAvailable(int x, int y)
         {
-            if (x < 0 || x >= 10)
+            if (x < 0 || x >= IField.WIDTH)
                 return false;
-            if (y < 0 || y >= 20)
+            if (y < 0 || y >= IField.HEIGHT)
                 return false;
             return GetCharacterAt(x, y) == null;
         }
+
+        
     }
 
-    //public class FieldBasadoEnListaDeCosas : IField
+    //public class FieldBasedOnArray : IField
     //{
     //    public void AddCharacter(Character character)
     //    {

@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace rugby_JGG
 {
+    public enum CharacterType
+    {
+        STRIKER,
+        DEFENDER,
+        SP_DEFENDER,
+        DEMENTOR
+    }
     public abstract class Character : GameObject
     {
         protected int _x;
@@ -15,7 +22,7 @@ namespace rugby_JGG
         {
         }
         public abstract void ExecuteTurn(IField field);
-
+        public abstract CharacterType GetCharacterType();
         public virtual void SetPosition((int,int) position)
         {
             _x = position.Item1;

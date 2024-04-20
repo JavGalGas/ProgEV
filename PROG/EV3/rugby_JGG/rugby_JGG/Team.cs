@@ -6,24 +6,18 @@ using System.Threading.Tasks;
 
 namespace rugby_JGG
 {
-    /*public enum TeamType
-    {
-        RED,
-        BLUE
-    }*/
     public delegate void VisitTeamDelegate<T>(Player player);
     public class Team
     {
         private string _name;
         private Player[] _team = new Player[10];
         private int _points = 0;
-        /*public TeamType type;*/
 
-        public Team(string name/*, TeamType type*/)
+        public int Points => _points;
+
+        public Team(string name)
         {
             _name = name;
-            /*this.type = type;*/
-
         }
         public void SetPoints(int points)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,32 +10,54 @@ namespace rugby_JGG
     public delegate void VisitCharacterDelegate<T>(Character character);
     public class Match
     {
-        private IField _field = new FieldBasadoEnArray();
+        private IField _field = new FieldBasedOnList();
         private List<Character> _characterList = new List<Character>();
         private Team _teamA = new Team("A");
-        private Team _teamB = new Team("B");
+        private Team _teamB = new Team("B");  
+        private string _winner = "";//guardar o no ??????????
 
-
-        private (int, int) _matchArea = (10, 20);
-        private Ball? ball;
-        
-        private string _winner = "";
-
-        public int MatchX => _matchArea.Item1;
-        public int MatchY => _matchArea.Item2;
 
         private void GenerateCharacters()//revisar
-        {
-            _characterList.Add(new SpecialDefender("a", _teamA, 3, 1));
+        {   
             for (int y = 0; y <= 19; y+= 19)
             {
-                for (int x = 4; x < 8; x++)
+                Team team;
+                if (y == 0)
+                    team = _teamA;
+                else
+                    team = _teamB;
+
+                for (int x = 3; x < 7; x++)
                 {
-                    _characterList.Add(new SpecialDefender("sp_defender" + x, _teamA, 3, 1));
+                    _characterList.Add(new Defender("defender" + x, team, x, y));
                 }
             }
-            
+            for (int y = 1; y <= 18; y += 18)
+            {
+                Team team;
+                if (y == 1)
+                    team = _teamA;
+                else
+                    team = _teamB;
 
+                for (int x = 3; x < 7; x++)
+                {
+                    _characterList.Add(new Striker("striker" + x, team, x, y));
+                }
+            }
+            for (int y = 0; y <= 19; y += 19)
+            {
+                Team team;
+                if (y == 0)
+                    team = _teamA;
+                else
+                    team = _teamB;
+
+                for (int x = 2; x < 8; x+=5)
+                {
+                    _characterList.Add(new SpecialDefender("sp_defender" + x, team, x, y));
+                }
+            }
 
             var list = _field.GetAvailableSpaces();
             for (int i= 0; i < 4; i++)
@@ -45,52 +68,111 @@ namespace rugby_JGG
                 _field.AddCharacter(dementor);
                 list.RemoveAt(index);
             }
-
         }
         private void AddCharactersToField()
         {
             VisitCharacters(ch =>_field.AddCharacter(ch));
         }
 
-        
+        private bool HasScore(Character ch, ref Team? GoalTeam, ref int points)
+        {
+            GoalTeam = null;
+            if (ch.GetCharacterType() == CharacterType.STRIKER)
+            {
+                Striker newCh = (Striker)ch;
+                HasScoreInternalCheck(newCh, ref points, ref GoalTeam);
+            }
+            if (ch.GetCharacterType() == CharacterType.DEFENDER)
+            {
+                Defender newCh = (Defender)ch;
+                HasScoreInternalCheck(newCh, ref points, ref GoalTeam);
+            }
+            if (ch.GetCharacterType() == CharacterType.SP_DEFENDER)
+            {
+                SpecialDefender newCh = (SpecialDefender)ch;
+                HasScoreInternalCheck(newCh, ref points, ref GoalTeam);
+            }
+            return false;
+        }
+
+        private bool HasScoreInternalCheck(Player newCh, ref int points, ref Team? GoalTeam)
+        {
+            if (newCh.HasBall)
+            {
+                points = 3;
+                if (newCh.GetCharacterType() == CharacterType.STRIKER)
+                    points = 10;
+                if (newCh.Position.Y == 19 && newCh.Team == _teamA)
+                {
+                    GoalTeam = _teamA;
+                    return true;
+                }
+                if (newCh.Position.Y == 0 && newCh.Team == _teamB)
+                {
+                    GoalTeam = _teamB;
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
 
         public void Start()
         {
             GenerateCharacters();
+            _field.SetBall();
             AddCharactersToField();
         }
         public void Execute()
         {
-            bool goal = false;
-            if (ball == null)
-                return;
+            Team? goalTeam = null;
+            int points = 0;
+            
             for (int round = 0; round < 1000; round++)
             {
                 VisitCharacters(character =>
                 {
-                    _characterList[round].ExecuteTurn(_field);
+                    character.ExecuteTurn(_field);
                 });
-                if (goal/*Han marcado gol o comienza el partido*/)
+                foreach (var charac in _characterList)
                 {
-                    //sumar gol al equipo correspondiente
-                    //reiniciar posicion jugadores
-
-                    VisitCharacters(characters =>
+                    if(HasScore(charac, ref goalTeam, ref points))
                     {
-                        if (characters.GetType() == typeof(Striker) || characters.GetType() == typeof(Defender) || characters.GetType() == typeof(SpecialDefender))
-                        {
-                            characters.SetPosition((0, 0));
-                        }
-                        if (characters.GetType() == typeof(Dementor)) 
-                        {
-                            characters.SetPosition(SetRandomPosition());
-                        }
-                    });
-                    goal = false;
+                        goalTeam!.SetPoints(points);
+                        //if(goalTeam == _teamA)
+                        //{
+                        //    _teamA.SetPoints(points);
+                        //}
+                        //if (goalTeam == _teamB)
+                        //{
+                        //    _teamB.SetPoints(points);
+
+                        //}
+
+                        //sumar gol al equipo correspondiente
+                        //reiniciar posicion jugadores
+                        _field = new FieldBasedOnList();
+                        Start();
+                        break;
+                    }
                 }
-                
-                    /*...*/
             }
+            SetWinner(ref _winner);
+            Console.WriteLine(_winner);
+        }
+
+        private void SetWinner(ref string _winner)
+        {
+            _winner = "The winner is : ";
+            if(_teamA.Points < _teamB.Points)
+                _winner+= "Team A";
+            else if(_teamA.Points > _teamB.Points)
+                _winner = "Team B";
+            else
+            {
+                _winner = "Draw";
+            }
+            
         }
 
         public void VisitCharacters(VisitCharacterDelegate<Character> visitor)
@@ -101,11 +183,5 @@ namespace rugby_JGG
                 visitor(character);
         }
 
-        private (int,int) SetRandomPosition()
-        {
-            int x = Utils.GetRandomBetween(0, MatchX);
-            int y = Utils.GetRandomBetween(0, MatchY);
-            return (x, y);
-        }
     }
 }

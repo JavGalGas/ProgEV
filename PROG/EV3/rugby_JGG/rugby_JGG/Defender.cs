@@ -12,12 +12,25 @@ namespace rugby_JGG
         {
         }
 
+        public Defender(string name, Team team, int x, int y) : this(name, team, new Position(x, y))
+        {
+        }
+
         public override void ExecuteTurn(IField field)
         {
             if(HasBall)
             {
                 
             }
+            else
+            {
+
+            }
+        }
+
+        public override CharacterType GetCharacterType()
+        {
+            return CharacterType.DEFENDER;
         }
     }
 }

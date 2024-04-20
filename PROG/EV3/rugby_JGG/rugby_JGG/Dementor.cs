@@ -16,5 +16,10 @@ namespace rugby_JGG
         {
             
         }
+
+        public override CharacterType GetCharacterType()
+        {
+            return CharacterType.DEMENTOR;
+        }
     }
 }
