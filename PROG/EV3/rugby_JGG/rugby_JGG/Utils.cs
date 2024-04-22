@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -27,11 +28,41 @@ namespace rugby_JGG
             return randomNumber < probability;
         }
 
-        public static (int, int) SetRandomPosition()//modificar
+        public static Position SetRandomPosition()//modificar
         {
             int x = Utils.GetRandomBetween(0, 10);
             int y = Utils.GetRandomBetween(0, 20);
-            return (x, y);
+            return new(x, y);
+        }
+
+        public static void ConfigureDefender(Defender defender, int index)
+        {
+            var dir = defender.Team.teamDirection;
+            int y = 0;
+            if (dir == TeamDirection.HACIA_ARRIBA)
+                y = 19;
+             defender.SetPosition(new(index,y));
+        }
+
+        public static void ConfigureStriker(Striker striker, int index)
+        {
+            var dir = striker.Team.teamDirection;
+            int y = 1;
+            if (dir == TeamDirection.HACIA_ARRIBA)
+                y = 18;
+            striker.SetPosition(new(index, y));
+        }
+
+        public static void ConfigureSpecialDefender(SpecialDefender specialDefender, int index)//modificar
+        {
+            var dir = specialDefender.Team.teamDirection;
+            int y = 0;
+            if (dir == TeamDirection.HACIA_ARRIBA)
+                y = 19;
+            if (index == 0)
+            {
+                specialDefender.SetPosition(new(0, y));
+            }
         }
     }
 }

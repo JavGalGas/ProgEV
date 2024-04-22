@@ -7,17 +7,26 @@ using System.Threading.Tasks;
 namespace rugby_JGG
 {
     public delegate void VisitTeamDelegate<T>(Player player);
+
+    public enum TeamDirection
+    {
+        HACIA_ARRIBA = -1,
+        HACIA_ABAJO = 1
+    }
+
     public class Team
     {
         private string _name;
         private Player[] _team = new Player[10];
         private int _points = 0;
+        public TeamDirection teamDirection;
 
         public int Points => _points;
 
-        public Team(string name)
+        public Team(string name, TeamDirection direction)
         {
             _name = name;
+            teamDirection = direction;
         }
         public void SetPoints(int points)
         {

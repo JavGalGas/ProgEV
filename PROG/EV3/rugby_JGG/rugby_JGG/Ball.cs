@@ -6,28 +6,15 @@ using System.Threading.Tasks;
 
 namespace rugby_JGG
 {
-    public class Ball
-    {//comprobar su posicion en el random para que no coincida con un dementor
-        private Position _position;
+    public class Ball : GameObject
+    {//comprobar su posicion en el random para que no coincida con un demento
 
-        public Ball(Position position)
+        public Player? HasBallPlayer;
+
+        public Ball(Position position) : base(position)
         {
-            _position = position;
         }
 
-        public Position position => _position;
-
-        public void SetPosition(Position position)
-        {
-            _position = position;/*cambiar*/
-            if (_position == null)
-            {
-                _position = new Position()
-                {
-                    X = 0,
-                    Y = 0
-                };
-            }     
-        }
+        public Position GetPosition() => (HasBallPlayer != null) ? HasBallPlayer.Position : Position;
     }
 }

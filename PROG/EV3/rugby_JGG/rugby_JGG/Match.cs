@@ -74,47 +74,75 @@ namespace rugby_JGG
             VisitCharacters(ch =>_field.AddCharacter(ch));
         }
 
-        private bool HasScore(Character ch, ref Team? GoalTeam, ref int points)
+        private void RestartPosition(Team team)
         {
-            GoalTeam = null;
-            if (ch.GetCharacterType() == CharacterType.STRIKER)
+            var list = GetCharactersFromATeam(team);
+            int sp_defenderIndex = 3;
+            int defenderIndex = 3;
+            int strikerIndex = 3;
+            foreach (var player in list)
             {
-                Striker newCh = (Striker)ch;
-                HasScoreInternalCheck(newCh, ref points, ref GoalTeam);
+                if (player is SpecialDefender sd)
+                {
+                    Utils.ConfigureSpecialDefender(sd, sp_defenderIndex++);
+                }
+                if (player is Defender d)
+                {
+                    Utils.ConfigureDefender(d,defenderIndex++);
+                }
+                if (player is Striker s)
+                {
+                    Utils.ConfigureStriker(s, strikerIndex++);
+                }
             }
-            if (ch.GetCharacterType() == CharacterType.DEFENDER)
-            {
-                Defender newCh = (Defender)ch;
-                HasScoreInternalCheck(newCh, ref points, ref GoalTeam);
-            }
-            if (ch.GetCharacterType() == CharacterType.SP_DEFENDER)
-            {
-                SpecialDefender newCh = (SpecialDefender)ch;
-                HasScoreInternalCheck(newCh, ref points, ref GoalTeam);
-            }
-            return false;
         }
 
-        private bool HasScoreInternalCheck(Player newCh, ref int points, ref Team? GoalTeam)
+        private void RestartPosition()
         {
-            if (newCh.HasBall)
+            RestartPosition(_teamA);
+            RestartPosition(_teamB);
+        }
+
+        private List<Character> GetCharactersFromATeam(Team team)
+        {
+            var ret = new List<Character>();
+            foreach(var character in _characterList)
+                if (character is Player p && p.Team == team)
+                    ret.Add(character);
+
+            return ret;
+        }
+
+        private Player? GetScorePlayer()
+        {
+            Ball b = _field.GetBall();
+            foreach (var character in _characterList)
             {
-                points = 3;
-                if (newCh.GetCharacterType() == CharacterType.STRIKER)
-                    points = 10;
-                if (newCh.Position.Y == 19 && newCh.Team == _teamA)
-                {
-                    GoalTeam = _teamA;
-                    return true;
-                }
-                if (newCh.Position.Y == 0 && newCh.Team == _teamB)
-                {
-                    GoalTeam = _teamB;
-                    return true;
-                }
-                return false;
+                if (character is Player jugador)
+                    if (jugador.HasScore(b))
+                        return jugador;
             }
-            return false;
+            return null;
+        }
+
+        private bool IsGoal()
+        {
+            return GetScorePlayer() != null;
+        }
+
+        private void SetPointsToTeam()
+        {
+            Player? player = GetScorePlayer();
+            if (player == null)
+                return;
+            if (player is SpecialDefender)
+                player.Team.SetPoints(1);
+            else if (player is Defender)
+                player.Team.SetPoints(3);
+            else if (player is Striker)
+                player.Team.SetPoints(10);
+            else
+                player.Team.SetPoints(0);
         }
 
         public void Start()
@@ -124,10 +152,7 @@ namespace rugby_JGG
             AddCharactersToField();
         }
         public void Execute()
-        {
-            Team? goalTeam = null;
-            int points = 0;
-            
+        {            
             for (int round = 0; round < 1000; round++)
             {
                 VisitCharacters(character =>
@@ -136,20 +161,9 @@ namespace rugby_JGG
                 });
                 foreach (var charac in _characterList)
                 {
-                    if(HasScore(charac, ref goalTeam, ref points))
+                    if(IsGoal())
                     {
-                        goalTeam!.SetPoints(points);
-                        //if(goalTeam == _teamA)
-                        //{
-                        //    _teamA.SetPoints(points);
-                        //}
-                        //if (goalTeam == _teamB)
-                        //{
-                        //    _teamB.SetPoints(points);
-
-                        //}
-
-                        //sumar gol al equipo correspondiente
+                        SetPointsToTeam();
                         //reiniciar posicion jugadores
                         _field = new FieldBasedOnList();
                         Start();

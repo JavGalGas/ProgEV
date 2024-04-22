@@ -15,18 +15,15 @@ namespace rugby_JGG
     }
     public abstract class Character : GameObject
     {
-        protected int _x;
-        protected int _y;
 
         public Character(Position position) : base(position)
         {
         }
         public abstract void ExecuteTurn(IField field);
         public abstract CharacterType GetCharacterType();
-        public virtual void SetPosition((int,int) position)
+        public virtual void SetPosition(Position position)// revisar
         {
-            _x = position.Item1;
-            _y = position.Item2;
+            base.Position = position;
         }
     }
 }

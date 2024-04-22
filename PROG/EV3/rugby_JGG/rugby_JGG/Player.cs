@@ -20,11 +20,27 @@ namespace rugby_JGG
         public bool HasBall => _hasBall;
         public Team Team => _team;
 
+        public TeamDirection teamDirection => _team.teamDirection;
+
         public Player(string name, Team team, Position position) : base(position)
         {      
             _name = name;
             _team = team;
             _initPosition = position;
+        }
+
+        public bool HasScore(Ball ball)
+        {
+            bool hasBall = ball.HasBallPlayer == this;
+
+            if (hasBall)
+            {
+                if (_team.teamDirection == TeamDirection.HACIA_ARRIBA)
+                    return Position.Y == 0;
+                else
+                    return Position.Y == IField.HEIGHT - 1;
+            }
+            return false;
         }
 
     }
