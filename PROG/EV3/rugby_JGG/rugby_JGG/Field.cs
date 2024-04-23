@@ -13,6 +13,8 @@ namespace rugby_JGG
         bool IsAvailable(int x, int y);
         void AddCharacter(Character character);
         Character? GetCharacterAt(int x, int y);
+
+        
         Ball GetBall();
 
         void SetBall();
@@ -20,6 +22,10 @@ namespace rugby_JGG
         bool IsAvailable(Position position)
         {
             return position==null ? false : IsAvailable(position.X,position.Y);
+        }
+        Character? GetCharacterAt(Position position)
+        {
+            return GetCharacterAt(position.X,position.Y);
         }
     }
 
