@@ -21,7 +21,7 @@ namespace rugby_JGG
         List<Position> GetAvailableSpaces();
         bool IsAvailable(Position position)
         {
-            return position==null ? false : IsAvailable(position.X,position.Y);
+            return position is null ? false : IsAvailable(position.X,position.Y);
         }
         Character? GetCharacterAt(Position position)
         {
@@ -69,7 +69,8 @@ namespace rugby_JGG
             List <Position> list = GetAvailableSpaces2();
             var index = Utils.GetRandomBetween(0, list.Count - 1);
             var positions = list[index];
-            _ball.SetPosition(positions);
+            _ball.Position!.X = positions.X;
+            _ball.Position.Y = positions.Y;
         }
 
         public List<Position> GetAvailableSpaces2()
@@ -96,7 +97,7 @@ namespace rugby_JGG
         public Character? GetCharacterAt(int x, int y)
         {
             foreach (var p in _characters)
-                if (p.Position.X == x && p.Position.Y == y)
+                if (p.Position!.X == x && p.Position.Y == y)
                     return p;
             return null;
         }

@@ -27,12 +27,12 @@ namespace rugby_JGG
         public static bool IsBallAtReach(Player player, IField field)
         {
 
-            var casillas = GetPositionsAtDistance(player.Position, 1);
+            var casillas = GetPositionsAtDistance(player.Position!, 1);
             casillas = Filter(casillas, field);
             var posicionPelota = field.GetBall().Position;
             foreach (var casilla in casillas)
             {
-                if (casilla == posicionPelota) return true;
+                if (casilla == posicionPelota!) return true;
             }
             return false;
         }

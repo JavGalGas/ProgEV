@@ -37,5 +37,15 @@ namespace rugby_JGG
         {
             return a.X != b.X || a.Y != b.Y;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

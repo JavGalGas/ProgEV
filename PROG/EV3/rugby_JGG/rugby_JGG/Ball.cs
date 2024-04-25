@@ -15,6 +15,6 @@ namespace rugby_JGG
         {
         }
 
-        public Position GetPosition() => (HasBallPlayer != null) ? HasBallPlayer.Position : Position;
+        public Position? GetPosition() => (HasBallPlayer != null) ? HasBallPlayer.Position : Position;
     }
 }

@@ -36,9 +36,9 @@ namespace rugby_JGG
             if (hasBall)
             {
                 if (_team.teamDirection == TeamDirection.HACIA_ARRIBA)
-                    return Position.Y == 0;
+                    return Position!.Y == 0;
                 else
-                    return Position.Y == IField.HEIGHT - 1;
+                    return Position!.Y == IField.HEIGHT - 1;
             }
             return false;
         }

@@ -12,8 +12,8 @@ namespace rugby_JGG
     {
         private IField _field = new FieldBasedOnList();
         private List<Character> _characterList = new List<Character>();
-        private Team _teamA = new Team("A");
-        private Team _teamB = new Team("B");  
+        private Team _teamA = new Team("A", TeamDirection.HACIA_ARRIBA);
+        private Team _teamB = new Team("B", TeamDirection.HACIA_ABAJO);  
         private string _winner = "";//guardar o no ??????????
 
 
@@ -29,7 +29,7 @@ namespace rugby_JGG
 
                 for (int x = 3; x < 7; x++)
                 {
-                    _characterList.Add(new Defender("defender" + x, team, x, y));
+                    _characterList.Add(new Defender("defender" + x, team, new(x, y), Utils.GetRandomBetweenReal(0.4,0.6)));
                 }
             }
             for (int y = 1; y <= 18; y += 18)
@@ -42,7 +42,7 @@ namespace rugby_JGG
 
                 for (int x = 3; x < 7; x++)
                 {
-                    _characterList.Add(new Striker("striker" + x, team, x, y));
+                    _characterList.Add(new Striker("striker" + x, team, new(x, y), Utils.GetRandomBetweenReal(0.4, 0.6)));
                 }
             }
             for (int y = 0; y <= 19; y += 19)
@@ -55,7 +55,7 @@ namespace rugby_JGG
 
                 for (int x = 2; x < 8; x+=5)
                 {
-                    _characterList.Add(new SpecialDefender("sp_defender" + x, team, x, y));
+                    _characterList.Add(new SpecialDefender("sp_defender" + x, team, new(x, y), Utils.GetRandomBetweenReal(0.4, 0.6)));
                 }
             }
 

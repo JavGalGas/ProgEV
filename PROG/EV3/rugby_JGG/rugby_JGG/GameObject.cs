@@ -8,21 +8,21 @@ namespace rugby_JGG
 {
     public class GameObject
     {
-        private Position _position;
-        public Position Position => _position;
+        private Position? _position;
+        public Position? Position => _position;
 
 
-        public GameObject(Position position)
+        public GameObject(Position? position)
         {
             _position = position;
-            if (_position == null)
+            if (_position is null)
             {
                 _position = new Position()
                 {
                     X = 0,
                     Y = 0
                 };
-            }
+            }      
         }
     }
 }

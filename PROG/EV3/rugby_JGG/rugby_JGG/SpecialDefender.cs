@@ -8,11 +8,11 @@ namespace rugby_JGG
 {
     public class SpecialDefender : Defender
     {
-        public SpecialDefender(string name, Team team, Position position) : base(name, team, position)
+        public SpecialDefender(string name, Team team, Position position, double abilityToStealBall) : base(name, team, position, abilityToStealBall)
         {
         }
 
-        public SpecialDefender(string name, Team team, int x, int y) : this(name, team, new Position(x,y))
+        public SpecialDefender(string name, Team team, int x, int y, double abilityToStealBall) : this(name, team, new Position(x,y), abilityToStealBall)
         {
         }
 

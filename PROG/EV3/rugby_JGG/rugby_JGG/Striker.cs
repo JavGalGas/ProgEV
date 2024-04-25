@@ -9,17 +9,23 @@ namespace rugby_JGG
 {
     public class Striker : Player
     {
-        public Striker(string name, Team team, Position position) : base(name, team, position)
+        private double _abilityToStealBall;
+        public Striker(string name, Team team, Position position, double abilityToStealBall) : base(name, team, position)
         {
+            _abilityToStealBall = abilityToStealBall;
+            if (abilityToStealBall < 0.4)
+                _abilityToStealBall = 0.4;
+            if (abilityToStealBall > 0.6)
+                _abilityToStealBall = 0.6;
         }
 
-        public Striker(string name, Team team, int x, int y) : this(name, team, new Position(x, y))
+        public Striker(string name, Team team, int x, int y, double abilityToStealBall) : this(name, team, new Position(x, y), abilityToStealBall)
         {
         }
 
         public override void ExecuteTurn(IField field)
         {
-            if(field.GetBall().position == Position)
+            if(field.GetBall().Position! == Position!)
                 _hasBall = true;
         }
 
