@@ -43,7 +43,7 @@ namespace ndupcopy
             {
                 for (int j = i+1; j < filePaths.Count; j++)
                 {
-                    if (filePaths[i].IsDuplicate! && filePaths[j].IsDuplicate!)
+                    if (!filePaths[i].IsDuplicate && !filePaths[j].IsDuplicate!)
                     {
                         FileComparison(filePaths[i], filePaths[j]);
                     }
@@ -51,7 +51,7 @@ namespace ndupcopy
             }
             foreach (FilePath f in filePaths)
             {
-                if(f.IsDuplicate!)
+                if(!f.IsDuplicate!)
                     Utils.CopyFileFromTo(f.Path, exitPath);
             }
         }
@@ -70,17 +70,20 @@ namespace ndupcopy
 
                     using (FileStream fs1 = new FileStream(filePath1, FileMode.Open))
                     using (FileStream fs2 = new FileStream(filePath2, FileMode.Open))
-                    {
-
-
-                        //  H   A   S   H   //
-
-
-
-                        if (fs1.Length != fs2.Length)
-                            return; // Los archivos son diferentes en tamaño
-
-                        if (BufferComparison(fs1, fs2, buffer1, buffer2, bufferSize))
+                    {                     
+                        if (file1.hash != file2.hash)
+                        {
+                            file2.IsDuplicate = true;
+                        }
+                        else if (file1.hash2 != file2.hash2)
+                        {
+                            file2.IsDuplicate = true;
+                        }
+                        else if (fs1.Length != fs2.Length)
+                        {
+                            file2.IsDuplicate = true;
+                        }
+                        else if (BufferComparison(fs1, fs2, buffer1, buffer2, bufferSize))
                         {
                             file2.IsDuplicate = true;
                         }
@@ -95,7 +98,6 @@ namespace ndupcopy
             {
                 Console.WriteLine(e.Message);
             }
-            
         }
 
         public static bool BufferComparison(FileStream fs1, FileStream fs2, byte[] buffer1, byte[] buffer2, int bufferSize)

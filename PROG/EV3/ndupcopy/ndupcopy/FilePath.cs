@@ -1,10 +1,13 @@
-﻿namespace ndupcopy
+﻿using System.Security.Cryptography;
+
+namespace ndupcopy
 {
-    public class FilePath : IDisposable
+    public class FilePath
     {
         private string _path;
         public bool IsDuplicate;
-
+        public string hash => CalculateHash();
+        public int hash2 => GetHashCode();
         public string Path => _path;
 
         public FilePath(string path)
@@ -13,9 +16,16 @@
             IsDuplicate = false;
         }
 
-        public void Dispose()
+        public string CalculateHash()
         {
-            throw new NotImplementedException();
+            using (var stream = File.OpenRead(_path))
+            {
+                var sha = SHA256.Create();
+                byte[] checksum = sha.ComputeHash(stream);
+                return BitConverter.ToString(checksum).Replace("-", String.Empty);
+            }
         }
+
+
     }
 }

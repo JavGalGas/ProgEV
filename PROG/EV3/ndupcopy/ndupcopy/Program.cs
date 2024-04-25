@@ -23,9 +23,9 @@ namespace ndupcopy
             //comprobar carpeta de salida 
 
             //Formas de meter datos:
-                //strings
-                //Environment
-                //.txt
+            //strings
+            //Environment
+            //.txt
 
             //string rutaDelArchivoConLosPath = args[0];
             //try
