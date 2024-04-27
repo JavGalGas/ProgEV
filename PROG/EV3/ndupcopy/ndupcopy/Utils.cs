@@ -44,13 +44,17 @@ namespace ndupcopy
                 Console.WriteLine($"Error: {e.Message}");
             }
         }
-        public static bool CheckExtension(string extension)
+        private static bool CheckExtension(string extension)
         {
-            if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif" || extension == ".bmp")//img
-            { 
-                return true; 
-            }
-            return (extension == ".mp3" || extension == ".mp4" || extension == ".mov" || extension == ".wmv" || extension == ".wav" || extension == ".avi");//video
+            List<string> extensions = new List<string>()
+            {
+                //img
+                ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff", ".heif", ".svg",
+
+                //vídeo
+                ".mp3", ".mp4", ".mov", ".wmv", ".wav", ".avi", ".mkv", ".flv", ".mpeg", ".3gp"
+            };
+            return extensions.Contains(extension.ToLower());
         }
     }
 

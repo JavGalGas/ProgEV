@@ -5,27 +5,27 @@ namespace ndupcopy
     public class FilePath
     {
         private string _path;
-        public bool IsDuplicate;
-        public string hash => CalculateHash();
-        public int hash2 => GetHashCode();
-        public string Path => _path;
+        public bool unique;
+
+        public string Base64Hash => CalculateHash();
+        public int IntHash => _path.GetHashCode();
+        public string File_path => _path;
 
         public FilePath(string path)
         {
             _path = path;
-            IsDuplicate = false;
+            unique = true;
         }
 
-        public string CalculateHash()
+        private string CalculateHash()
         {
+            using (SHA256 sha = SHA256.Create())
             using (var stream = File.OpenRead(_path))
             {
-                var sha = SHA256.Create();
-                byte[] checksum = sha.ComputeHash(stream);
-                return BitConverter.ToString(checksum).Replace("-", String.Empty);
-            }
+                byte[] hash = sha.ComputeHash(stream);
+                return Convert.ToBase64String(hash);
+            }            
         }
-
 
     }
 }

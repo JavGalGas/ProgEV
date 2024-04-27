@@ -58,18 +58,28 @@ namespace ndupcopy
 
             //SI: docker y kubernetes
 
-            List<string> entryRoutes = args.Take(args.Length - 1).ToList();
-            string exitRoute = args[args.Length - 1];
+            ///////////////////////////////////////////////////////////////
+            ///
 
-            for (int i = 0; i < entryRoutes.Count; i++)
-            {
-                entryRoutes[i] = Path.GetFullPath(entryRoutes[i]);
-            }
+            //List<string> entryRoutes = args.Take(args.Length - 1).ToList();
+            //string exitRoute = args[args.Length - 1];
 
-            foreach (string route in entryRoutes)
-            {
-                Console.WriteLine(route);
-            }
+            //for (int i = 0; i < entryRoutes.Count; i++)
+            //{
+            //    entryRoutes[i] = Path.GetFullPath(entryRoutes[i]);
+            //}
+
+            //foreach (string route in entryRoutes)
+            //{
+            //    Console.WriteLine(route);
+            //}
+
+            DuplicateCleaner.RunProgram(args);
+
+            //ndupcopy.exe -i C:\Users\javie\.... -i C:\jdsnvds... -o C:\.....
+
+            //////////////////////////////////////////////////////////////
+            ///
 
             //RemoveDuplicates(args);
 
@@ -80,6 +90,12 @@ namespace ndupcopy
 
             //ChangeNameImage.CopyImageFile(filePath);
 
+
+            //string path = @"C:\Users\javie\Desktop\aval2.txt";
+            //string path2 = @"C:\Users\javie\Desktop\PruebasPROG\aval2.txt";
+            //FilePath p = new FilePath(path);
+            //FilePath p2 = new FilePath(path2);
+            //Console.WriteLine(p.Base64Hash == p2.Base64Hash);
         }
     }
 }
