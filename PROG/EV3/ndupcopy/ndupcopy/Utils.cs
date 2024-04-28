@@ -1,37 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ndupcopy
 {
-    public class Utils
+    public static class Utils
     {
-        public static void CopyFileFromTo(string origin, string destiny) // perfilar con la página web guardada en Marcadores
+        public static List<string> Directories = new List<string>();
+        public static void CopyFileFromTo(string origin, string destiny) // comprobar los directorios que se le pasa por args
         {
             try
             {
                 if (File.Exists(origin))
                 {
                     string extension = Path.GetExtension(origin).ToLower();
+                    //string fullPath = Path.GetFullPath(origin);
+
+                    //crea la estructura de carpetas
+                    CreateDirectoryStructure(origin, ref destiny);
 
                     // Verifica si el archivo es una imagen o un video
                     if (CheckExtension(extension))
                     {
+                        //string? directory = Path.GetDirectoryName(origin);
                         string fileName = Path.GetFileNameWithoutExtension(origin);
                         DateTime creationTime = File.GetCreationTime(origin);
                         string newFileName = $"{creationTime:yyyy-MM-dd-HH-mm-ss}_{fileName}{extension}";
-
+                        string newFilePath = Path.Combine(destiny, newFileName);
                         // Realiza una copia de la imagen
-                        File.Copy(origin, destiny);
-
-                        Console.WriteLine($"Se ha creado una copia de la imagen en: {destiny}");
+                        File.Copy(origin, newFilePath);
+                        Console.WriteLine($"Se ha creado una copia de la imagen o vídeo en: {newFilePath}");
                     }
                     else
                     {
-                        File.Copy(origin, destiny);
-                        Console.WriteLine($"Se ha creado una copia de la imagen en: {destiny}");
+                        //string? directory = Path.GetDirectoryName(origin);
+                        string fileName = Path.GetFileName(origin);
+                        string newFilePath = Path.Combine(destiny, fileName);
+                        // Realiza una copia de la imagen
+                        File.Copy(origin, newFilePath);
+
+                        Console.WriteLine($"Se ha creado una copia del archivo en: {newFilePath}");
                     }
                 }
                 else
@@ -54,7 +65,56 @@ namespace ndupcopy
                 //vídeo
                 ".mp3", ".mp4", ".mov", ".wmv", ".wav", ".avi", ".mkv", ".flv", ".mpeg", ".3gp"
             };
-            return extensions.Contains(extension.ToLower());
+            return extensions.Contains(extension);
+        }
+
+        private static void CreateDirectoryStructure(string origin, ref string destiny)
+        {
+            try
+            {
+                foreach (var directory in Directories)
+                {
+                    if (BelongsToDirectory(origin, directory))
+                    {
+                        string directoryStructure = Path.GetDirectoryName(GetRelativePath(origin, directory))!;
+                        CreateFolderStructureFromRelative(destiny, directoryStructure);
+                        destiny = Path.Combine(destiny, directoryStructure);
+                        break;
+                    }
+                }
+               
+            }
+            catch (Exception e )
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private static string GetRelativePath(string rutaAbsoluta, string directorioBase)
+        {
+            var uriFile = new Uri(rutaAbsoluta);
+            var uriDirectory = new Uri(directorioBase);
+            var relativePath = Uri.UnescapeDataString(uriDirectory.MakeRelativeUri(uriFile).ToString().Replace('/', Path.DirectorySeparatorChar));
+            return relativePath;
+        }
+
+        private static bool BelongsToDirectory(string absolutePath, string baseDirectory)
+        {
+            var relativePath = GetRelativePath(absolutePath, baseDirectory);
+            // Si la ruta relativa comienza con "..", el archivo no está en un subdirectorio de baseDirectory
+            return !relativePath.StartsWith("..");
+        }
+
+        private static void CreateFolderStructureFromRelative(string baseDirectory, string folderStructure)
+        {
+            string[] folders = folderStructure.Split(Path.DirectorySeparatorChar);
+            string currentPath = baseDirectory;
+
+            foreach (string folder in folders)
+            {
+                currentPath = Path.Combine(currentPath, folder);
+                Directory.CreateDirectory(currentPath);
+            }
         }
     }
 

@@ -8,7 +8,6 @@ namespace ndupcopy
         public bool unique;
 
         public string Base64Hash => CalculateHash();
-        public int IntHash => _path.GetHashCode();
         public string File_path => _path;
 
         public FilePath(string path)
