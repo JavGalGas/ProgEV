@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppJGG"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="MainWindow" Height="450" Width="800" Background="#FFFF5E5E">
+    <Grid Margin="27" Background="#FFFFB79C">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition Width="171*"/>
+            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition Width="407*"/>
+            <ColumnDefinition Width="102*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="61*"/>
+            <RowDefinition Height="69*"/>
+            <RowDefinition Height="69*"/>
+            <RowDefinition Height="171*"/>
+            <RowDefinition Height="64*"/>
+        </Grid.RowDefinitions>
+        <!--<TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="5"/>-->
+        <Button Grid.Column="2" Content="&lt;=" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="40" Margin="24,0,0,0" Grid.ColumnSpan="2" Background="Black" Foreground="White"/>
+        <Button Grid.Column="3" Content="=&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.069,1.191" Height="20" Width="40" Background="Black" Foreground="White"/>
+        <TextBox Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" Width="380" Margin="0,20,0,60" Grid.RowSpan="2"/>
+        <TextBox Grid.Column="3" HorizontalAlignment="Center" Margin="0,20,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" Width="380" Height="130" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBox Grid.Column="3" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="40" Margin="0,20,0,0" HorizontalAlignment="Center" Width="380"/>
+        <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="77,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Height="30" Width="25" Background="White"><Run Language="es-es" Text="0" FontSize="20"/></TextBlock>
+        <Button Grid.Column="3" Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="310,0,0,0" Height="20" Width="40" Background="#FFBD75FB"/>
+        <Button Grid.Column="4" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="40" Background="#FF4CFFA1"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Height="20" Width="160" Grid.Column="1"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="140" Height="20"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,20,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"><Run Language="es-es" Text="Description"/><LineBreak/><Run Language="es-es"/></TextBlock>
     </Grid>
 </Window>
