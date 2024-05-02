@@ -27,6 +27,11 @@ namespace WpfAppJGG
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
+
+        private void rightPad_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
