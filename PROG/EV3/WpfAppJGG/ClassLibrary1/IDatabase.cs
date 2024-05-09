@@ -9,10 +9,10 @@ namespace WpfAppJGG
     public interface IDatabase
     {
         long AddStudent(Student student);
-        Student GetStudent(long id);
+        Student? GetStudents(long id);
         void UpdateStudent(long id, Student student);
         void RemoveStudent(long id);
-        Student GetStudentAt(int index);
+        Student? GetStudentAt(int index);
         int GetStudentCount();
     }
 }

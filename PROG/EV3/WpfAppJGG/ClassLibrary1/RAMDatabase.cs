@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfAppJGG
 {
-    public class Database : IDatabase
+    public class RAMDatabase : IDatabase
     {
         public List<Student> Students;
         public long AddStudent(Student student)

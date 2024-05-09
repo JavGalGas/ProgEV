@@ -32,6 +32,11 @@ namespace WpfAppJGG
 
         private void rightPad_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
     }

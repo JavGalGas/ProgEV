@@ -25,13 +25,13 @@
         <Button x:Name="leftPad" Grid.Column="2" Content="&lt;=" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="40" Margin="24,0,0,0" Grid.ColumnSpan="2" Background="Black" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
         <Button x:Name="rightPad" Grid.Column="3" Content="=&gt;" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.069,1.191" Height="20" Width="40" Background="Black" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Click="rightPad_Click"/>
         <TextBox Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" Width="380" Margin="0,20,0,60" Grid.RowSpan="2"/>
-        <TextBox Grid.Column="3" HorizontalAlignment="Center" Margin="0,20,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" Width="380" Height="130" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBox Grid.Column="3" HorizontalAlignment="Center" Margin="0,20,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" Width="380" Height="130" VerticalAlignment="Top" Grid.RowSpan="2" TextChanged="TextBox_TextChanged"/>
         <TextBox Grid.Column="3" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="40" Margin="0,20,0,0" HorizontalAlignment="Center" Width="380"/>
         <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="77,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Height="30" Width="25" Background="White" TextAlignment="Center"><Run Language="es-es" Text="0" FontSize="20"/></TextBlock>
         <Button Grid.Column="3" Content="-" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="310,0,0,0" Height="20" Width="40" Background="#FFBD75FB" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Padding="0,-5,0,0" FontWeight="Bold"/>
         <Button Grid.Column="4" Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="40" Background="#FF4CFFA1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Padding="0,-5,0,0" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Height="20" Width="140" Grid.Column="1"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="140" Height="20"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Height="20" Width="140" Grid.Column="1"><Run Language="es-es" Text="Name"/></TextBlock>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="20"><Run Language="es-es" Text="Age"/></TextBlock>
         <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,20,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"><Run Language="es-es" Text="Description"/><LineBreak/><Run Language="es-es"/></TextBlock>
     </Grid>
 </Window>
