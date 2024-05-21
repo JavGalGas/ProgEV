@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ListView.StudentCell"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ListView"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="400"
+             HorizontalAlignment="Stretch">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="White" Stroke="Purple" StrokeThickness="5" RadiusX="5" RadiusY="5" Grid.RowSpan="3" Grid.ColumnSpan="3" ></Rectangle>
+        <Label Content="{Binding Name}" Grid.Row="1" Margin="10"/>
+        <Button Content="{Binding Brief}" Margin="10" Grid.Row="1" Grid.Column="1" Click="Button_Click"/>
+        <Image Grid.Column="2" Grid.Row="1" Source="{Binding Avatar}"/>
+        <Label Content="{Binding NameBrief}" Grid.Row="2" FontSize="6" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <Rectangle Margin="1" Width="10" Height="10" Fill="Yellow" Stroke="Black" Visibility="{Binding Visible1}"/>
+            <Rectangle Margin="1" Width="10" Height="10" Fill="Yellow" Stroke="Black" Visibility="{Binding Visible2}"/>
+            <Rectangle Margin="1" Width="10" Height="10" Fill="Yellow" Stroke="Black" Visibility="{Binding Visible3}"/>
+            <Rectangle Margin="1" Width="10" Height="10" Fill="Yellow" Stroke="Black" Visibility="{Binding Visible4}"/>
+            <Rectangle Margin="1" Width="10" Height="10" Fill="Yellow" Stroke="Black" Visibility="{Binding Visible5}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
