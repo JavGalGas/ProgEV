@@ -13,17 +13,13 @@ namespace ndupcopy
         {
             List<FilePath> filePaths = new List<FilePath>();
             string exitPath = "";            
-            DirectoryFilter( args, ref exitPath, ref filePaths);
-            if (filePaths.Count > 1)
+            DirectoryFilter( args, exitPath, filePaths);
+            if (filePaths.Count >= 1)
             {
-                RemoveDuplicatesAndCopy(filePaths, ref exitPath);
-            }
-            else if (filePaths.Count == 1)
-            {
-                Utils.CopyFileFromTo(filePaths[0].File_path, exitPath);
+                CopyOnlyUniques(filePaths, exitPath);
             }
         }
-        private static void DirectoryFilter( string[] args, ref string exitPath, ref List<FilePath> filePaths)
+        private static void DirectoryFilter( string[] args, string exitPath, List<FilePath> filePaths)
         {
             string directorio;
             for (int i = 0; i < args.Length; i += 2)
@@ -76,7 +72,7 @@ namespace ndupcopy
             }
         }
 
-        private static void RemoveDuplicatesAndCopy(List<FilePath> filePaths, ref string exitPath)
+        private static void CopyOnlyUniques(List<FilePath> filePaths, string exitPath)
         {
             FilePath? path1;
             FilePath? path2;
@@ -85,18 +81,20 @@ namespace ndupcopy
                 if (Path.GetDirectoryName(filePaths[i].File_path) == exitPath)
                     continue;
                 path1 = filePaths[i];
-                for (int j = i + 1; j < filePaths.Count; j++)
-                {
-                    path2 = filePaths[j];
-                    if (path1.unique && filePaths[j].unique)
-                    {
-                        IsUnique(ref path1, ref path2);
-                    }
-                }
                 if (path1.unique)
                 {
-                    Utils.CopyFileFromTo(filePaths[i].File_path, exitPath);
-                }     
+                    for (int j = i + 1; j < filePaths.Count; j++)
+                    {
+                        path2 = filePaths[j];
+                        if (path2.unique)
+                        {
+                            CompareFiles(path1, path2);
+                        }
+                    }
+
+                    Utils.CopyFileFromTo(path1.File_path, exitPath);
+                }
+                  
             }
         }
     }

@@ -8,21 +8,28 @@ namespace CharacterClass
 {
     public enum ClassCharacter
     {
-        CLOSE_COMBAT,
-        RANGE,
-        MECHA,
-        HEALER,
-        HERO,
+       TANK,
+       ATTACKER,
+       HEALER,
+       THIEF,
+       MAGE
     }
-    public class Character
+    public class Character// hacer que sea como coche y tipos de coche
     {
-        public long Id { get; set; }
-        public string Name { get; set; }= string.Empty;
-        public int Element {  get; set; }
-        public int Level { get; set; }
-        public int XCoordinate { get; set; }
+        private long _id;
+        private string _name = string.Empty;    
+        private int _level;
+        private int _xCoordinate;
+        protected int _element;
+        protected ClassCharacter _class;
+        private Stadistics stadistics;
+        public long Id => _id;
+        public string Name => _name;
+        public int Element => _element;
+        public int Level => _level;
+        public int XCoordinate => _xCoordinate;
 
-        public ClassCharacter Class { get; set; }
+        public ClassCharacter Class => _class;
 
         public void CreateCharacter(string name, int element, int level, int xCoordinate, ClassCharacter @class)
         {
@@ -32,17 +39,17 @@ namespace CharacterClass
                 throw new ArgumentOutOfRangeException("Element");
             else if (level < 0 || level > 99)
                 throw new ArgumentOutOfRangeException("Level");
-            else if (!Utils.CheckCoordinate(xCoordinate))
+            else if (xCoordinate < 0 || xCoordinate > 5)
                 throw new ArgumentException("X coordinate");
             else
             {
                 Character c = new Character()
                 {
-                    Name = name,
-                    Element = element,
-                    Level = level,
-                    XCoordinate = xCoordinate,
-                    Class = @class
+                    _name = name,
+                    _element = element,
+                    _level = level,
+                    _xCoordinate = xCoordinate,
+                    _class = @class
                 };
             }
         }

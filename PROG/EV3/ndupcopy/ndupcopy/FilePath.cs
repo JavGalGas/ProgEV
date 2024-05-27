@@ -5,15 +5,17 @@ namespace ndupcopy
     public class FilePath
     {
         private string _path;
+        private string _base64Hash;
         public bool unique;
 
-        public string Base64Hash => CalculateHash();
+        public string Base64Hash => _base64Hash;
         public string File_path => _path;
 
         public FilePath(string path)
         {
             _path = path;
             unique = true;
+            _base64Hash = CalculateHash();
         }
 
         private string CalculateHash()

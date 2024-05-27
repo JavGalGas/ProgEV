@@ -9,27 +9,34 @@ namespace ndupcopy
 {
     public static partial class DuplicateCleaner
     {
-        private static void IsUnique(ref FilePath file1, ref FilePath file2) //modificar
+        private static void CompareFiles(FilePath file1, FilePath file2) //modificar
+        {
+           if(AreEquals(file1, file2))
+                file2.unique = false;
+        }
+
+        private static bool AreEquals(FilePath file1, FilePath file2)
         {
             try
             {
                 string filePath1 = file1.File_path;
                 string filePath2 = file2.File_path;
+
                 if (File.Exists(filePath1) && File.Exists(filePath2))
                 {
                     if (file1.Base64Hash != file2.Base64Hash)
-                        return;
+                        return false;
 
                     using (FileStream fs1 = new FileStream(filePath1, FileMode.Open))
                     using (FileStream fs2 = new FileStream(filePath2, FileMode.Open))
                     {
                         if (fs1.Length != fs2.Length)
-                            return;
+                            return false;
                         if (!BufferComparison(fs1, fs2))
-                            return;
+                            return false;
                     }
 
-                    file2.unique = false; 
+                    return true;
                 }
                 else
                 {
@@ -43,14 +50,17 @@ namespace ndupcopy
                     else
                         Console.WriteLine($"La ruta {filePath1} no existe.");
                 }
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+
+            return false;
         }
 
-        private static bool BufferComparison(FileStream fs1, FileStream fs2)
+        private static bool BufferComparison(FileStream fs1, FileStream fs2)//modificar
         {
             const int bufferSize = 2048; // Tamaño del bloque
             byte[] buffer1 = new byte[bufferSize];
