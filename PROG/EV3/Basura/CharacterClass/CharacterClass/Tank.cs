@@ -8,9 +8,12 @@ namespace CharacterClass
 {
     public class Tank : Character
     {
-        public Tank() : base()
-        {
+        private int _id;
+
+        public Tank(long id, string name, int level, int position, int element, ClassCharacter @class, Stadistics stadistics) : base(id, name, level, position, element, @class, stadistics) 
+        { 
             
         }
+
     }
 }
