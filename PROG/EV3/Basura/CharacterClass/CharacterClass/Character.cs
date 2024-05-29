@@ -14,7 +14,7 @@ namespace CharacterClass
        THIEF,
        MAGE
     }
-    public abstract class Character// hacer que sea como coche y tipos de coche
+    public class Character : GameObject// hacer que sea como coche y tipos de coche
     {
         private long _id;
         private string _name = string.Empty;    
@@ -31,7 +31,7 @@ namespace CharacterClass
         public ClassCharacter Class => _class;
         public Stadistics Stadistics => _stadistics;
 
-        protected Character(long id, string name, int level, int position, int element, ClassCharacter @class, Stadistics stadistics)
+        protected Character(long id, string name, int level, int position, int element, ClassCharacter @class, Stadistics stadistics) : base()
         {
             _id = id;
             _name = name;
@@ -40,10 +40,6 @@ namespace CharacterClass
             _element = element;
             _class = @class;
             _stadistics = stadistics;
-        }
-
-        protected Character()
-        {
         }
     }
 }

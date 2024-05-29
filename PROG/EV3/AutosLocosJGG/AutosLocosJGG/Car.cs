@@ -18,7 +18,7 @@ namespace AutosLocosJGG
         public Driver? Copilot { get => copilot; }
         public override bool IsAlive => true;
 
-        public Car(string name) : base (name)
+        protected Car(string name) : base (name)
         {
             finetunning = Utils.GetRandomBetween(1, 3);
         }
