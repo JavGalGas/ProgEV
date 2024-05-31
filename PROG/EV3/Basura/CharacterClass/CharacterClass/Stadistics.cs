@@ -2,8 +2,8 @@
 {
     public class Stadistics//utilizar esta clase para hacer los cálculos ????
     {
-        private int _health = 10;
-        private int _magic = 10;
+        private int _health = 100;
+        private int _magic = 100;
         private int _attack = 10;
         private int _defense = 10;
         private int _speed = 10;
@@ -21,7 +21,6 @@
 
         public Stadistics(int health, int magic, int attack, int defense, int speed)
         {
-<<<<<<< Updated upstream
             SetHealth(health);
             SetMagic(magic);
             SetAttack(attack);
@@ -47,8 +46,6 @@
         {
             if (health <= 0)
                 return;
-=======
->>>>>>> Stashed changes
             _health = health;
         }
 
@@ -57,18 +54,41 @@
             if (magic <= 0)
                 return;
             _magic = magic;
-<<<<<<< Updated upstream
         }
 
         public void SetSpeed(int speed)
         {
             if (speed <= 0)
                 return;
-=======
-            _attack = attack;
-            _defense = defense;            
->>>>>>> Stashed changes
             _speed = speed;
+        }
+
+        public void IncreaseStadistics(Character character)
+        {
+            const int numIncrease = 2;
+            const int numLowIncrease = 1;
+            const int numGreatIncrease = 4;
+            if (character is Tank tank)
+            {
+                _health += numIncrease;
+                _magic += numIncrease;
+                _attack += numIncrease;
+                _defense += numGreatIncrease;
+                _speed += numLowIncrease;
+            }
+            else if (character is Warrior warrior)
+            {
+                _health += numIncrease;
+                _magic += numIncrease;
+                _attack += numIncrease;
+                _defense += numGreatIncrease;
+                _speed += numLowIncrease;
+            }
+        }
+
+        public void SetStadistics(Character character)
+        {
+
         }
 
 

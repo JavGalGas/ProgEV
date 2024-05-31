@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DominoJGG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7523fe26af149c0b16bce559f1c7fbe6d72766a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("DominoJGG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DominoJGG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

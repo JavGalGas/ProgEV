@@ -14,14 +14,15 @@ namespace CharacterClass
        THIEF,
        MAGE
     }
-    public class Character : GameObject// hacer que sea como coche y tipos de coche
+    public abstract class Character : GameObject// hacer que sea como coche y tipos de coche
     {
-        private long _id;
+        protected long _id;
         private string _name = string.Empty;    
         private int _level;
         private int _xCoordinate;
         protected int _element;
         protected ClassCharacter _class;
+        protected Stadistics _stad;
 
         public long Id => _id;
         public string Name => _name;
@@ -38,6 +39,11 @@ namespace CharacterClass
             _xCoordinate = position;
             _element = element;
             _class = @class;
+        }
+
+        public void LevelUp()
+        {
+
         }
     }
 }

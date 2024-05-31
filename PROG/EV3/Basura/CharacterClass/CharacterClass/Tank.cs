@@ -8,25 +8,17 @@ namespace CharacterClass
 {
     public class Tank : Character
     {
-        private long _id;
-<<<<<<< Updated upstream
-        private Stadistics _stad;
-        public Tank(long id, string name, int level, int position, int element, ClassCharacter @class, Stadistics stadistics) : base(id, name, level, position, element, @class, stadistics)
-=======
-        private Stadistics _stad = new Stadistics(10, 10, 10, 12, 8);
-        public Tank(long id, string name, int level, int position, int element, ClassCharacter @class) : base(id, name, level, position, element, @class)
->>>>>>> Stashed changes
-        { 
-            _id = id;
-            _stad = GetStadistics();
-        }
-<<<<<<< Updated upstream
+        private Stadistics _stad = new Stadistics(100, 100, 10, 12, 8);
 
-        private Stadistics GetStadistics()
-        {
-            return new Stadistics(10,);
+        public Stadistics Stadistics => _stad;
+        public Tank(long id, string name, int level, int position, int element, ClassCharacter @class) : base(id, name, level, position, element, @class)
+        { 
+
         }
-=======
->>>>>>> Stashed changes
+
+        public override void LevelUp()
+        {
+            _stad.IncreaseStadistics(this);
+        }
     }
 }
