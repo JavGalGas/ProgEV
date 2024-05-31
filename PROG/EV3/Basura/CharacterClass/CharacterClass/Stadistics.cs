@@ -1,6 +1,6 @@
 ﻿namespace CharacterClass
 {
-    public class Stadistics
+    public class Stadistics//utilizar esta clase para hacer los cálculos ????
     {
         private int _health = 10;
         private int _magic = 10;
@@ -21,6 +21,7 @@
 
         public Stadistics(int health, int magic, int attack, int defense, int speed)
         {
+<<<<<<< Updated upstream
             SetHealth(health);
             SetMagic(magic);
             SetAttack(attack);
@@ -46,6 +47,8 @@
         {
             if (health <= 0)
                 return;
+=======
+>>>>>>> Stashed changes
             _health = health;
         }
 
@@ -54,12 +57,17 @@
             if (magic <= 0)
                 return;
             _magic = magic;
+<<<<<<< Updated upstream
         }
 
         public void SetSpeed(int speed)
         {
             if (speed <= 0)
                 return;
+=======
+            _attack = attack;
+            _defense = defense;            
+>>>>>>> Stashed changes
             _speed = speed;
         }
 

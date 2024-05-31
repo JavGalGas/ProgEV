@@ -10,6 +10,11 @@ namespace ndupcopy
     public static class Utils
     {
         public static List<string> Directories = new List<string>();
+
+        public static void CopyTo(string origin,  string destination)
+        {
+
+        }
         public static void CopyFileFromTo(string origin, string destiny) // comprobar los directorios que se le pasa por args
         {
             try
@@ -55,6 +60,7 @@ namespace ndupcopy
                 Console.WriteLine($"Error: {e.Message}");
             }
         }
+
         private static bool CheckExtension(string extension)
         {
             List<string> extensions = new List<string>()

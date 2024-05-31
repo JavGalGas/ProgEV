@@ -22,16 +22,15 @@ namespace CharacterClass
         private int _xCoordinate;
         protected int _element;
         protected ClassCharacter _class;
-        private Stadistics _stadistics;
+
         public long Id => _id;
         public string Name => _name;
         public int Element => _element;
         public int Level => _level;
         public int XCoordinate => _xCoordinate;
         public ClassCharacter Class => _class;
-        public Stadistics Stadistics => _stadistics;
 
-        protected Character(long id, string name, int level, int position, int element, ClassCharacter @class, Stadistics stadistics) : base()
+        protected Character(long id, string name, int level, int position, int element, ClassCharacter @class) : base()
         {
             _id = id;
             _name = name;
@@ -39,7 +38,6 @@ namespace CharacterClass
             _xCoordinate = position;
             _element = element;
             _class = @class;
-            _stadistics = stadistics;
         }
     }
 }
