@@ -11,9 +11,31 @@ namespace ndupcopy
     {
         public static List<string> Directories = new List<string>();
 
-        public static void CopyTo(string origin,  string destination)
+        public static void CopyTo(string origin, string destination)
         {
+            try
+            {
+                // Opens the origin file for reading
+                using (FileStream fileStreamSource = new FileStream(origin, FileMode.Open, FileAccess.Read))
+                {
+                    // Opens the origin file for writing, overwriting it if it exists
+                    using (FileStream fileStreamDestiny = new FileStream(destination, FileMode.Create, FileAccess.Write))
+                    {
+                        byte[] buffer = new byte[4096];
+                        int RemainingBytesForRead;
 
+                        while ((RemainingBytesForRead = fileStreamSource.Read(buffer, 0, buffer.Length)) > 0)                                                                
+                        {
+                            fileStreamDestiny.Write(buffer, 0, RemainingBytesForRead);
+                        }
+                    }
+                }
+                Console.WriteLine("Archivo copiado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al copiar el archivo: {ex.Message}");
+            }
         }
         public static void CopyFileFromTo(string origin, string destiny) // comprobar los directorios que se le pasa por args
         {
@@ -36,7 +58,7 @@ namespace ndupcopy
                         string newFileName = $"{creationTime:yyyy-MM-dd-HH-mm-ss}_{fileName}{extension}";
                         string newFilePath = Path.Combine(destiny, newFileName);
                         // Realiza una copia de la imagen
-                        File.Copy(origin, newFilePath);
+                        CopyTo(origin, newFilePath);
                         Console.WriteLine($"Se ha creado una copia de la imagen o vídeo en: {newFilePath}");
                     }
                     else
@@ -45,7 +67,7 @@ namespace ndupcopy
                         string fileName = Path.GetFileName(origin);
                         string newFilePath = Path.Combine(destiny, fileName);
                         // Realiza una copia de la imagen
-                        File.Copy(origin, newFilePath);
+                        CopyTo(origin, newFilePath);
 
                         Console.WriteLine($"Se ha creado una copia del archivo en: {newFilePath}");
                     }
@@ -107,7 +129,6 @@ namespace ndupcopy
         private static bool BelongsToDirectory(string absolutePath, string baseDirectory)
         {
             var relativePath = GetRelativePath(absolutePath, baseDirectory);
-            // Si la ruta relativa comienza con "..", el archivo no está en un subdirectorio de baseDirectory
             return !relativePath.StartsWith("..");
         }
 

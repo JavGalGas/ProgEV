@@ -133,40 +133,74 @@ namespace DAMLib
             return (_hash);
         }
 
-        //private Item[]? SortItemSet()
-        //{
-        //    //int n = list.Count;
-        //    //int m = n - 1;
+        private Item[]? SortItemSet()
+        {
+            //int n = list.Count;
+            //int m = n - 1;
 
-        //    //if (list == null || list.Count == 0)
-        //    //    return null;
+            //if (list == null || list.Count == 0)
+            //    return null;
 
-        //    //for (int i = 0; i < m; i++)
-        //    //{
-        //    //    for (int j = i + 1; j < n; j++)
-        //    //    {
-        //    //        if (list[i] > list[j])
-        //    //        {
-        //    //            Swap(list[i], list[j]);
-        //    //        }
-        //    //    }
-        //    //}
-        //    //return (list);
-        //    int length = Count;
-        //    Item[] orderedItemSet = new Item[length];
-        //    int[] orderedHash = OrderedHash();
-        //    for (int i = 0;i < length;i++)
-        //    {
-        //        if(orderedHash[i] ==  )
-        //    }
-        //    return orderedItemSet;
-        //}
+            //for (int i = 0; i < m; i++)
+            //{
+            //    for (int j = i + 1; j < n; j++)
+            //    {
+            //        if (list[i] > list[j])
+            //        {
+            //            Swap(list[i], list[j]);
+            //        }
+            //    }
+            //}
+            //return (list);
 
-        private static void Swap(int hash1, int hash2)
+            //int length = Count;
+            //Item[] orderedItemSet = new Item[length];
+            //int[] orderedHash = OrderedHash();
+            //for (int i = 0; i < length; i++)
+            //{
+            //    if (orderedHash[i] ==  )
+            //}
+            //return orderedItemSet;
+
+            int length = Count;
+            int length2 = length - 1;
+            Item[] orderedItemSet = Clone(_items);
+            for (int i = 0; i < length2; i++)
+            {
+                for (int j = i + 1; j < length; j++)
+                {
+                    if (orderedItemSet[i]._hash > orderedItemSet[j]._hash)
+                    {
+                        Swap(orderedItemSet[i], orderedItemSet[j]);
+                    }
+                }
+            }
+            return orderedItemSet;
+        }
+
+        private static void Swap(ref int hash1, ref int hash2)
         {
             int aux = hash1;
             hash1 = hash2;
             hash2 = aux;
+        }
+
+        private static void Swap(Item item1, Item item2)
+        {
+            Item aux = item1;
+            item1 = item2;
+            item2 = aux;
+        }
+
+        private static Item[] Clone(Item[] items)
+        {
+            Item[] clonedArray = new Item[items.Length];
+            for (int i = 0; i< clonedArray.Length; i++)
+            {
+                clonedArray[i]._hash = items[i]._hash;
+                clonedArray[i]._element = items[i]._element;
+            }
+            return clonedArray;
         }
 
         public void Remove(T element) //implementar hash

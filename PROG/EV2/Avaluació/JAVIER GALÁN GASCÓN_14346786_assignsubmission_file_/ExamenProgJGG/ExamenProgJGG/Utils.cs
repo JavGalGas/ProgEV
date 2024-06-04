@@ -20,7 +20,13 @@
                 return rect;
             if (points.Length == 0)
                 return rect;
-            for (int i = 0; i < points.Length; i++) 
+
+            rect.MaxX = points[0].X;
+            rect.MaxY = points[0].Y;
+            rect.MinX = points[0].X;
+            rect.MinY = points[0].Y;
+
+            for (int i = 1; i < points.Length; i++) 
             {
                 Point2D pt = points[i];
                 if (pt == null) 
@@ -28,11 +34,11 @@
                 // Javi: Esto está mal
                 if (pt.X < rect.MinX)
                     rect.MinX = pt.X;
-                if (pt.X > rect.MaxX)
+                else if (pt.X > rect.MaxX)
                      rect.MaxX = pt.X;
                 if (pt.Y < rect.MinY)
                      rect.MinY = pt.Y;
-                if (pt.Y > rect.MaxY)
+                else if (pt.Y > rect.MaxY)
                     rect.MaxY = pt.Y;
             }
             return rect;
@@ -62,6 +68,10 @@
                     continue;
                 // Javi: Mal
                 perimeter += GetDistance(pt,pt2);
+            }
+            if()
+            {
+                perimeter += GetDistance(points[points.Length - 1], points[0]);
             }
             return perimeter;
         } 

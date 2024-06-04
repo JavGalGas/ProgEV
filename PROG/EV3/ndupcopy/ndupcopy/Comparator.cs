@@ -71,7 +71,6 @@ namespace ndupcopy
             {
                 while ((buffer1Length = FillBuffer(fs1, buffer1)) > 0 && (buffer2Length = FillBuffer(fs2, buffer2)) > 0)
                 {
-
                     if (buffer1Length != buffer2Length)
                     {
                         return false;

@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DAMLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< Updated upstream
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c320d725573cc78b19723653d093024ec54d2252")]
->>>>>>> Stashed changes
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efc97b26175975760f7d3dc84a0e89bfb873dbfe")]
 [assembly: System.Reflection.AssemblyProductAttribute("DAMLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DAMLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

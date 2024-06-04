@@ -13,13 +13,13 @@ namespace ndupcopy
         {
             List<FilePath> filePaths = new List<FilePath>();
             string exitPath = "";            
-            DirectoryFilter( args, exitPath, filePaths);
+            DirectoryFilter( args, ref exitPath, filePaths);
             if (filePaths.Count >= 1)
             {
                 CopyOnlyUniques(filePaths, exitPath);
             }
         }
-        private static void DirectoryFilter( string[] args, string exitPath, List<FilePath> filePaths)
+        private static void DirectoryFilter( string[] args, ref string exitPath, List<FilePath> filePaths)
         {
             string directorio;
             for (int i = 0; i < args.Length; i += 2)
@@ -37,7 +37,7 @@ namespace ndupcopy
                     if (Directory.Exists(directorio))
                     {
                         Utils.Directories.Add(directorio);
-                        RecursiveDirectoryReading(directorio, ref filePaths);
+                        RecursiveDirectoryReading(directorio, filePaths);
                     }
                     else
                     {
@@ -51,7 +51,7 @@ namespace ndupcopy
             }
         }
 
-        private static void RecursiveDirectoryReading(string directorio, ref List<FilePath> filePaths)
+        private static void RecursiveDirectoryReading(string directorio, List<FilePath> filePaths)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace ndupcopy
 
                 string[] subdirectorios = Directory.GetDirectories(directorio);
                 foreach (string subdirectorio in subdirectorios)
-                    RecursiveDirectoryReading(subdirectorio, ref filePaths);
+                    RecursiveDirectoryReading(subdirectorio, filePaths);
             }
             catch (Exception e)
             {
@@ -91,7 +91,6 @@ namespace ndupcopy
                             CompareFiles(path1, path2);
                         }
                     }
-
                     Utils.CopyFileFromTo(path1.File_path, exitPath);
                 }
                   

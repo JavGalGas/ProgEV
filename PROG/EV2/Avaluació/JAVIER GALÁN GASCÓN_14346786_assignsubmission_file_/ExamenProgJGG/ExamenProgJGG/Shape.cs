@@ -18,6 +18,19 @@
 
         public abstract Rect2D Rect { get; }
 
+        private bool _hasArea;
+        public bool HasArea2 
+        {
+            get 
+            { 
+                return _hasArea; 
+            }
+            set 
+            { 
+                _hasArea = GetHasArea(); 
+            }
+        }
+
         public Shape(string name, Color color)
         {
             _name = name;
@@ -30,6 +43,8 @@
         }
         public void SetColor(Color color)
         {
+            if (color == null)
+                return;
             _color = color;
         }
         public virtual void Draw(ICanvas canvas)
@@ -37,5 +52,7 @@
             if (canvas != null && _color != null)
                 canvas.SetColor(_color);
         }
+
+        public abstract bool GetHasArea();
     }
 }

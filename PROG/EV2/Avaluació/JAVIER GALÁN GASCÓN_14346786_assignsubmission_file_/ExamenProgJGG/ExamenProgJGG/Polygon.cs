@@ -1,4 +1,6 @@
-﻿namespace Examen3
+﻿using System.Reflection.Metadata;
+
+namespace Examen3
 {
     public class Polygon : Shape
     {
@@ -73,9 +75,15 @@
         }
         public double GetPerimeter()
         {
-            return Utils.GetPerimeter(_points);
-        }
+            double perimeter = Utils.GetPerimeter(_points);
+            //if (_isClose && perimeter > 0)
+            //{
+            //    perimeter += Utils.GetDistance(_points[_points.Length-1], _points[0]);
+            //}           
+            //return perimeter;
 
+            return (_isClose && perimeter > 0) ? perimeter + Utils.GetDistance(_points[_points.Length - 1], _points[0]) : perimeter;
+        }
         public Rect2D GetBoundingBox()
         {
             return Utils.GetBoundingBox(_points);
