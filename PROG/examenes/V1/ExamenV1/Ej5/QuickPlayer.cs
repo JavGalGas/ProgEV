@@ -14,14 +14,16 @@ namespace Ej5
             _diceCount = diceCount;
         }
 
-        public override void ExecuteTurn()
-        {
-            throw new NotImplementedException();
-        }
-
         public override int ThrowDice()
         {
-            throw new NotImplementedException();
+            int result = 0;
+            for (int i = 0; i < _diceCount; i++)
+            {
+                int aux = Utils.GetRandomBetween(1, 6);
+                if (aux > result)
+                    result = aux;
+            }
+            return result;
         }
     }
 }

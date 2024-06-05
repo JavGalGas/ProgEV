@@ -14,6 +14,9 @@ namespace Ej5
 
         public void AddPlayer(Player player) 
         {
+            if (player.Name == string.Empty || player.Name == null)
+                throw new ArgumentNullException(nameof(player.Name));
+            if (player.Position < 0)
             _players.Add(player);
         }
 
@@ -59,18 +62,28 @@ namespace Ej5
             {
                 player.ThrowDice();
             }
-            if (true)
+            for (int i = 0; i < _players.Count - 1; i++)
             {
-
+                for (int j = i + 1; j < _players.Count; j++)
+                {
+                    if (_players[i].DiceThrow > _players[j].DiceThrow)
+                    {
+                        Player aux = _players[i];
+                        _players[i] = _players[j];
+                        _players[j] = aux;
+                    }
+                }
             }
         }
 
         public Player Simulate()
         {
+            SortPlayers();
             foreach (var player in _players)
             {
                 player.ExecuteTurn();
             }
+            return new NormalPlayer("J",63);
         }
     }
 }

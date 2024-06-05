@@ -12,14 +12,9 @@ namespace Ej5
         {
         }
 
-        public override void ExecuteTurn()
-        {
-            throw new NotImplementedException();
-        }
-
         public override int ThrowDice()
         {
-            throw new NotImplementedException();
+            return Utils.GetRandomBetween(1,6);
         }
     }
 }

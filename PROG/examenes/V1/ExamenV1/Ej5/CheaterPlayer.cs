@@ -10,16 +10,12 @@ namespace Ej5
     {
         public CheaterPlayer(string name, int position) : base(name, position)
         {
-        }
 
-        public override void ExecuteTurn()
-        {
-            throw new NotImplementedException();
         }
 
         public override int ThrowDice()
         {
-            throw new NotImplementedException();
+            return Utils.GetRandomBetween(1,8);
         }
     }
 }
