@@ -11,5 +11,12 @@ namespace Ej5
         public BoxNormal(int value) : base(value)
         {
         }
+
+        public override BoxType Type => BoxType.BOXNORMAL;
+
+        public override void ApplyEffect(Game game)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

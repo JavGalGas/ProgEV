@@ -13,11 +13,32 @@ namespace Ej5
         private string _name;
         protected int _position;
         protected int _diceThrow;
-        protected PlayerType _playerType;
+        protected int disabledTurns;
 
         public string Name => _name;
-        public int Position => _position;
-        public int DiceThrow => _diceThrow;
+        public int Position 
+        { 
+            get => _position;
+            set 
+            {
+                if (value <= 0 || value > 63) 
+                {
+                   throw new ArgumentOutOfRangeException(nameof(value));
+                }
+                _position = value;
+            }
+        }
+        public int DiceThrow
+        {
+            get => _diceThrow;
+            set 
+            {
+                if (value <=0 || value > 6)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                _diceThrow = value;
+            }
+        }
+        public abstract PlayerType PlayerType { get; }
 
         public Player(string name, int position) 
         {
@@ -27,16 +48,10 @@ namespace Ej5
 
         public abstract int ThrowDice();
 
-        public virtual void ExecuteTurn()
+        public virtual void SimulateTurn()
         {
-            int diceThrow = ThrowDice();
-            _diceThrow = diceThrow;
-            SetPosition(_position + diceThrow);
-        }
-
-        public virtual void SetPosition(int position)
-        {
-            _position = position;
+            _diceThrow = ThrowDice();
+            _position += _diceThrow;
         }
     }
 }

@@ -11,5 +11,7 @@ namespace Ej5
         public BoxPunish(int value) : base(value)
         {
         }
+
+        public override BoxType Type => BoxType.BOXPUNISH;
     }
 }

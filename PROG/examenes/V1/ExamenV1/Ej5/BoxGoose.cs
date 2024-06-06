@@ -11,5 +11,7 @@ namespace Ej5
         public BoxGoose(int value) : base(value)
         {
         }
+
+        public override BoxType Type => BoxType.BOXGOOSE;
     }
 }

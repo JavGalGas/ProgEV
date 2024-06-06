@@ -13,9 +13,11 @@ namespace Ej5
 
         }
 
+        public override PlayerType PlayerType => PlayerType.CHEAT_PLAYER;
+
         public override int ThrowDice()
         {
-            return Utils.GetRandomBetween(1,8);
+            return Utils.GetRandomBetween(1, 8);
         }
     }
 }

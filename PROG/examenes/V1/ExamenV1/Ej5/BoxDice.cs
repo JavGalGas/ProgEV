@@ -11,5 +11,7 @@ namespace Ej5
         public BoxDice(int value) : base(value)
         {
         }
+
+        public override BoxType Type => BoxType.BOXDICE;
     }
 }

@@ -9,8 +9,15 @@ namespace Ej5
 {
     public class Game
     {
-        private List<Player> _players = new();
+        private List<Player> _players;
         private Box[] _boxes = new Box[63];
+
+
+        public Game() 
+        {
+            _players = new List<Player>();
+            CreateBoard();
+        }
 
         public void AddPlayer(Player player) 
         {
@@ -60,7 +67,7 @@ namespace Ej5
         {
             foreach (var player in _players)
             {
-                player.ThrowDice();
+                player.DiceThrow = player.ThrowDice();
             }
             for (int i = 0; i < _players.Count - 1; i++)
             {
@@ -68,12 +75,30 @@ namespace Ej5
                 {
                     if (_players[i].DiceThrow > _players[j].DiceThrow)
                     {
-                        Player aux = _players[i];
-                        _players[i] = _players[j];
-                        _players[j] = aux;
+                        Swap(i, j);
+                    }
+                    else if (_players[i].DiceThrow == _players[j].DiceThrow)
+                    {
+                        while(_players[i].DiceThrow == _players[j].DiceThrow)
+                        {
+                            int player1DiceThrow = _players[i].ThrowDice();
+                            int player2DiceThrow = _players[j].ThrowDice();
+                            if(player1DiceThrow > player2DiceThrow)
+                            {
+                                Swap(i, j);
+                                break;
+                            }
+                        }
                     }
                 }
             }
+        }
+
+        private void Swap(int playerIndex1,  int playerIndex2)
+        {
+            Player aux = _players[playerIndex1];
+            _players[playerIndex1] = _players[playerIndex2];
+            _players[playerIndex2] = aux;
         }
 
         public Player Simulate()
@@ -81,7 +106,7 @@ namespace Ej5
             SortPlayers();
             foreach (var player in _players)
             {
-                player.ExecuteTurn();
+                player.SimulateTurn();
             }
             return new NormalPlayer("J",63);
         }

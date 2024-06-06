@@ -11,5 +11,9 @@ namespace Ej5
         public BoxWin(int value) : base(value)
         {
         }
+
+        public override BoxType Type => BoxType.BOXWIN;
+
+
     }
 }

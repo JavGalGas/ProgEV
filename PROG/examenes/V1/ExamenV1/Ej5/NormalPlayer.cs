@@ -12,9 +12,11 @@ namespace Ej5
         {
         }
 
+        public override PlayerType PlayerType => PlayerType.NORMAL_PLAYER;
+
         public override int ThrowDice()
         {
-            return Utils.GetRandomBetween(1,6);
+            return Utils.GetRandomBetween(1, 6);
         }
     }
 }
