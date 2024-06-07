@@ -40,6 +40,12 @@ namespace Ej5
         }
         public abstract PlayerType PlayerType { get; }
 
+        public int DisabledTurns 
+        {
+            get { return disabledTurns; }
+            set => DisabledTurns = value; 
+        }
+
         public Player(string name, int position) 
         {
             _name = name;

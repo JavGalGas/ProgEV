@@ -13,7 +13,7 @@
     }
     public abstract class Box
     {
-        private int _boxPosition = 1;
+        protected int _boxPosition = 1;
 
         public int BoxPosition => _boxPosition;
 

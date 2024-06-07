@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace Ej5
 {
+
     public class Game
     {
+        public delegate void VisitDelegate<T>(T element);
+
         private List<Player> _players;
+        public Player _winner;
         private Box[] _boxes = new Box[63];
 
 
@@ -109,6 +113,22 @@ namespace Ej5
                 player.SimulateTurn();
             }
             return new NormalPlayer("J",63);
+        }
+
+        public void VisitPlayers(VisitDelegate<Player> visit)
+        {
+            foreach (var player in _players)
+            {
+                visit(player);
+            }
+        }
+
+        public void VisitBoxes(VisitDelegate<Box> visit)
+        {
+            foreach (var box in _boxes)
+            {
+                visit(box);
+            }
         }
     }
 }

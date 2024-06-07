@@ -14,6 +14,13 @@ namespace Ej5
 
         public override BoxType Type => BoxType.BOXWIN;
 
-
+        public override void ApplyEffect(Game game)
+        {
+            game.VisitPlayers(player => 
+            {
+                if (player.Position == _boxPosition)
+                    game._winner = player; 
+            });
+        }
     }
 }

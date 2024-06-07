@@ -13,5 +13,13 @@ namespace Ej5
         }
 
         public override BoxType Type => BoxType.BOXPUNISH;
+
+        public override void ApplyEffect(Game game)
+        {
+            game.VisitPlayers(player =>
+            {
+                player.DisabledTurns = _boxPosition / 13;
+            });
+        }
     }
 }
