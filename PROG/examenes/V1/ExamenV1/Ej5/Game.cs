@@ -21,6 +21,7 @@ namespace Ej5
         {
             _players = new List<Player>();
             CreateBoard();
+            _winner = ;
         }
 
         public void AddPlayer(Player player) 
@@ -111,8 +112,9 @@ namespace Ej5
             foreach (var player in _players)
             {
                 player.SimulateTurn();
+                if (_winner == player)
+                    return player;
             }
-            return new NormalPlayer("J",63);
         }
 
         public void VisitPlayers(VisitDelegate<Player> visit)

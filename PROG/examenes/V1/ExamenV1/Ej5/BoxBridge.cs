@@ -17,9 +17,12 @@ namespace Ej5
         public override void ApplyEffect(Game game)//cambiar, no se puede matemática ni saber la posición de la caja
         {
             game.VisitPlayers(player => 
-            { 
+            {
                 if (player.Position == _boxPosition)
+                {
                     player.Position = (_boxPosition == 8) ? 14 : 8;
+                    player.SimulateTurn();
+                }
             });
         }
     }

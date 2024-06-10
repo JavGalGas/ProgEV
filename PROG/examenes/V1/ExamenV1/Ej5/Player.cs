@@ -52,6 +52,11 @@ namespace Ej5
             _position = position;
         }
 
+        public Player()
+        {
+            _name = string.Empty;
+        }
+
         public abstract int ThrowDice();
 
         public virtual void SimulateTurn()

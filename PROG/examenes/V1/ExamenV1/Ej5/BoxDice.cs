@@ -19,7 +19,10 @@ namespace Ej5
             game.VisitPlayers(player =>
             {
                 if (player.Position == _boxPosition)
-                    player.Position = (_boxPosition == 27) ? 53 : 27;
+                {
+                    player.Position = 53;
+                    player.SimulateTurn();
+                }
             });
         }
     }
