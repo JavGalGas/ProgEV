@@ -12,11 +12,8 @@ namespace Ej5
         {
         }
 
-        public override BoxType Type => BoxType.BOXNORMAL;
-
-        public override void ApplyEffect(Game game)
+        public override void ApplyEffect(Game game, Player player)
         {
-            throw new NotImplementedException();
         }
     }
 }

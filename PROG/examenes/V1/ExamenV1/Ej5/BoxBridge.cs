@@ -12,18 +12,10 @@ namespace Ej5
         {
         }
 
-        public override BoxType Type => BoxType.BOXBRIDGE;
-
-        public override void ApplyEffect(Game game)//cambiar, no se puede matemática ni saber la posición de la caja
+        public override void ApplyEffect(Game game, Player player)//cambiar, no se puede matemática ni saber la posición de la caja
         {
-            game.VisitPlayers(player => 
-            {
-                if (player.Position == _boxPosition)
-                {
-                    player.Position = (_boxPosition == 8) ? 14 : 8;
-                    player.SimulateTurn();
-                }
-            });
+            player.Box = (_boxPosition == 8) ? game.GetBox(14) : game.GetBox(8);
+            player.SimulateTurn(game);
         }
     }
 }

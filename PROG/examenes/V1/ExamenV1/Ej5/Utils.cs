@@ -8,16 +8,12 @@ namespace Ej5
 {
     public static class Utils
     {
-        public static int GetRandom()
-        {
-            Random r = new Random();
-            return r.Next();
-        }
 
         public static int GetRandomBetween(int min, int max)
         {
-            int r = GetRandom();
-            return r * (max-min) + min;
+            Random random = new Random();
+            int result = random.Next(min,max);
+            return result;
         }
     }
 }

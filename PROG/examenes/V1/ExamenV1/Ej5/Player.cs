@@ -1,31 +1,25 @@
 ﻿
 namespace Ej5
 {
-    public enum PlayerType
-    {
-        NORMAL_PLAYER,
-        QUICK_PLAYER,
-        CHEAT_PLAYER
-    }
 
     public abstract class Player
     {
         private string _name;
-        protected int _position;
+        protected Box? _box;
         protected int _diceThrow;
         protected int disabledTurns;
 
         public string Name => _name;
-        public int Position 
+        public Box? Box 
         { 
-            get => _position;
+            get => _box;
             set 
             {
-                if (value <= 0 || value > 63) 
+                if (value!.BoxPosition <= 0 || value.BoxPosition > 63) 
                 {
                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
-                _position = value;
+                _box = value;
             }
         }
         public int DiceThrow
@@ -38,31 +32,35 @@ namespace Ej5
                 _diceThrow = value;
             }
         }
-        public abstract PlayerType PlayerType { get; }
 
         public int DisabledTurns 
         {
             get { return disabledTurns; }
-            set => DisabledTurns = value; 
+            set => disabledTurns = value; 
         }
 
-        public Player(string name, int position) 
+        public Player(string name) 
         {
             _name = name;
-            _position = position;
         }
 
-        public Player()
-        {
-            _name = string.Empty;
-        }
+        //public Player()
+        //{
+        //    _name = string.Empty;
+        //}
 
         public abstract int ThrowDice();
 
-        public virtual void SimulateTurn()
+        public virtual void SimulateTurn(Game game)
         {
+            if(disabledTurns > 0)
+            {
+                disabledTurns--;
+                return;
+            }
             _diceThrow = ThrowDice();
-            _position += _diceThrow;
+            _box = game.GetBox(_box!.BoxPosition + _diceThrow);
+            _box.ApplyEffect(game, this);
         }
     }
 }

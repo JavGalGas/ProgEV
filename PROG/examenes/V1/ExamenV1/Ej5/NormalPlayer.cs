@@ -8,11 +8,10 @@ namespace Ej5
 {
     public class NormalPlayer : Player
     {
-        public NormalPlayer(string name, int position) : base(name, position)
+        public NormalPlayer(string name) : base(name)
         {
         }
 
-        public override PlayerType PlayerType => PlayerType.NORMAL_PLAYER;
 
         public override int ThrowDice()
         {

@@ -9,14 +9,13 @@ namespace Ej5
     public class QuickPlayer : Player
     {
         private int _diceCount = 1;
-        public QuickPlayer(string name, int position, int diceCount) : base(name, position)
+        public QuickPlayer(string name, int diceCount) : base(name)
         {
-            if (diceCount >= 0 || diceCount < 3)
+            if (diceCount <= 0 || diceCount > 3)
                 throw new ArgumentOutOfRangeException(nameof(diceCount));
             _diceCount = diceCount;
         }
 
-        public override PlayerType PlayerType => PlayerType.QUICK_PLAYER;
 
         public override int ThrowDice()
         {

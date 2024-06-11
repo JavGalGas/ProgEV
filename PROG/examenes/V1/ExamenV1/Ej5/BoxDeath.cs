@@ -12,15 +12,9 @@ namespace Ej5
         {
         }
 
-        public override BoxType Type => BoxType.BOXDEATH;
-
-        public override void ApplyEffect(Game game)
+        public override void ApplyEffect(Game game, Player player)
         {
-            game.VisitPlayers(player =>
-            {
-                if (player.Position == _boxPosition)
-                    player.Position = 1;
-            });
+            player.Box = game.GetBox(1);
         }
     }
 }

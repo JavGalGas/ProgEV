@@ -12,18 +12,11 @@ namespace Ej5
         {
         }
 
-        public override BoxType Type => BoxType.BOXGOOSE;
-
-        public override void ApplyEffect(Game game)
+        public override void ApplyEffect(Game game, Player player)
         {
-            game.VisitPlayers(player =>
-            {
-                if (player.Position == _boxPosition)
-                {
-                    player.Position += 6;
-                    player.SimulateTurn();
-                }
-            });
+            int newBoxIndex = player.Box!.BoxPosition + 6;
+            player.Box = game.GetBox(newBoxIndex);
+            player.SimulateTurn(game);
         }
     }
 }

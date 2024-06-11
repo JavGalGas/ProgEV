@@ -8,12 +8,10 @@ namespace Ej5
 {
     public class CheaterPlayer : Player
     {
-        public CheaterPlayer(string name, int position) : base(name, position)
+        public CheaterPlayer(string name) : base(name)
         {
 
         }
-
-        public override PlayerType PlayerType => PlayerType.CHEAT_PLAYER;
 
         public override int ThrowDice()
         {

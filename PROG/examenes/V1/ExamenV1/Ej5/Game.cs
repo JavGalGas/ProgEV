@@ -13,22 +13,19 @@ namespace Ej5
         public delegate void VisitDelegate<T>(T element);
 
         private List<Player> _players;
-        public Player _winner;
         private Box[] _boxes = new Box[63];
-
+        public Player? _winner;
 
         public Game() 
         {
             _players = new List<Player>();
             CreateBoard();
-            _winner = ;
         }
 
         public void AddPlayer(Player player) 
         {
             if (player.Name == string.Empty || player.Name == null)
                 throw new ArgumentNullException(nameof(player.Name));
-            if (player.Position < 0)
             _players.Add(player);
         }
 
@@ -72,28 +69,34 @@ namespace Ej5
         {
             foreach (var player in _players)
             {
+                player.Box = GetBox(1);
                 player.DiceThrow = player.ThrowDice();
             }
             for (int i = 0; i < _players.Count - 1; i++)
             {
                 for (int j = i + 1; j < _players.Count; j++)
                 {
-                    if (_players[i].DiceThrow > _players[j].DiceThrow)
+                    SortPlayersAux(i,j);
+                }
+            }
+        }
+
+        private void SortPlayersAux(int player1, int player2)
+        {
+            if (_players[player1].DiceThrow > _players[player2].DiceThrow)
+            {
+                Swap(player1, player2);
+            }
+            else if (_players[player1].DiceThrow == _players[player2].DiceThrow)
+            {
+                while (_players[player1].DiceThrow == _players[player2].DiceThrow)
+                {
+                    int player1DiceThrow = _players[player1].ThrowDice();
+                    int player2DiceThrow = _players[player2].ThrowDice();
+                    if (player1DiceThrow > player2DiceThrow)
                     {
-                        Swap(i, j);
-                    }
-                    else if (_players[i].DiceThrow == _players[j].DiceThrow)
-                    {
-                        while(_players[i].DiceThrow == _players[j].DiceThrow)
-                        {
-                            int player1DiceThrow = _players[i].ThrowDice();
-                            int player2DiceThrow = _players[j].ThrowDice();
-                            if(player1DiceThrow > player2DiceThrow)
-                            {
-                                Swap(i, j);
-                                break;
-                            }
-                        }
+                        Swap(player1, player2);
+                        break;
                     }
                 }
             }
@@ -108,13 +111,19 @@ namespace Ej5
 
         public Player Simulate()
         {
+            if (_players.Count <= 0)
+                throw new Exception($"The variable {nameof(_players)} has no players.");
             SortPlayers();
-            foreach (var player in _players)
+            while (_winner == null)
             {
-                player.SimulateTurn();
-                if (_winner == player)
-                    return player;
+                VisitPlayers(player =>
+                {
+                    player.SimulateTurn(this);
+                    if (_winner != null)
+                        return;
+                });
             }
+            return _winner;
         }
 
         public void VisitPlayers(VisitDelegate<Player> visit)
@@ -131,6 +140,15 @@ namespace Ej5
             {
                 visit(box);
             }
+        }
+
+        public Box GetBox(int index)
+        {
+            if (index <= 0)
+                throw new ArgumentOutOfRangeException("index");
+            if (index > _boxes.Length)
+                return _boxes[54];
+            return _boxes[index-1];
         }
     }
 }
