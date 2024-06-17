@@ -8,17 +8,16 @@ namespace CharacterClass
 {
     public class Tank : Character
     {
-        private Stadistics _stad = new Stadistics(100, 100, 10, 12, 8);
-
-        public Stadistics Stadistics => _stad;
-        public Tank(long id, string name, int level, int position, int element, ClassCharacter @class) : base(id, name, level, position, element, @class)
-        { 
-
+        public Tank(long id, string name, int position, int element) : base(id, name, position, element)
+        {
+            _stad = new Stadistics(100, 100, 10, 12, 8);
         }
 
-        public override void LevelUp()
+        public override ClassCharacter Class => ClassCharacter.TANK;
+
+        protected override void LevelUp()
         {
-            _stad.IncreaseStadistics(this);
+            throw new NotImplementedException();
         }
     }
 }

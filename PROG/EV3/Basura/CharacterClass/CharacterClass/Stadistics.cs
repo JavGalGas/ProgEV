@@ -1,4 +1,6 @@
-﻿namespace CharacterClass
+﻿using System.Reflection.PortableExecutable;
+
+namespace CharacterClass
 {
     public class Stadistics//utilizar esta clase para hacer los cálculos ????
     {
@@ -68,27 +70,47 @@
             const int numIncrease = 2;
             const int numLowIncrease = 1;
             const int numGreatIncrease = 4;
+
             if (character is Tank tank)
             {
-                _health += numIncrease;
-                _magic += numIncrease;
+                _health += 5 * numIncrease;
+                _magic += 5 * numIncrease;
                 _attack += numIncrease;
                 _defense += numGreatIncrease;
                 _speed += numLowIncrease;
             }
             else if (character is Warrior warrior)
             {
-                _health += numIncrease;
-                _magic += numIncrease;
-                _attack += numIncrease;
-                _defense += numGreatIncrease;
-                _speed += numLowIncrease;
+                _health += 5 * numIncrease;
+                _magic += 5 * numLowIncrease;
+                _attack += numGreatIncrease;
+                _defense += numIncrease;
+                _speed += numIncrease;
             }
-        }
-
-        public void SetStadistics(Character character)
-        {
-
+            else if (character is Mage mage)
+            {
+                _health += 5 * numLowIncrease;
+                _magic += 5 * numGreatIncrease;
+                _attack += numIncrease;
+                _defense += numIncrease;
+                _speed += numIncrease;
+            }
+            else if (character is Thief thief)
+            {
+                _health += 5 * numIncrease;
+                _magic += 5 * numIncrease;
+                _attack += numIncrease;
+                _defense += numLowIncrease;
+                _speed += numGreatIncrease;
+            }
+            else if (character is Support support)
+            {
+                _health += 5 * numGreatIncrease;
+                _magic += 5 * numIncrease;
+                _attack += numLowIncrease;
+                _defense += numIncrease;
+                _speed += numIncrease;
+            }
         }
 
 

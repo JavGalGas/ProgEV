@@ -22,15 +22,15 @@ namespace Mongodemo
 
             var oficina = collection.Find(filter).FirstOrDefault();
 
-            //Oficina oficinaVal = BsonSerializer.Deserialize<Oficina>(oficina);
-            //StringBuilder stringBuilder = new StringBuilder();
-            //stringBuilder.Append(oficinaVal.CodOficina);
-            //stringBuilder.Append(" - ");
-            //stringBuilder.Append(oficinaVal.Ciudad);
-            //stringBuilder.Append(" - ");
+            Oficina oficinaVal = BsonSerializer.Deserialize<Oficina>(oficina);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(oficinaVal.CodOficina);
+            stringBuilder.Append(" - ");
+            stringBuilder.Append(oficinaVal.Ciudad);
+            stringBuilder.Append(" - ");
 
-            //Console.WriteLine(stringBuilder);
-            //Console.ReadLine();
+            Console.WriteLine(stringBuilder);
+            Console.ReadLine();
             /*
             Oficina newOficina = new Oficina();
             newOficina.CodOficina = "ALI-ES";
@@ -43,13 +43,13 @@ namespace Mongodemo
             collection.InsertOne(newOficina.ToBsonDocument());
             */
 
-            var filter2 = Builders<BsonDocument>.Filter.Eq("codOficina", "VAL-ES");
+            //var filter2 = Builders<BsonDocument>.Filter.Eq("codOficina", "VAL-ES");
 
             //collection.DeleteMany(filter2);
 
-            UpdateDefinition<BsonDocument> ud = Builders<BsonDocument>.Update.Set("ciudad", "Valencia");
+            //UpdateDefinition<BsonDocument> ud = Builders<BsonDocument>.Update.Set("ciudad", "Valencia");
 
-            collection.UpdateOne(filter2, ud);
+            //collection.UpdateOne(filter2, ud);
         }
     }
 }
