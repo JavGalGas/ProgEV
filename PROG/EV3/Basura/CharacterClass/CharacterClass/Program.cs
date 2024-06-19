@@ -18,6 +18,7 @@
                 count++;
             }
             Console.WriteLine(count);
+
         }
     }
 }

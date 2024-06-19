@@ -19,7 +19,6 @@ namespace CharacterClass
         protected long _id;
         private string _name = string.Empty;    
         protected int _level = 1;
-        private int _xCoordinate;//posiblemente deba de quitarse 17/06/24
         protected int _element;
         protected Stadistics _stad = new Stadistics();
         protected int _experience = 1;
@@ -40,7 +39,6 @@ namespace CharacterClass
             _id = id;
             _name = name;
             if (position < 0 || position >= 5)
-            _xCoordinate = position;
             _element = element;
         }
 
@@ -68,7 +66,14 @@ namespace CharacterClass
             return (capLevel) * (capLevel) * (capLevel);
         }
 
-        protected abstract void LevelUp();
+        protected virtual void LevelUp()
+        {
+            _experience -= LevelCapExperience;
+            _level += 1;
+            _stad.IncreaseStadistics(this);
+        }
+
+        public abstract void SimulateTurn();
 
     }
 }

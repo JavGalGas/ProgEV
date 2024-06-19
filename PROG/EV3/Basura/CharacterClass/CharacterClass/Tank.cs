@@ -15,9 +15,7 @@ namespace CharacterClass
 
         public override ClassCharacter Class => ClassCharacter.TANK;
 
-        protected override void LevelUp()
-        {
-            throw new NotImplementedException();
-        }
+ 
+
     }
 }
