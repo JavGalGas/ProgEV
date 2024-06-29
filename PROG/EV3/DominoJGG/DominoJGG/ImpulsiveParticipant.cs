@@ -25,10 +25,12 @@ namespace DominoJGG
                     Domino piece2 = _dominoes[j];
                     if (piece2.IsDouble)
                     {
+                        if (piece.IsDouble && piece.TotalValue > piece2.TotalValue)
+                            continue;
                         //Domino aux = _dominoes[i];
                         //_dominoes[i] = _dominoes[j];
                         //_dominoes[j] = aux;
-                        Utils.Swap(ref piece, ref piece2);
+                        //Utils.Swap(ref piece, ref piece2);
                         Utils.Swap(_dominoes, i, j);
                     } 
                 }

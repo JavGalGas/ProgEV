@@ -15,7 +15,9 @@ namespace CharacterClass
 
         public override ClassCharacter Class => ClassCharacter.TANK;
 
- 
-
+        public override void SimulateTurn()
+        {
+            
+        }
     }
 }

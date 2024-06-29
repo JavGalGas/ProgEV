@@ -22,10 +22,10 @@
             //race.Init(finishLine);
             //race.PrintWinners();
             int i = 0;
-            while (i<100)
+            while (i<50)
             {
                 Race race = new Race();
-                double finishLine = 500.0;
+                double finishLine = 1000.0;
                 race.AddObject(new GlamourCar("GlamourCar"), 20.0);
                 race.AddObject(new PiereCar("PiereCar"), 5.0);
                 race.AddObject(new WoodCar("WoodCar"), 100.0);

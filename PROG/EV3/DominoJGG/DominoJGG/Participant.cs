@@ -16,26 +16,26 @@ namespace DominoJGG
             _name = name;
         }
 
-        public virtual Domino? ChooseDomino(Domino[] field, out int position )
+        public virtual Domino? ChooseDomino(Game game, out int position )
         {
-            if (field == null)
+            if (game == null)
             {
                 position = -1;
                 return null;
             }         
-            for (int i = 0; i < field.Length; i++)
+            for (int i = 0; i < game.GameField.Length; i++)
             {
-                
-                if (IsValid(_dominoes[i], field) != -1)
+                int valid = IsValid(_dominoes[i], game);
+                if (valid != -1)
                 {
-                    var p = CheckSwap(_dominoes[i], field);
-                    position = IsValid(_dominoes[i], field);
+                    var p = CheckSwap(_dominoes[i], game);
+                    position = valid;
                     _dominoes.RemoveAt(i);
                     return p;
                 }
-                if (IsValid(_dominoes[i], field) == field.Length)
+                if (valid == game.GameField.Length)
                 {
-                    var p = CheckSwap(_dominoes[i], field);
+                    var p = CheckSwap(_dominoes[i], game);
                     position = -1;
                     _dominoes.RemoveAt(i);
                     return p;
@@ -45,11 +45,10 @@ namespace DominoJGG
             return null;
         }
 
-        private Domino CheckSwap(Domino piece, Domino[] field)
+        private Domino CheckSwap(Domino piece, Game game)
         {
             Domino p = piece;
-            int lastDominoIndex = field.Length - 1;
-            if (piece.Value1 == field[lastDominoIndex].Value2 || piece.Value2 == field[lastDominoIndex].Value2)
+            if (piece.Value1 == game.StartField || piece.Value2 == game.EndField)
             {
                 p = piece.SwapValues();
             }
@@ -67,6 +66,18 @@ namespace DominoJGG
                 return field.Length;
             return -1;
         }
+
+        public virtual int IsValid(Domino piece, Game gamefield)
+        {
+            if (gamefield == null)
+                return -1;
+            if (piece.Value1 == gamefield.StartField || piece.Value2 == gamefield.StartField)
+                return 0;
+            else if (piece.Value1 == gamefield.EndField || piece.Value2 == gamefield.EndField)
+                return gamefield.GameField.Length;
+            return -1;
+        }
+
         public void AddDomino(Domino domino)
         {
             if (domino == null)

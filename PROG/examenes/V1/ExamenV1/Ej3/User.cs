@@ -63,6 +63,7 @@ namespace Ej3
             {
                 throw new Exception();
             }
+
             if (_numKeys <= KeyCount)
             {
                 _keys[_numKeys] = key;

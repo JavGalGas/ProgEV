@@ -27,7 +27,8 @@ namespace DominoJGG
                         //Domino aux = _dominoes[i];
                         //_dominoes[i] = _dominoes[j];
                         //_dominoes[j] = aux;
-                        Utils.Swap(ref piece, ref piece2);
+                        //Utils.Swap(ref piece, ref piece2);
+                        Utils.Swap(_dominoes, i, j);
                     }
                 }
             }

@@ -27,9 +27,11 @@ namespace Ej5
             get => _diceThrow;
             set 
             {
-                if (value <=0 || value > 6)
+                int maxValue = this is CheaterPlayer ? 8 : 6;
+                if (value <= 0 || value > maxValue)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                _diceThrow = value;
+                else
+                    _diceThrow = value;
             }
         }
 

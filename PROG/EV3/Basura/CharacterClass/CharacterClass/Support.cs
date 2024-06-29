@@ -9,6 +9,9 @@
 
         public override ClassCharacter Class => ClassCharacter.SUPPORT;
 
-
+        public override void SimulateTurn()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -23,11 +23,11 @@ namespace CharacterClass
         protected Stadistics _stad = new Stadistics();
         protected int _experience = 1;
         private int _levelCapExperience;
+        protected int _potionTurns;
         public long Id => _id;
         public string Name => _name;
         public int Element => _element;
         public int Level => _level;
-        public int XCoordinate => _xCoordinate;
         public abstract ClassCharacter Class { get; }
         public int Experience => _experience;
         public int LevelCapExperience => _levelCapExperience;

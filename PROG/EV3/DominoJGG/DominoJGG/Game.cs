@@ -16,6 +16,8 @@ namespace DominoJGG
         public int StartField { get => _gameField[0].Value1; }
         public int EndField { get => _gameField[_gameField.Length-1].Value1; }
 
+        public Domino[] GameField { get => _gameField; }
+
         public Game() //constructor vacío si quiero ir añadiendo participantes poco a poco
         {
         }
@@ -33,7 +35,7 @@ namespace DominoJGG
                 participant.Clear();
             }
             _gameDeck.AddDeck().Shuffle();
-            while(_gameDeck.DominoCount%_participants.Count == 0) 
+            while(_gameDeck.DominoCount - _participants.Count > 0) 
             {
                 foreach(var player in _participants)
                 {
@@ -65,47 +67,67 @@ namespace DominoJGG
             {
                 if (_participants[i].GetDominoes().Count == 0)
                 {
-                    RemoveLoser();
+                    RemoveLosers();
                     break;
                 }
             }
         }
 
-        private int GetLoser()
+        private int GetLoserHandValue()
         {
             int loserHandValue = _participants[0].GetHandValue();
-            int loserindex =0;
+
             for (int i = 0; i < _participants.Count; i++)
             {
                 if (loserHandValue < _participants[i].GetHandValue())
                 {
                     loserHandValue = _participants[i].GetHandValue();
-                    loserindex = i;
                 }
             }
-            return loserindex;
+            return loserHandValue;
             
         }
 
-        private void RemoveLoser()
+        public int GetNumLosers()
         {
-            int loserindex = GetLoser();
-            int loserHandValue = _participants[loserindex].GetHandValue();
+            int result = 0;
+            int loserHandValue = GetLoserHandValue();
             for (int i = 0; i < _participants.Count; i++)
             {
                 if (loserHandValue == _participants[i].GetHandValue())
                 {
-                    return;
+                    result++;
                 }
             }
-            _participants.RemoveAt(loserindex);
+            return result;
+        }
+
+        private void RemoveLosers()
+        {
+            int loserHandValue = GetLoserHandValue();
+            int numLosers = GetNumLosers();
+            if (numLosers == _participants.Count)
+            {
+                return;
+            }
+            else if (numLosers > 0)
+            {
+                for (int i = 0; i < _participants.Count; i++)
+                {
+                    if (loserHandValue == _participants[i].GetHandValue())
+                    {
+                        _participants.Remove(_participants[i]);
+                        i--;
+                    }
+                }
+            }
         }
 
         private void PlayRound()
         {
             int position = -1;
             int length = _gameField.Length;
-            int newLength = length +1;
+            int newLength = length + 1;
             foreach (var participant in _participants)
             {
                 Domino? playedDomino = participant.ChooseDomino(_gameField, out position);
